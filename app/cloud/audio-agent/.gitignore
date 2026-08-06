@@ -1,0 +1,10 @@
+uploads/*
+transcripts/*
+outputs/*
+tmp/*
+
+!uploads/.gitkeep
+!transcripts/.gitkeep
+!outputs/.gitkeep
+data/*
+!data/.gitkeep

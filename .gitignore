@@ -1,0 +1,46 @@
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+*.log
+*.tar.gz
+
+# Dependencies
+**/node_modules/
+**/__pycache__/
+**/.venv/
+**/.expo/
+
+# Android build (keep source + libs)
+**/android/app/build/
+**/android/build/
+**/android/.gradle/
+**/android/local.properties
+
+# iOS build (keep project + Podfile; Pods regenerated)
+**/ios/build/
+**/ios/Pods/
+**/ios/DerivedData/
+
+# Hardware local build
+**/build-arm/
+
+# App artifacts / archives / runtime data
+*.apk
+*.aab
+app/archive/
+app/cloud/**/uploads/
+app/cloud/**/transcripts/
+app/cloud/**/reports/
+app/cloud/**/outputs/
+app/cloud/**/tmp/
+app/cloud/*.tar.gz
+**/.env
+**/.env.local
+!**/.env.example
+
+# desktop / hardware: keep empty placeholders only (local content stays on disk)
+/desktop/**
+!/desktop/.gitkeep
+/hardware/**
+!/hardware/.gitkeep

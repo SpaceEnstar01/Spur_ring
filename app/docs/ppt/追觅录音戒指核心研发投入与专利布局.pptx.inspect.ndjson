@@ -1,0 +1,43 @@
+{"kind":"deck","id":"pr/arxo7m","name":"Deck"}
+{"kind":"layout","layoutId":"169c7471-8608-42ce-a8ff-9f77f1261efa","name":"Master","type":"master"}
+{"kind":"layout","layoutId":"697c0fce-ac05-44d4-b42d-89fdb75c2320","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/swanxl","slide":1,"title":"追觅录音戒指｜研发投入与专利布局","textShapes":25}
+{"kind":"shape","id":"sh/hcrmhk3q","slide":1,"name":"top-accent","bbox":[0,0,1280,8]}
+{"kind":"textbox","id":"sh/al87ed8b","slide":1,"name":"title","text":"追觅录音戒指｜研发投入与专利布局","textPreview":"追觅录音戒指｜研发投入与专利布局","textChars":16,"textLines":1,"bbox":[64,42,700,52]}
+{"kind":"textbox","id":"sh/z61032ls","slide":1,"name":"subtitle","text":"围绕微型硬件、结构量产与录音交互建立差异化技术壁垒","textPreview":"围绕微型硬件、结构量产与录音交互建立差异化技术壁垒","textChars":25,"textLines":1,"bbox":[66,99,720,28]}
+{"kind":"textbox","id":"sh/sfil0rqd","slide":1,"name":"section-left","text":"研发投入","textPreview":"研发投入","textChars":4,"textLines":1,"bbox":[64,151,210,36]}
+{"kind":"textbox","id":"sh/h0fepkzu","slide":1,"name":"section-left-note","text":"从器件选型走向可量产工程","textPreview":"从器件选型走向可量产工程","textChars":12,"textLines":1,"bbox":[278,159,260,24]}
+{"kind":"shape","id":"sh/a9w3m94f","slide":1,"name":"investment-01-accent","bbox":[64,202,5,118]}
+{"kind":"textbox","id":"sh/zupwb2hw","slide":1,"name":"investment-01-number","text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[86,204,42,31]}
+{"kind":"textbox","id":"sh/obm58z25","slide":1,"name":"investment-01-title","text":"硬件研发","textPreview":"硬件研发","textChars":4,"textLines":1,"bbox":[137,202,165,32]}
+{"kind":"textbox","id":"sh/hwfyxobm","slide":1,"name":"investment-01-tag","text":"性能底座","textPreview":"性能底座","textChars":4,"textLines":1,"bbox":[310,206,112,24]}
+{"kind":"textbox","id":"sh/t83itgfm","slide":1,"name":"investment-01-bullets","text":"超低功耗主控、麦克风、PPG、温度、加速度与振动马达\n环形电池、天线、本地存储及磁吸充电系统\n核心指标：续航、录音质量、信号干扰、发热与小型化","textPreview":"超低功耗主控、麦克风、PPG、温度、加速度与振动马达 | 环形电池、天线、本地存储及磁吸充电系统 | 核心指标：续航、录音质量、信号干扰、发热与小型化","textChars":71,"textLines":3,"bbox":[137,241,600,73]}
+{"kind":"shape","id":"sh/4nap4r65","slide":1,"name":"investment-01-rule","bbox":[86,319,651,1]}
+{"kind":"shape","id":"sh/b2hwfyxo","slide":1,"name":"investment-02-accent","bbox":[64,333,5,118]}
+{"kind":"textbox","id":"sh/mhk3q5o7","slide":1,"name":"investment-02-number","text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[86,335,42,31]}
+{"kind":"textbox","id":"sh/twra5gbq","slide":1,"name":"investment-02-title","text":"结构研发","textPreview":"结构研发","textChars":4,"textLines":1,"bbox":[137,333,165,32]}
+{"kind":"textbox","id":"sh/4byhgn29","slide":1,"name":"investment-02-tag","text":"量产关键","textPreview":"量产关键","textChars":4,"textLines":1,"bbox":[310,337,112,24]}
+{"kind":"textbox","id":"sh/bq1oryts","slide":1,"name":"investment-02-bullets","text":"环形PCB与元器件堆叠，兼顾佩戴舒适性和有效空间\n麦克风声学腔、实体按键、录音指示灯与贴肤传感器窗口\nIPX8、金属外壳天线设计，并完成EVT / DVT / PVT及模具","textPreview":"环形PCB与元器件堆叠，兼顾佩戴舒适性和有效空间 | 麦克风声学腔、实体按键、录音指示灯与贴肤传感器窗口 | IPX8、金属外壳天线设计，并完成EVT / DVT / PVT及模具","textChars":86,"textLines":3,"bbox":[137,372,600,73]}
+{"kind":"shape","id":"sh/m58z25kb","slide":1,"name":"investment-02-rule","bbox":[86,450,651,1]}
+{"kind":"shape","id":"sh/tsvu9kni","slide":1,"name":"investment-03-accent","bbox":[64,464,5,118]}
+{"kind":"textbox","id":"sh/47y1kre1","slide":1,"name":"investment-03-number","text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[86,466,42,31]}
+{"kind":"textbox","id":"sh/g3ex0nux","slide":1,"name":"investment-03-title","text":"软件研发","textPreview":"软件研发","textChars":4,"textLines":1,"bbox":[137,464,165,32]}
+{"kind":"textbox","id":"sh/5o7qpg3e","slide":1,"name":"investment-03-tag","text":"体验闭环","textPreview":"体验闭环","textChars":4,"textLines":1,"bbox":[310,468,112,24]}
+{"kind":"textbox","id":"sh/yxobm58z","slide":1,"name":"investment-03-bullets","text":"戒指固件、录音管理、BLE传输、设备管理及OTA\nAndroid / iOS App：健康、AI洞察、录音、小龙虾\nASR、Agent、报告与邮箱/App返回；健康算法、数据和隐私安全","textPreview":"戒指固件、录音管理、BLE传输、设备管理及OTA | Android / iOS App：健康、AI洞察、录音、小龙虾 | ASR、Agent、报告与邮箱/App返回；健康算法、数据和隐私安全","textChars":92,"textLines":3,"bbox":[137,503,600,73]}
+{"kind":"shape","id":"sh/nih4byhg","slide":1,"name":"investment-03-rule","bbox":[86,581,651,1]}
+{"kind":"shape","id":"sh/gr2p8nqx","slide":1,"name":"patent-panel","bbox":[790,38,426,563]}
+{"kind":"textbox","id":"sh/9cvixcze","slide":1,"name":"patent-title","text":"专利攻防","textPreview":"专利攻防","textChars":4,"textLines":1,"bbox":[824,67,190,38]}
+{"kind":"textbox","id":"sh/ylc7u54z","slide":1,"name":"patent-subtitle","text":"先完成FTO，再形成结构专利组合","textPreview":"先完成FTO，再形成结构专利组合","textChars":16,"textLines":1,"bbox":[824,108,300,24]}
+{"kind":"shape","id":"sh/gfmlkjm1","slide":1,"name":"oura-marker","bbox":[824,159,42,5]}
+{"kind":"textbox","id":"sh/90je9cvi","slide":1,"name":"oura-title","text":"Oura 专利壁垒","textPreview":"Oura 专利壁垒","textChars":9,"textLines":1,"bbox":[824,176,270,31]}
+{"kind":"textbox","id":"sh/zupwb2hw","slide":1,"name":"oura-bullets","text":"内外壳形成的环形腔体\n电池、PCB、传感器的位置与连接关系\nPPG光学窗口与贴肤测量结构\n有效专利存在诉讼记录，需逐项核查权利要求","textPreview":"内外壳形成的环形腔体 | 电池、PCB、传感器的位置与连接关系 | PPG光学窗口与贴肤测量结构 | 有效专利存在诉讼记录，需逐项核查权利要求","textChars":65,"textLines":4,"bbox":[824,219,350,126]}
+{"kind":"shape","id":"sh/a9w3m94f","slide":1,"name":"patent-divider","bbox":[824,362,350,1]}
+{"kind":"shape","id":"sh/h0fepkzu","slide":1,"name":"dreame-marker","bbox":[824,385,42,5]}
+{"kind":"textbox","id":"sh/sfil0rqd","slide":1,"name":"dreame-title","text":"追觅结构专利布局","textPreview":"追觅结构专利布局","textChars":8,"textLines":1,"bbox":[824,402,300,31]}
+{"kind":"textbox","id":"sh/z61032ls","slide":1,"name":"dreame-bullets","text":"麦克风声学腔与IPX8防水一体结构\n按键、录音灯、天线与传感器组合布局\n麦克风、振动马达、PPG抗干扰结构\n分段电池或差异化PCB布局\n发明 + 实用新型 + 外观同步申请","textPreview":"麦克风声学腔与IPX8防水一体结构 | 按键、录音灯、天线与传感器组合布局 | 麦克风、振动马达、PPG抗干扰结构 | 分段电池或差异化PCB布局 | 发明 + 实用新型 + 外观同步申请","textChars":86,"textLines":5,"bbox":[824,445,350,132]}
+{"kind":"shape","id":"sh/al87ed8b","slide":1,"name":"conclusion","bbox":[64,623,1152,61]}
+{"kind":"textbox","id":"sh/hcrmhk3q","slide":1,"name":"conclusion-label","text":"研发目标","textPreview":"研发目标","textChars":4,"textLines":1,"bbox":[89,641,102,28]}
+{"kind":"textbox","id":"sh/orytsvu9","slide":1,"name":"conclusion-text","text":"规避 Oura 健康戒指结构专利，建立“录音交互结构 + 健康感知”的差异化专利组合。","textPreview":"规避 Oura 健康戒指结构专利，建立“录音交互结构 + 健康感知”的差异化专利组合。","textChars":43,"textLines":1,"bbox":[194,639,975,31]}
+{"kind":"textbox","id":"sh/zed8v6ps","slide":1,"name":"source","text":"专利示例：US11868178B2｜本页不构成法律意见","textPreview":"专利示例：US11868178B2｜本页不构成法律意见","textChars":27,"textLines":1,"bbox":[865,692,350,16]}
+{"kind":"image","id":"im/kf6dcbul","slide":1,"name":"","alt":"银色录音戒指结构参考图","bbox":[1088,55,100,90]}
+{"kind":"notes","id":"nt/swanxl","slide":1,"text":""}

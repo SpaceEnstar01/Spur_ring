@@ -1,0 +1,46 @@
+{
+  "expo": {
+    "name": "Recording Ring",
+    "slug": "recording-ring",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "scheme": "recordingring",
+    "userInterfaceStyle": "light",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.spur.recordingring",
+      "infoPlist": {
+        "NSBluetoothAlwaysUsageDescription": "用于连接录音戒指，同步录音文件、电量和设备状态。",
+        "NSBluetoothPeripheralUsageDescription": "用于连接录音戒指，同步录音文件、电量和设备状态。",
+        "NSMicrophoneUsageDescription": "用于本机录音和调试音频采集能力。"
+      }
+    },
+    "android": {
+      "package": "com.spur.recordingring",
+      "permissions": [
+        "android.permission.BLUETOOTH_SCAN",
+        "android.permission.BLUETOOTH_CONNECT",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.FOREGROUND_SERVICE"
+      ]
+    },
+    "plugins": [
+      [
+        "react-native-ble-plx",
+        {
+          "isBackgroundEnabled": false,
+          "modes": [
+            "peripheral",
+            "central"
+          ],
+          "bluetoothAlwaysPermission": "用于连接录音戒指，同步录音文件、电量和设备状态。"
+        }
+      ],
+      "expo-dev-client"
+    ]
+  }
+}

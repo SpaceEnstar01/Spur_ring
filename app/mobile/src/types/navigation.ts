@@ -1,0 +1,15 @@
+export type RootStackParamList = {
+  MainTabs: undefined;
+  Device: undefined;
+  Me: undefined;
+  RecordingSummary: { id: string };
+  Transcript: { id: string };
+  YanqiangRecordingDebug: { macAddress: string };
+  YanqiangButtonDebug: { macAddress: string };
+  DeviceDetail: { deviceId?: string };
+};
+
+export type MainTabParamList = {
+  Records: undefined;
+  Assistant: undefined;
+};

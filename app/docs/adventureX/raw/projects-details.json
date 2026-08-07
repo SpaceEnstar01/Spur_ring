@@ -1,0 +1,141 @@
+{
+  "source": "gallery.adventure-x.org project detail pages",
+  "fetchedAt": "2026-08-06T08:40:00Z",
+  "siteReachable": false,
+  "succeededCount": 0,
+  "failedCount": 20,
+  "attemptedUrls": {
+    "browse": "https://gallery.adventure-x.org/browse?event=advx-2026&q=%E6%88%92%E6%8C%87",
+    "homepage": "https://gallery.adventure-x.org/"
+  },
+  "errors": [
+    "Browser MCP: tabs create then vanish immediately; browser_navigate returns 'No browser tab available' / 'Browser view not found' on every attempt (including newTab and homepage).",
+    "curl/python HTTPS: TLS handshake fails with LibreSSL SSL_ERROR_SYSCALL / EOF against gallery.adventure-x.org:443.",
+    "DNS: system resolver (10.251.1.1) returns fake-IP 198.19.25.46 (unreachable); public DNS (Cloudflare DoH / Google DoH) returns NOERROR with no A/AAAA/CNAME answers for gallery.adventure-x.org.",
+    "WebFetch: timed out retrieving https://gallery.adventure-x.org/ and browse URL.",
+    "Retried browse URL multiple times with short waits; also tried homepage and one project detail URL — all failed."
+  ],
+  "note": "No detail-page content could be extracted. Browse-card summaries (not full detail pages) may exist in projects-from-browse.json from an earlier scrape.",
+  "projects": [
+    {
+      "url": "https://gallery.adventure-x.org/projects/cmrz6mwmj000b02k2ssivhfqd",
+      "projectId": "cmrz6mwmj000b02k2ssivhfqd",
+      "success": false,
+      "error": "site unreachable — TLS/DNS failure; browser MCP unavailable"
+    },
+    {
+      "url": "https://gallery.adventure-x.org/projects/cmrz5klre000402jrr2xm66vp",
+      "projectId": "cmrz5klre000402jrr2xm66vp",
+      "success": false,
+      "error": "site unreachable — TLS/DNS failure; browser MCP unavailable"
+    },
+    {
+      "url": "https://gallery.adventure-x.org/projects/cms00f024000f02jw0agmmahg",
+      "projectId": "cms00f024000f02jw0agmmahg",
+      "success": false,
+      "error": "site unreachable — TLS/DNS failure; browser MCP unavailable"
+    },
+    {
+      "url": "https://gallery.adventure-x.org/projects/cmrzu0mhs000l02l50axccmhe",
+      "projectId": "cmrzu0mhs000l02l50axccmhe",
+      "success": false,
+      "error": "site unreachable — TLS/DNS failure; browser MCP unavailable"
+    },
+    {
+      "url": "https://gallery.adventure-x.org/projects/cmrzu9qpz000002l4tv6p0vg4",
+      "projectId": "cmrzu9qpz000002l4tv6p0vg4",
+      "success": false,
+      "error": "site unreachable — TLS/DNS failure; browser MCP unavailable"
+    },
+    {
+      "url": "https://gallery.adventure-x.org/projects/cmrz9xy24000c02jr69qz2vsn",
+      "projectId": "cmrz9xy24000c02jr69qz2vsn",
+      "success": false,
+      "error": "site unreachable — TLS/DNS failure; browser MCP unavailable"
+    },
+    {
+      "url": "https://gallery.adventure-x.org/projects/cmrzm8g46000502lbh78134cq",
+      "projectId": "cmrzm8g46000502lbh78134cq",
+      "success": false,
+      "error": "site unreachable — TLS/DNS failure; browser MCP unavailable"
+    },
+    {
+      "url": "https://gallery.adventure-x.org/projects/cmrypyu5e000002i9ojv43inb",
+      "projectId": "cmrypyu5e000002i9ojv43inb",
+      "success": false,
+      "error": "site unreachable — TLS/DNS failure; browser MCP unavailable"
+    },
+    {
+      "url": "https://gallery.adventure-x.org/projects/cmryro1k6000702l1fpec85ah",
+      "projectId": "cmryro1k6000702l1fpec85ah",
+      "success": false,
+      "error": "site unreachable — TLS/DNS failure; browser MCP unavailable"
+    },
+    {
+      "url": "https://gallery.adventure-x.org/projects/cmrzt5f3y002602l9kwjhkztp",
+      "projectId": "cmrzt5f3y002602l9kwjhkztp",
+      "success": false,
+      "error": "site unreachable — TLS/DNS failure; browser MCP unavailable"
+    },
+    {
+      "url": "https://gallery.adventure-x.org/projects/cmrzs1kwy000o02l5mkzo4y4j",
+      "projectId": "cmrzs1kwy000o02l5mkzo4y4j",
+      "success": false,
+      "error": "site unreachable — TLS/DNS failure; browser MCP unavailable"
+    },
+    {
+      "url": "https://gallery.adventure-x.org/projects/cmrzwxlsk001d02l44pubryhl",
+      "projectId": "cmrzwxlsk001d02l44pubryhl",
+      "success": false,
+      "error": "site unreachable — TLS/DNS failure; browser MCP unavailable"
+    },
+    {
+      "url": "https://gallery.adventure-x.org/projects/cmrzr986k000a02ibp1ju0uxl",
+      "projectId": "cmrzr986k000a02ibp1ju0uxl",
+      "success": false,
+      "error": "site unreachable — TLS/DNS failure; browser MCP unavailable"
+    },
+    {
+      "url": "https://gallery.adventure-x.org/projects/cms0kfcei000t02jovggnlqhq",
+      "projectId": "cms0kfcei000t02jovggnlqhq",
+      "success": false,
+      "error": "site unreachable — TLS/DNS failure; browser MCP unavailable"
+    },
+    {
+      "url": "https://gallery.adventure-x.org/projects/cms02r6gv000002jqcosej5id",
+      "projectId": "cms02r6gv000002jqcosej5id",
+      "success": false,
+      "error": "site unreachable — TLS/DNS failure; browser MCP unavailable"
+    },
+    {
+      "url": "https://gallery.adventure-x.org/projects/cmryvrum9000602l7g4o7boke",
+      "projectId": "cmryvrum9000602l7g4o7boke",
+      "success": false,
+      "error": "site unreachable — TLS/DNS failure; browser MCP unavailable"
+    },
+    {
+      "url": "https://gallery.adventure-x.org/projects/cms04bzxf000302jv411t6mg6",
+      "projectId": "cms04bzxf000302jv411t6mg6",
+      "success": false,
+      "error": "site unreachable — TLS/DNS failure; browser MCP unavailable"
+    },
+    {
+      "url": "https://gallery.adventure-x.org/projects/cmrzsxh9g001s02jirutu91me",
+      "projectId": "cmrzsxh9g001s02jirutu91me",
+      "success": false,
+      "error": "site unreachable — TLS/DNS failure; browser MCP unavailable"
+    },
+    {
+      "url": "https://gallery.adventure-x.org/projects/cmryvla0u000002l73r3kv31n",
+      "projectId": "cmryvla0u000002l73r3kv31n",
+      "success": false,
+      "error": "site unreachable — TLS/DNS failure; browser MCP unavailable"
+    },
+    {
+      "url": "https://gallery.adventure-x.org/projects/cms03tfri000h02jvypw5wiex",
+      "projectId": "cms03tfri000h02jvypw5wiex",
+      "success": false,
+      "error": "site unreachable — TLS/DNS failure; browser MCP unavailable"
+    }
+  ]
+}

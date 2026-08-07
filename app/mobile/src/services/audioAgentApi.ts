@@ -16,11 +16,12 @@ export async function processAudioWithAi(input: {
   name: string;
   taskType?: AudioTaskType;
 }): Promise<AudioAgentResult> {
+  const name = input.name || 'recording.ogg';
   const body = new FormData();
   body.append('audio', {
     uri: input.uri,
-    name: input.name || 'recording.ogg',
-    type: 'audio/ogg'
+    name,
+    type: mimeTypeForAudioName(name)
   } as unknown as Blob);
   body.append('taskType', input.taskType ?? 'agent_command');
 
@@ -59,6 +60,16 @@ export async function processAudioWithAi(input: {
   } finally {
     clearTimeout(timeout);
   }
+}
+
+function mimeTypeForAudioName(name: string): string {
+  const lower = name.toLowerCase();
+  if (lower.endsWith('.m4a') || lower.endsWith('.mp4') || lower.endsWith('.aac')) {
+    return 'audio/mp4';
+  }
+  if (lower.endsWith('.wav')) return 'audio/wav';
+  if (lower.endsWith('.mp3')) return 'audio/mpeg';
+  return 'audio/ogg';
 }
 
 function isAudioAgentResult(value: unknown): value is AudioAgentResult {

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<title>AdventureX 2026 智能戒指相关项目研究报告</title>
+<style>
+  @page { size: A4; margin: 16mm 14mm; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+    color: #1a1a1a;
+    font-size: 11.5px;
+    line-height: 1.55;
+    margin: 0;
+    padding: 0;
+  }
+  h1 {
+    font-size: 20px;
+    margin: 0 0 12px;
+    font-weight: 650;
+    letter-spacing: 0.02em;
+  }
+  h2 {
+    font-size: 15px;
+    margin: 22px 0 10px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #ddd;
+  }
+  blockquote {
+    margin: 0 0 16px;
+    padding: 10px 12px;
+    background: #f6f6f6;
+    border-left: 3px solid #999;
+    color: #333;
+    font-size: 11px;
+  }
+  blockquote p { margin: 0 0 4px; }
+  blockquote p:last-child { margin-bottom: 0; }
+  p { margin: 0 0 10px; }
+  strong { font-weight: 650; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 8px 0 14px;
+    font-size: 10.5px;
+  }
+  th, td {
+    border: 1px solid #ccc;
+    padding: 6px 7px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: #f0f0f0;
+    font-weight: 650;
+  }
+  tr:nth-child(even) td { background: #fafafa; }
+  .meta { color: #555; }
+</style>
+</head>
+<body>
+  <h1>AdventureX 2026 智能戒指相关项目研究报告</h1>
+
+  <blockquote class="meta">
+    <p><strong>数据来源</strong>：AdventureX Gallery · 活动 advx-2026</p>
+    <p><strong>筛选方式</strong>：项目浏览页搜索关键词「戒指」</p>
+    <p><strong>样本规模</strong>：19 个项目</p>
+    <p><strong>整理日期</strong>：2026-08-06</p>
+  </blockquote>
+
+  <h2>1. 研究背景与范围</h2>
+  <p>AdventureX Gallery 是 AdventureX「年轻人的第一次黑客松」作品展厅。AdventureX 2026 公开规模约为：</p>
+
+  <table>
+    <thead>
+      <tr><th>指标</th><th>数量</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>项目</td><td>244</td></tr>
+      <tr><td>主题</td><td>5</td></tr>
+      <tr><td>赛道</td><td>24</td></tr>
+      <tr><td>获奖项目（展厅统计）</td><td>121</td></tr>
+    </tbody>
+  </table>
+
+  <p>本报告关注其中 <strong>以智能戒指（含 Zilo / Whisper Ring 等）为核心输入、传感或产品形态</strong> 的项目，用于理解「指尖交互 / 伴身智能」在黑客松中的产品方向与技术用法。</p>
+
+  <p><strong>主题分布（戒指相关样本）</strong></p>
+  <table>
+    <thead>
+      <tr><th>主题</th><th>数量</th><th>代表项目</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>.xyz 未知域</td><td>7</td><td>Fingertip、Arming Soul、Snake、WenU…</td></tr>
+      <tr><td>PAWN 弈棋</td><td>4</td><td>EXCALIBUR、Decree Farm、Motion…</td></tr>
+      <tr><td>Reverse 反转</td><td>4</td><td>WhisperRing、SoundClay、挥响、朱批</td></tr>
+      <tr><td>Kaleidoscope 万花筒</td><td>4</td><td>Maestro Ring、WeBloom、韵界、共潮生</td></tr>
+    </tbody>
+  </table>
+
+  <h2>2. 总览表</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>项目</th>
+        <th>主题</th>
+        <th>戒指角色（摘要）</th>
+        <th>关键亮点</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>C36</td><td>Fingertip 指间工具箱</td><td>.xyz</td><td>核心载体：多功能戒指工具箱</td><td>弦指三等奖</td></tr>
+      <tr><td>E40</td><td>WhisperRing</td><td>Reverse</td><td>婚戒形态 + AI 陪伴</td><td>弦指三等奖</td></tr>
+      <tr><td>B17</td><td>Decree Farm 戒律农场</td><td>PAWN</td><td>专注传感 → 游戏奖惩</td><td>弦指二等奖</td></tr>
+      <tr><td>E44</td><td>SoundClay</td><td>Reverse</td><td>手势雕刻情绪声音</td><td>弦指三等奖</td></tr>
+      <tr><td>B32</td><td>EXCALIBUR</td><td>PAWN</td><td>IMU 参与力量训练分析</td><td><strong>PAWN 第一名</strong>；弦指三等奖</td></tr>
+      <tr><td>B10</td><td>One Commander One PAW</td><td>PAWN</td><td>老人指令入口</td><td>PAWN 第二名</td></tr>
+      <tr><td>E13</td><td>挥响 WaveBand</td><td>Reverse</td><td>多人手势→乐队声部</td><td>—</td></tr>
+      <tr><td>C01</td><td>Arming Soul</td><td>.xyz</td><td>「神经」手势层</td><td>4 天闭环；直播验证</td></tr>
+      <tr><td>E66</td><td>朱批</td><td>Reverse</td><td>Whisper 戒指挥动/旋转决策</td><td>—</td></tr>
+      <tr><td>D09</td><td>Maestro Ring 指挥家</td><td>Kaleidoscope</td><td>体感即兴音乐设备</td><td>弦指三等奖</td></tr>
+      <tr><td>C20</td><td>Snake</td><td>.xyz</td><td>桌下双击暗号触发</td><td>—</td></tr>
+      <tr><td>D22</td><td>WeBloom 未卜</td><td>Kaleidoscope</td><td>自研双人戒指原型</td><td>—</td></tr>
+      <tr><td>D41</td><td>韵界 YUNVERSE</td><td>Kaleidoscope</td><td>右手演奏控制器</td><td>—</td></tr>
+      <tr><td>C42</td><td>RedSignal</td><td>.xyz</td><td>同频匹配指引</td><td>—</td></tr>
+      <tr><td>B22</td><td>Motion</td><td>PAWN</td><td>多穿戴融合之一</td><td>弦指三等奖</td></tr>
+      <tr><td>B36</td><td>RealGit</td><td>.xyz</td><td>现实记录采集端</td><td>—</td></tr>
+      <tr><td>D50</td><td>共潮生 Syncea</td><td>Kaleidoscope</td><td>扭腕开启体验</td><td><strong>万花筒第二名</strong>；弦指三等奖；清闲创意奖</td></tr>
+      <tr><td>C26</td><td>WenU 温暖你</td><td>.xyz</td><td>静默感知紧绷/久坐</td><td>—</td></tr>
+      <tr><td>C16</td><td>表达无界 Beyond Expression</td><td>.xyz</td><td>弱关联（智能穿戴入口）</td><td>—</td></tr>
+    </tbody>
+  </table>
+</body>
+</html>

@@ -1,6 +1,13 @@
 #import "YanqiangVoiceModule.h"
 
 #import <RingSDK/RingSDK.h>
+#import <AVFoundation/AVFoundation.h>
+
+#if __has_include(<YanqiangRingSDK/YanqiangRingSDK-Swift.h>)
+#import <YanqiangRingSDK/YanqiangRingSDK-Swift.h>
+#elif __has_include("YanqiangRingSDK-Swift.h")
+#import "YanqiangRingSDK-Swift.h"
+#endif
 
 static const NSInteger kVoiceFileFunction = 1;
 static const NSTimeInterval kRecordingSyncTimeoutSec = 180.0;
@@ -25,6 +32,8 @@ static NSString *const kRecordingDirName = @"voice-recordings";
 @property (nonatomic, copy) RCTPromiseRejectBlock syncReject;
 @property (nonatomic, strong) dispatch_block_t syncTimeoutBlock;
 @property (nonatomic, strong) NSMutableSet<NSNumber *> *processedPackedTimes;
+@property (nonatomic, strong) NSMutableSet<NSString *> *processedOpusPaths;
+@property (nonatomic, strong) NSMutableSet<NSNumber *> *convertingPackedTimes;
 @property (nonatomic, copy) NSString *activeMacAddress;
 @property (nonatomic, strong) dispatch_block_t pendingScanEnd;
 @property (nonatomic, strong) NSMutableDictionary<NSString *, CBPeripheral *> *knownPeripherals;
@@ -47,6 +56,8 @@ RCT_EXPORT_MODULE(YanqiangVoiceModule)
     _audioManager = [BTAudioManager sharedInstance];
     _knownPeripherals = [NSMutableDictionary dictionary];
     _processedPackedTimes = [NSMutableSet set];
+    _processedOpusPaths = [NSMutableSet set];
+    _convertingPackedTimes = [NSMutableSet set];
     _currentWorkingState = -1;
   }
   return self;
@@ -337,7 +348,8 @@ RCT_EXPORT_MODULE(YanqiangVoiceModule)
   NSMutableArray *files = [NSMutableArray array];
   NSMutableArray<NSDictionary *> *items = [NSMutableArray array];
   for (NSString *name in names) {
-    if (![name.lowercaseString hasSuffix:@".ogg"]) continue;
+    NSString *lower = name.lowercaseString;
+    if (![lower hasSuffix:@".ogg"] && ![lower hasSuffix:@".m4a"]) continue;
     NSString *path = [dir stringByAppendingPathComponent:name];
     NSDictionary *attrs = [fm attributesOfItemAtPath:path error:nil];
     NSDate *modified = attrs[NSFileModificationDate] ?: [NSDate date];
@@ -392,17 +404,28 @@ RCT_EXPORT_MODULE(YanqiangVoiceModule)
     return nil;
   }
   long long rawTime = 0;
-  if (packet.utcTimestamp > 0) {
-    rawTime = (long long)packet.utcTimestamp;
-  } else if (packet.packedTime > 0) {
-    rawTime = (long long)packet.packedTime;
+  if (packet != nil) {
+    if (packet.utcTimestamp > 0) {
+      rawTime = (long long)packet.utcTimestamp;
+    } else if (packet.packedTime > 0) {
+      rawTime = (long long)packet.packedTime;
+    }
+  }
+  if (rawTime <= 0) {
+    NSDictionary *srcAttrs = [fm attributesOfItemAtPath:oggPath error:nil];
+    NSDate *modified = srcAttrs[NSFileModificationDate];
+    if (modified != nil) {
+      rawTime = (long long)(modified.timeIntervalSince1970 * 1000.0);
+    }
   }
   long long timestamp = [self normalizeFileTimestamp:rawTime > 1000000000LL ? rawTime : (rawTime > 0 ? rawTime : 0)];
   if (rawTime <= 0) {
     timestamp = (long long)([[NSDate date] timeIntervalSince1970] * 1000.0);
   }
 
-  NSString *baseName = [NSString stringWithFormat:@"voice-%lld", rawTime > 0 ? rawTime : timestamp];
+  NSString *baseName = oggPath.lastPathComponent.length > 0
+    ? oggPath.lastPathComponent
+    : [NSString stringWithFormat:@"voice-%lld", rawTime > 0 ? rawTime : timestamp];
   baseName = [self sanitizeFileName:baseName];
   if (![baseName.lowercaseString hasSuffix:@".ogg"]) {
     baseName = [baseName stringByAppendingString:@".ogg"];
@@ -473,115 +496,103 @@ RCT_EXPORT_MODULE(YanqiangVoiceModule)
   }
 }
 
-- (void)convertPackedTime:(UInt64)packedTime
-                    packet:(BTAudioPacketModel *)packet
-                generation:(NSInteger)generation
-                    reason:(NSString *)reason
+/// DreameRing path: scan Documents/Audio/*.opus → VoiceRecordingTranscoder → voice-recordings/*.m4a
+- (NSString *)sdkAudioDirectory
+{
+  NSString *docs = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;
+  return [docs stringByAppendingPathComponent:@"Audio"];
+}
+
+- (NSArray<NSString *> *)convertedRecordingBaseNames
+{
+  NSFileManager *fm = [NSFileManager defaultManager];
+  NSString *dir = [self recordingDir];
+  NSArray<NSString *> *names = [fm contentsOfDirectoryAtPath:dir error:nil] ?: @[];
+  NSMutableArray<NSString *> *bases = [NSMutableArray array];
+  for (NSString *name in names) {
+    NSString *lower = name.lowercaseString;
+    if (![lower hasSuffix:@".m4a"] && ![lower hasSuffix:@".ogg"]) continue;
+    [bases addObject:name.stringByDeletingPathExtension];
+  }
+  return bases;
+}
+
+- (NSDictionary *)filePayloadForPath:(NSString *)path
+{
+  NSFileManager *fm = [NSFileManager defaultManager];
+  NSDictionary *attrs = [fm attributesOfItemAtPath:path error:nil];
+  NSDate *modified = attrs[NSFileModificationDate] ?: [NSDate date];
+  return @{
+    @"name": path.lastPathComponent ?: @"recording.m4a",
+    @"uri": [NSURL fileURLWithPath:path].absoluteString ?: [@"file://" stringByAppendingString:path],
+    @"timestamp": @((long long)(modified.timeIntervalSince1970 * 1000.0)),
+    @"size": attrs[NSFileSize] ?: @0
+  };
+}
+
+/// After BLE transfer finishes: convert pending Documents/Audio/*.opus → playable M4A (DreameRing).
+- (void)finalizeReceivedFilesForGeneration:(NSInteger)generation reason:(NSString *)reason
 {
   if (generation != self.syncGeneration) return;
-  NSNumber *packedKey = @(packedTime);
-  if ([self.processedPackedTimes containsObject:packedKey]) {
-    NSLog(@"[YanqiangVoice] skip already processed packedTime=%llu reason=%@",
-          (unsigned long long)packedTime, reason ?: @"");
-    return;
-  }
-  [self.processedPackedTimes addObject:packedKey];
-  [self touchSyncActivity];
+  NSLog(@"[YanqiangVoice] finalizeReceivedFiles reason=%@", reason ?: @"");
 
-  NSString *opusPath = [BTAudioPacketDBManager makeAudioFileWithPackedTime:packedTime];
-  if (opusPath.length == 0) {
-    NSLog(@"[YanqiangVoice] makeAudioFile failed packedTime=%llu reason=%@",
-          (unsigned long long)packedTime, reason ?: @"");
-    [self emit:@"yanqiangVoiceError" body:@{
-      @"message": [NSString stringWithFormat:@"makeAudioFile failed packedTime=%llu", (unsigned long long)packedTime]
-    }];
+  NSString *audioDir = [self sdkAudioDirectory];
+  NSArray<NSString *> *convertedBases = [self convertedRecordingBaseNames];
+  NSArray<NSString *> *pendingOpusPaths = [YanqiangVoiceOpusBridge pendingOpusPathsInAudioDirectory:audioDir
+                                                                                convertedBaseNames:convertedBases];
+  NSLog(@"[YanqiangVoice] pending Opus count=%lu audioDir=%@",
+        (unsigned long)pendingOpusPaths.count, audioDir);
+
+  if (pendingOpusPaths.count == 0) {
     return;
   }
 
-  NSLog(@"[YanqiangVoice] convertOpus begin packedTime=%llu opus=%@ reason=%@",
-        (unsigned long long)packedTime, opusPath.lastPathComponent ?: @"", reason ?: @"");
-  self.pendingConversions += 1;
+  NSString *recordingDir = [self recordingDir];
+  self.pendingConversions += (NSInteger)pendingOpusPaths.count;
+  NSInteger generationCapture = generation;
   __weak typeof(self) weakSelf = self;
-  [BTAudioPacketDBManager convertOpusToOggDefaultPath:opusPath
-                                           completion:^(BOOL success, NSString *outputPath, NSString *errorMsg) {
-    dispatch_async(dispatch_get_main_queue(), ^{
-      __strong typeof(weakSelf) self = weakSelf;
-      if (!self) return;
-      if (generation != self.syncGeneration) {
-        self.pendingConversions = MAX(0, self.pendingConversions - 1);
-        return;
+  dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+    for (NSString *opusPath in pendingOpusPaths) {
+      NSString *base = opusPath.lastPathComponent.stringByDeletingPathExtension;
+      NSString *m4aPath = [[recordingDir stringByAppendingPathComponent:base]
+                           stringByAppendingPathExtension:@"m4a"];
+      NSError *error = nil;
+      BOOL ok = [YanqiangVoiceOpusBridge transcodeOpusFileAtPath:opusPath toM4APath:m4aPath error:&error];
+      NSDictionary *attrs = [[NSFileManager defaultManager] attributesOfItemAtPath:opusPath error:nil];
+      NSDate *mtime = attrs[NSFileModificationDate];
+      if (ok && mtime != nil) {
+        [[NSFileManager defaultManager] setAttributes:@{ NSFileModificationDate: mtime }
+                                         ofItemAtPath:m4aPath
+                                                error:nil];
       }
-      [self touchSyncActivity];
-      @try {
-        if (!success || outputPath.length == 0) {
-          NSLog(@"[YanqiangVoice] opusToOgg failed packedTime=%llu err=%@",
-                (unsigned long long)packedTime, errorMsg ?: @"");
+      dispatch_async(dispatch_get_main_queue(), ^{
+        __strong typeof(weakSelf) self = weakSelf;
+        if (!self || generationCapture != self.syncGeneration) return;
+        [self touchSyncActivity];
+        if (ok) {
+          NSDictionary *file = [self filePayloadForPath:m4aPath];
+          NSLog(@"[YanqiangVoice] fileReady %@", file[@"name"]);
+          [self emit:@"yanqiangVoiceFileReady" body:file];
+        } else {
+          NSLog(@"[YanqiangVoice] M4A transcode failed %@ err=%@",
+                opusPath.lastPathComponent, error.localizedDescription ?: @"");
           [self emit:@"yanqiangVoiceError" body:@{
-            @"message": errorMsg.length > 0 ? errorMsg : @"opusToOgg failed",
+            @"message": error.localizedDescription ?: @"Opus to M4A failed",
             @"fileName": opusPath.lastPathComponent ?: @""
           }];
-        } else {
-          BTAudioPacketModel *meta = packet ?: [BTAudioPacketDBManager queryLastPacketWithPackedTime:packedTime];
-          NSDictionary *file = [self copyOggToRecordings:outputPath packet:meta];
-          if (file != nil) {
-            NSLog(@"[YanqiangVoice] fileReady %@", file[@"name"]);
-            [self emit:@"yanqiangVoiceFileReady" body:file];
-          } else {
-            NSLog(@"[YanqiangVoice] copy ogg failed packedTime=%llu path=%@",
-                  (unsigned long long)packedTime, outputPath.lastPathComponent ?: @"");
-            [self emit:@"yanqiangVoiceError" body:@{
-              @"message": @"Failed to copy ogg into voice-recordings",
-              @"fileName": outputPath.lastPathComponent ?: @""
-            }];
-          }
         }
-      } @finally {
         self.pendingConversions = MAX(0, self.pendingConversions - 1);
-        [self finishSyncIfReadyForGeneration:generation];
-      }
-    });
-  }];
-}
-
-- (void)handleSingleFileReceivedForGeneration:(NSInteger)generation reason:(NSString *)reason
-{
-  if (generation != self.syncGeneration) return;
-  [self touchSyncActivity];
-
-  BTAudioPacketModel *packet = [BTAudioPacketDBManager queryLatestPacket];
-  if (packet == nil) {
-    NSLog(@"[YanqiangVoice] SingleSuccess but no packet in DB reason=%@", reason ?: @"");
-    return;
-  }
-  [self convertPackedTime:packet.packedTime packet:packet generation:generation reason:reason ?: @"single"];
-}
-
-/// Safety net: after AllSuccess, convert every distinct packedTime still in vendor DB.
-/// Live logs showed AllSuccess without SingleSuccess → previously finished with empty local files.
-- (void)flushPendingPacketsFromDbForGeneration:(NSInteger)generation
-{
-  if (generation != self.syncGeneration) return;
-  NSArray<BTAudioPacketModel *> *all = [BTAudioPacketDBManager queryAllPackets];
-  NSMutableOrderedSet<NSNumber *> *packedTimes = [NSMutableOrderedSet orderedSet];
-  NSMutableDictionary<NSNumber *, BTAudioPacketModel *> *sampleByTime = [NSMutableDictionary dictionary];
-  for (BTAudioPacketModel *packet in all) {
-    if (packet.packedTime == 0) continue;
-    NSNumber *key = @(packet.packedTime);
-    [packedTimes addObject:key];
-    if (sampleByTime[key] == nil) {
-      sampleByTime[key] = packet;
+        [self finishSyncIfReadyForGeneration:generationCapture];
+      });
     }
-  }
-  NSLog(@"[YanqiangVoice] flush DB packets=%lu uniqueFiles=%lu processed=%lu",
-        (unsigned long)all.count,
-        (unsigned long)packedTimes.count,
-        (unsigned long)self.processedPackedTimes.count);
-  for (NSNumber *key in packedTimes) {
-    [self convertPackedTime:key.unsignedLongLongValue
-                     packet:sampleByTime[key]
-                 generation:generation
-                     reason:@"all_success_flush"];
-  }
+  });
+}
+
+- (void)handleSingleFileReceivedForGeneration:(NSInteger)generation
+{
+  // DreameRing does not convert on SingleSuccess; finalize after AllSuccess/Empty.
+  if (generation != self.syncGeneration) return;
+  NSLog(@"[YanqiangVoice] SingleSuccess noted — convert on transfer finish");
 }
 
 - (void)handleReceiveStatus:(BLEReceiveStatus)status generation:(NSInteger)generation
@@ -600,29 +611,19 @@ RCT_EXPORT_MODULE(YanqiangVoiceModule)
   }
 
   if (status == BLEReceiveStatusSingleSuccess) {
-    [self handleSingleFileReceivedForGeneration:generation reason:@"receiveFileCompletion"];
+    [self handleSingleFileReceivedForGeneration:generation];
     return;
   }
 
-  if (status == BLEReceiveStatusAllSuccess) {
+  // DreameRing: status 4/5 → scan Audio/*.opus → M4A
+  if (status == BLEReceiveStatusAllSuccess || status == BLEReceiveStatusEnpty) {
     [self emit:@"yanqiangVoiceSyncState" body:@{
       @"phase": @"finish",
       @"code": @1,
       @"message": [BTAudioManager descriptionForReceiveStatus:status] ?: @"finish"
     }];
-    // Convert whatever landed in BTAudioPacket DB even if SingleSuccess was never delivered.
-    [self flushPendingPacketsFromDbForGeneration:generation];
-    self.syncFinishSeen = YES;
-    [self finishSyncIfReadyForGeneration:generation];
-    return;
-  }
-
-  if (status == BLEReceiveStatusEnpty) {
-    [self emit:@"yanqiangVoiceSyncState" body:@{
-      @"phase": @"finish",
-      @"code": @1,
-      @"message": [BTAudioManager descriptionForReceiveStatus:status] ?: @"finish"
-    }];
+    [self finalizeReceivedFilesForGeneration:generation
+                                      reason:(status == BLEReceiveStatusAllSuccess ? @"AllSuccess" : @"Empty")];
     self.syncFinishSeen = YES;
     [self finishSyncIfReadyForGeneration:generation];
     return;
@@ -811,6 +812,8 @@ RCT_REMAP_METHOD(syncVoiceRecordings,
   self.syncResolve = resolve;
   self.syncReject = reject;
   [self.processedPackedTimes removeAllObjects];
+  [self.processedOpusPaths removeAllObjects];
+  [self.convertingPackedTimes removeAllObjects];
 
   __weak typeof(self) weakSelf = self;
   self.audioManager.receiveFileCompletion = ^(BLEReceiveStatus status) {
@@ -836,15 +839,6 @@ RCT_REMAP_METHOD(syncVoiceRecordings,
         @"currentFile": @(currentFileIndex),
         @"totalFiles": @(totalFiles)
       }];
-      // Some RingSDK builds deliver SingleSuccess only via progress callback, not completion.
-      if (status == BLEReceiveStatusSingleSuccess) {
-        NSLog(@"[YanqiangVoice] SingleSuccess via progress file=%ld/%ld packet=%ld/%ld",
-              (long)currentFileIndex, (long)totalFiles, (long)currentPacket, (long)totalPackets);
-        [self handleSingleFileReceivedForGeneration:generation reason:@"receiveFileProgressBlock"];
-      } else if (totalPackets > 0 && currentPacket >= totalPackets) {
-        // File transfer hit 100% — convert immediately; deduped by packedTime.
-        [self handleSingleFileReceivedForGeneration:generation reason:@"progress_complete"];
-      }
     });
   };
 

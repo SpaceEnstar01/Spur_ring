@@ -18,9 +18,10 @@ export async function listLocalAudioFiles(): Promise<LocalAudioFile[]> {
   const dir = await FileSystem.getInfoAsync(RECORDING_DIR);
   if (!dir.exists) return [];
 
-  const names = (await FileSystem.readDirectoryAsync(RECORDING_DIR)).filter((name) =>
-    name.toLowerCase().endsWith('.ogg')
-  );
+  const names = (await FileSystem.readDirectoryAsync(RECORDING_DIR)).filter((name) => {
+    const lower = name.toLowerCase();
+    return lower.endsWith('.ogg') || lower.endsWith('.m4a');
+  });
   const files = await Promise.all(names.map(loadFile));
   return files.sort((a, b) => b.modifiedAt - a.modifiedAt);
 }

@@ -18,6 +18,7 @@ export const en = {
   me: {
     title: 'Me',
     guestName: 'Spur Guest',
+    guestCaption: 'Using Spur without an account',
     tapToEditProfile: 'Tap to edit profile',
     freeQuota: 'Free transcription',
     minutes: 'min',
@@ -28,7 +29,8 @@ export const en = {
     notifications: 'Notifications',
     about: 'About',
     aboutSpur: 'About Spur',
-    aboutSpurBody: 'Spur is your recording ring companion for capture, transcription, and AI notes.',
+    aboutSpurBody:
+      'Spur is your recording ring companion for capture, transcription, and AI notes. Audio you choose to process may be uploaded to Spur cloud services for speech-to-text and summarization.',
     version: 'Version',
     comingSoon: 'Coming soon in a later build.'
   },
@@ -147,7 +149,7 @@ export const en = {
     requesting: 'Requesting recordings from the ring…',
     completed: (count: number) => `Sync complete · ${count} local OGG files`,
     back: 'Back to Devices',
-    title: 'Recording Sync Debug',
+    title: 'Recording Sync',
     ringSummary: 'Ring Recording Summary',
     ringFiles: 'Ring files',
     ringData: 'Ring data',

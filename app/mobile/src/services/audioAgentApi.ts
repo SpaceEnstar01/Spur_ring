@@ -1,4 +1,4 @@
-const AUDIO_AGENT_BASE_URL = 'http://8.217.122.71:18987';
+import { assertAudioAgentHttpsForRelease, AUDIO_AGENT_BASE_URL } from '@/config/api';
 
 export type AudioAgentResult = {
   id: string;
@@ -24,6 +24,8 @@ export async function processAudioWithAi(input: {
     type: mimeTypeForAudioName(name)
   } as unknown as Blob);
   body.append('taskType', input.taskType ?? 'agent_command');
+
+  assertAudioAgentHttpsForRelease();
 
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 300_000);

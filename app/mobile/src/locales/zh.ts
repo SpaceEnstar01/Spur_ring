@@ -18,6 +18,7 @@ export const zh = {
   me: {
     title: '我的',
     guestName: 'Spur 访客',
+    guestCaption: '当前以访客身份使用 Spur',
     tapToEditProfile: '点击编辑个人资料',
     freeQuota: '免费转写额度',
     minutes: '分钟',
@@ -28,7 +29,8 @@ export const zh = {
     notifications: '通知',
     about: '关于',
     aboutSpur: '关于 Spur',
-    aboutSpurBody: 'Spur 是你的录音戒指助手，支持采集、转写与 AI 纪要。',
+    aboutSpurBody:
+      'Spur 是你的录音戒指助手，支持采集、转写与 AI 纪要。你选择处理的音频可能上传至 Spur 云端服务，用于语音转写与摘要。',
     version: '版本',
     comingSoon: '后续版本开放。'
   },
@@ -147,7 +149,7 @@ export const zh = {
     requesting: '正在请求戒指录音…',
     completed: (count: number) => `同步完成，本地 ${count} 个 OGG`,
     back: '返回扫连',
-    title: '录音闭环调试',
+    title: '录音同步',
     ringSummary: '戒指录音摘要',
     ringFiles: '戒指文件',
     ringData: '戒指数据',

@@ -1,19 +1,16 @@
 import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { ChevronLeft, ChevronRight, Crown, Info, User } from 'lucide-react-native';
+import { ChevronLeft, ChevronRight, Info, User } from 'lucide-react-native';
 
 import { AppScreen } from '@/components/AppScreen';
 import { colors } from '@/theme/colors';
 import { t } from '@/locales';
 
 const FREE_MINUTES = 300;
+const APP_VERSION = '1.0.0';
 
 export function MeScreen() {
   const navigation = useNavigation();
-
-  function comingSoon(title: string) {
-    Alert.alert(title, t.me.comingSoon);
-  }
 
   return (
     <AppScreen tone="plain" bottomInset={32}>
@@ -25,16 +22,15 @@ export function MeScreen() {
         <View style={styles.backButton} />
       </View>
 
-      <Pressable style={styles.profileCard} onPress={() => comingSoon(t.me.account)}>
+      <View style={styles.profileCard}>
         <View style={styles.avatar}>
           <User color={colors.text} size={28} strokeWidth={1.8} />
         </View>
         <View style={styles.flex}>
           <Text style={styles.name}>{t.me.guestName}</Text>
-          <Text style={styles.caption}>{t.me.tapToEditProfile}</Text>
+          <Text style={styles.caption}>{t.me.guestCaption}</Text>
         </View>
-        <ChevronRight color={colors.textTertiary} size={18} />
-      </Pressable>
+      </View>
 
       <View style={styles.quotaCard}>
         <Text style={styles.quotaLabel}>{t.me.freeQuota}</Text>
@@ -43,23 +39,6 @@ export function MeScreen() {
           <Text style={styles.quotaUnit}> {t.me.minutes}</Text>
         </Text>
         <Text style={styles.quotaHint}>{t.me.freeQuotaHint}</Text>
-      </View>
-
-      <Pressable style={styles.memberButton} onPress={() => comingSoon(t.me.unlockMember)}>
-        <Crown color="#fff" size={18} strokeWidth={2} />
-        <Text style={styles.memberText}>{t.me.unlockMember}</Text>
-      </Pressable>
-
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>{t.me.settings}</Text>
-        <Pressable style={styles.row} onPress={() => comingSoon(t.me.account)}>
-          <Text style={styles.rowLabel}>{t.me.account}</Text>
-          <ChevronRight color={colors.textTertiary} size={18} />
-        </Pressable>
-        <Pressable style={styles.row} onPress={() => comingSoon(t.me.notifications)}>
-          <Text style={styles.rowLabel}>{t.me.notifications}</Text>
-          <ChevronRight color={colors.textTertiary} size={18} />
-        </Pressable>
       </View>
 
       <View style={styles.section}>
@@ -73,7 +52,7 @@ export function MeScreen() {
         </Pressable>
         <View style={styles.versionRow}>
           <Text style={styles.versionLabel}>{t.me.version}</Text>
-          <Text style={styles.versionValue}>1.0.0</Text>
+          <Text style={styles.versionValue}>{APP_VERSION}</Text>
         </View>
       </View>
     </AppScreen>
@@ -122,7 +101,7 @@ const styles = StyleSheet.create({
   },
   name: {
     color: colors.text,
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: '800'
   },
   caption: {
@@ -136,7 +115,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.card,
     borderWidth: 1,
     borderColor: colors.border,
-    marginBottom: 12
+    marginBottom: 18
   },
   quotaLabel: {
     color: colors.textSecondary,
@@ -146,13 +125,12 @@ const styles = StyleSheet.create({
   quotaValue: {
     color: colors.text,
     fontSize: 36,
-    fontWeight: '900',
+    fontWeight: '800',
     marginTop: 6
   },
   quotaUnit: {
     fontSize: 16,
-    fontWeight: '700',
-    color: colors.textSecondary
+    fontWeight: '600'
   },
   quotaHint: {
     color: colors.textTertiary,
@@ -160,47 +138,26 @@ const styles = StyleSheet.create({
     marginTop: 8,
     lineHeight: 17
   },
-  memberButton: {
-    minHeight: 48,
-    borderRadius: 14,
-    backgroundColor: colors.text,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 8,
-    marginBottom: 22
-  },
-  memberText: {
-    color: '#fff',
-    fontSize: 15,
-    fontWeight: '800'
-  },
   section: {
-    marginBottom: 18,
-    borderRadius: 18,
-    backgroundColor: colors.card,
-    borderWidth: 1,
-    borderColor: colors.border,
-    overflow: 'hidden'
+    marginBottom: 18
   },
   sectionTitle: {
-    color: colors.textTertiary,
-    fontSize: 12,
+    color: colors.textSecondary,
+    fontSize: 13,
     fontWeight: '700',
-    letterSpacing: 0.4,
-    paddingHorizontal: 16,
-    paddingTop: 14,
-    paddingBottom: 6,
-    textTransform: 'uppercase'
+    marginBottom: 10,
+    marginLeft: 4
   },
   row: {
-    minHeight: 50,
-    paddingHorizontal: 16,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: colors.border
+    paddingVertical: 14,
+    paddingHorizontal: 16,
+    borderRadius: 14,
+    backgroundColor: colors.card,
+    borderWidth: 1,
+    borderColor: colors.border
   },
   rowLeft: {
     flexDirection: 'row',
@@ -213,13 +170,16 @@ const styles = StyleSheet.create({
     fontWeight: '600'
   },
   versionRow: {
-    minHeight: 46,
-    paddingHorizontal: 16,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: colors.border
+    paddingVertical: 14,
+    paddingHorizontal: 16,
+    marginTop: 10,
+    borderRadius: 14,
+    backgroundColor: colors.card,
+    borderWidth: 1,
+    borderColor: colors.border
   },
   versionLabel: {
     color: colors.text,
@@ -227,8 +187,7 @@ const styles = StyleSheet.create({
     fontWeight: '600'
   },
   versionValue: {
-    color: colors.textTertiary,
-    fontSize: 13,
-    fontWeight: '600'
+    color: colors.textSecondary,
+    fontSize: 14
   }
 });

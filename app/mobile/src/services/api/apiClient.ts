@@ -1,8 +1,9 @@
-const DEFAULT_API_BASE_URL = 'http://8.217.122.71:18987';
+import { AUDIO_AGENT_BASE_URL } from '@/config/api';
+
 const MOCK_DELAY_MS = 250;
 
 export const apiConfig = {
-  baseUrl: DEFAULT_API_BASE_URL,
+  baseUrl: AUDIO_AGENT_BASE_URL,
   useMock: true
 };
 

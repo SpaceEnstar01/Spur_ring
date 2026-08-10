@@ -11,6 +11,7 @@ import {
   clearLocalAudioFiles,
   deleteLocalAudioFile,
   listLocalAudioFiles,
+  preparePlayback,
   type LocalAudioFile
 } from '@/services/localAudioLibrary';
 import {
@@ -21,6 +22,12 @@ import {
   type LocalRecordingAnalysis
 } from '@/services/localRecordingAnalysis';
 import { AUTO_SYNC_COMPLETE_EVENT } from '@/services/autoSyncRecordings';
+import {
+  DEMO_BADGE_COLOR,
+  DEMO_BADGE_LABEL,
+  ensureDemoContent,
+  isDemoAudioName
+} from '@/services/demoContent';
 import { titleFromMeetingNotes } from '@/utils/meetingNotesTitle';
 import { colors } from '@/theme/colors';
 import { t, APP_LANGUAGE } from '@/locales';
@@ -37,6 +44,7 @@ export function RecordingListScreen() {
   const refresh = useCallback(async (opts?: { silent?: boolean }) => {
     if (!opts?.silent) setLoading(true);
     try {
+      await ensureDemoContent().catch(() => undefined);
       const [all, savedAnalyses] = await Promise.all([listLocalAudioFiles(), listRecordingAnalyses()]);
       setFiles(all.filter((file) => file.category === 'recording'));
       setAnalyses(savedAnalyses);
@@ -62,16 +70,21 @@ export function RecordingListScreen() {
   }, [refresh]);
 
   async function togglePlayback(file: LocalAudioFile) {
-    if (soundRef.current && playingUri === file.uri) {
-      const status = await soundRef.current.getStatusAsync();
-      if (status.isLoaded && status.isPlaying) await soundRef.current.pauseAsync();
-      else await soundRef.current.playAsync();
-      return;
+    try {
+      await preparePlayback();
+      if (soundRef.current && playingUri === file.uri) {
+        const status = await soundRef.current.getStatusAsync();
+        if (status.isLoaded && status.isPlaying) await soundRef.current.pauseAsync();
+        else await soundRef.current.playAsync();
+        return;
+      }
+      if (soundRef.current) await soundRef.current.unloadAsync();
+      const created = await Audio.Sound.createAsync({ uri: file.uri }, { shouldPlay: true }, onPlaybackStatus);
+      soundRef.current = created.sound;
+      setPlayingUri(file.uri);
+    } catch (error) {
+      Alert.alert(t.recordings.play, error instanceof Error ? error.message : String(error));
     }
-    if (soundRef.current) await soundRef.current.unloadAsync();
-    const created = await Audio.Sound.createAsync({ uri: file.uri }, { shouldPlay: true }, onPlaybackStatus);
-    soundRef.current = created.sound;
-    setPlayingUri(file.uri);
   }
 
   function onPlaybackStatus(status: AVPlaybackStatus) {
@@ -187,12 +200,16 @@ export function RecordingListScreen() {
             const analysis = analyses[file.id];
             const completed = analysis?.status === 'completed';
             const processing = analysis?.status === 'processing';
+            const isDemo = isDemoAudioName(file.name);
             return (
               <View style={styles.card} key={file.id}>
                 <Pressable style={styles.cardMain} disabled={!completed} onPress={() => navigation.navigate('RecordingSummary', { id: file.id })}>
                   <View style={styles.fileIcon}><FileAudio color={colors.text} size={21} /></View>
                   <View style={styles.flex}>
-                    <Text style={styles.fileName} numberOfLines={1}>{recordingTitle(file, analysis)}</Text>
+                    <View style={styles.titleRow}>
+                      <Text style={styles.fileName} numberOfLines={1}>{recordingTitle(file, analysis)}</Text>
+                      {isDemo ? <Text style={styles.demoBadge}>{DEMO_BADGE_LABEL}</Text> : null}
+                    </View>
                     <Text style={styles.meta}>{recordingDate(file)} · {formatDuration(file.durationMs)} · {formatBytes(file.size)}</Text>
                     <Text style={[styles.state, analysis?.status === 'failed' && styles.errorState]}>{statusLabel(analysis)}</Text>
                   </View>
@@ -274,7 +291,19 @@ const styles = StyleSheet.create({
   card: { backgroundColor: colors.card, borderRadius: 18, padding: 13, borderWidth: 1, borderColor: colors.border },
   cardMain: { flexDirection: 'row', alignItems: 'center', gap: 10 },
   fileIcon: { width: 42, height: 42, borderRadius: 14, alignItems: 'center', justifyContent: 'center', backgroundColor: '#f3f3f3', borderWidth: 1, borderColor: colors.border },
-  fileName: { color: colors.text, fontSize: 14, fontWeight: '800' },
+  titleRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
+  fileName: { color: colors.text, fontSize: 14, fontWeight: '800', flexShrink: 1 },
+  demoBadge: {
+    color: '#fff',
+    backgroundColor: DEMO_BADGE_COLOR,
+    overflow: 'hidden',
+    fontSize: 9,
+    fontWeight: '900',
+    letterSpacing: 0.4,
+    paddingHorizontal: 7,
+    paddingVertical: 3,
+    borderRadius: 6
+  },
   meta: { color: colors.textSecondary, fontSize: 11, marginTop: 4 },
   state: { color: colors.textSecondary, fontSize: 11, fontWeight: '700', marginTop: 4 },
   errorState: { color: colors.danger },

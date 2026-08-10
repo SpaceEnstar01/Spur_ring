@@ -7,10 +7,14 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { AppNavigator } from './src/navigation/AppNavigator';
 import { startAutoSyncWatch } from './src/services/autoSyncRecordings';
+import { ensureDemoContent } from './src/services/demoContent';
+import { preparePlayback } from './src/services/localAudioLibrary';
 import { colors } from './src/theme/colors';
 
 export default function App() {
   useEffect(() => {
+    void preparePlayback().catch(() => undefined);
+    void ensureDemoContent().catch(() => undefined);
     startAutoSyncWatch();
   }, []);
 

@@ -1,6 +1,6 @@
 {
   "name": "recording-ring-rn",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "main": "expo/AppEntry",
   "scripts": {
@@ -8,7 +8,8 @@
     "start": "expo start --dev-client",
     "android": "expo run:android",
     "ios": "expo run:ios",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "ios:archive-note": "echo 'Open ios/RecordingRing.xcworkspace in Xcode → Any iOS Device → Product → Archive (Release). Do not submit a Debug / expo-dev-client build.'"
   },
   "dependencies": {
     "@expo/config-plugins": "^9.0.0",

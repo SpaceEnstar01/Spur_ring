@@ -2,7 +2,7 @@
   "expo": {
     "name": "spur",
     "slug": "recording-ring",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "orientation": "portrait",
     "scheme": "recordingring",
     "userInterfaceStyle": "light",
@@ -12,14 +12,16 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.spur.recordingring",
+      "buildNumber": "1",
       "infoPlist": {
-        "NSBluetoothAlwaysUsageDescription": "用于连接录音戒指，同步录音文件、电量和设备状态。",
-        "NSBluetoothPeripheralUsageDescription": "用于连接录音戒指，同步录音文件、电量和设备状态。",
-        "NSMicrophoneUsageDescription": "用于本机录音和调试音频采集能力。"
+        "NSBluetoothAlwaysUsageDescription": "Spur uses Bluetooth to connect to your recording ring, sync recordings, and read battery and device status.",
+        "NSBluetoothPeripheralUsageDescription": "Spur uses Bluetooth to connect to your recording ring, sync recordings, and read battery and device status.",
+        "NSMicrophoneUsageDescription": "Spur uses the microphone for on-device recording and audio capture when you choose to record on this iPhone."
       }
     },
     "android": {
       "package": "com.spur.recordingring",
+      "versionCode": 1,
       "permissions": [
         "android.permission.BLUETOOTH_SCAN",
         "android.permission.BLUETOOTH_CONNECT",
@@ -34,13 +36,11 @@
         {
           "isBackgroundEnabled": false,
           "modes": [
-            "peripheral",
             "central"
           ],
-          "bluetoothAlwaysPermission": "用于连接录音戒指，同步录音文件、电量和设备状态。"
+          "bluetoothAlwaysPermission": "Spur uses Bluetooth to connect to your recording ring, sync recordings, and read battery and device status."
         }
-      ],
-      "expo-dev-client"
+      ]
     ]
   }
 }

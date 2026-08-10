@@ -278,16 +278,18 @@ export function YanqiangVoiceDebugScreen() {
             </View>
             <ChevronRight color={colors.textTertiary} size={18} />
           </Pressable>
-          <Pressable
-            style={styles.row}
-            onPress={() => navigation.navigate('YanqiangButtonDebug', { macAddress: connectedMac })}
-          >
-            <View style={styles.flex}>
-              <Text style={styles.rowLabel}>{t.device.buttonDebug}</Text>
-              <Text style={styles.rowHint}>{t.device.buttonDebugHint}</Text>
-            </View>
-            <ChevronRight color={colors.textTertiary} size={18} />
-          </Pressable>
+          {__DEV__ ? (
+            <Pressable
+              style={styles.row}
+              onPress={() => navigation.navigate('YanqiangButtonDebug', { macAddress: connectedMac })}
+            >
+              <View style={styles.flex}>
+                <Text style={styles.rowLabel}>{t.device.buttonDebug}</Text>
+                <Text style={styles.rowHint}>{t.device.buttonDebugHint}</Text>
+              </View>
+              <ChevronRight color={colors.textTertiary} size={18} />
+            </Pressable>
+          ) : null}
         </View>
       ) : null}
 
@@ -334,20 +336,22 @@ export function YanqiangVoiceDebugScreen() {
         })
       )}
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>{t.device.debugLogs}</Text>
-        <View style={styles.logBox}>
-          {logs.length === 0 ? (
-            <Text style={styles.logEmpty}>{t.common.noLogs}</Text>
-          ) : (
-            logs.map((log, index) => (
-              <Text key={`${index}-${log}`} style={styles.logLine}>
-                {log}
-              </Text>
-            ))
-          )}
+      {__DEV__ ? (
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>{t.device.debugLogs}</Text>
+          <View style={styles.logBox}>
+            {logs.length === 0 ? (
+              <Text style={styles.logEmpty}>{t.common.noLogs}</Text>
+            ) : (
+              logs.map((log, index) => (
+                <Text key={`${index}-${log}`} style={styles.logLine}>
+                  {log}
+                </Text>
+              ))
+            )}
+          </View>
         </View>
-      </View>
+      ) : null}
     </AppScreen>
   );
 }

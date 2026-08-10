@@ -86,7 +86,12 @@ export function YanqiangRecordingDebugScreen({ navigation, route }: Props) {
   }
 
   useEffect(() => {
-    void Audio.setAudioModeAsync({ playsInSilentModeIOS: true, shouldDuckAndroid: true });
+    void Audio.setAudioModeAsync({
+      allowsRecordingIOS: false,
+      playsInSilentModeIOS: true,
+      shouldDuckAndroid: true,
+      playThroughEarpieceAndroid: false
+    });
     void querySummary();
     if (!YanqiangVoiceEvents) return;
 
@@ -300,12 +305,16 @@ export function YanqiangRecordingDebugScreen({ navigation, route }: Props) {
         );
       })}
 
-      <Text style={styles.sectionTitle}>{t.sync.rawLogs}</Text>
-      <View style={styles.logBox}>
-        {logs.length === 0 ? <Text style={styles.logEmpty}>{t.common.noLogs}</Text> : logs.map((log, index) => (
-          <Text key={`${index}-${log}`} style={styles.logLine}>{log}</Text>
-        ))}
-      </View>
+      {__DEV__ ? (
+        <>
+          <Text style={styles.sectionTitle}>{t.sync.rawLogs}</Text>
+          <View style={styles.logBox}>
+            {logs.length === 0 ? <Text style={styles.logEmpty}>{t.common.noLogs}</Text> : logs.map((log, index) => (
+              <Text key={`${index}-${log}`} style={styles.logLine}>{log}</Text>
+            ))}
+          </View>
+        </>
+      ) : null}
     </AppScreen>
   );
 }

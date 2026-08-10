@@ -1,6 +1,7 @@
 import * as FileSystem from 'expo-file-system';
 
 import { processAudioWithAi } from '@/services/audioAgentApi';
+import { compareDemoFirst, isDemoAudioName } from '@/services/demoContent';
 import { deleteLocalAudioFile, listLocalAudioFiles, type LocalAudioFile } from '@/services/localAudioLibrary';
 
 export type AgentCardStatus = 'pending' | 'processing' | 'completed' | 'failed';
@@ -29,7 +30,27 @@ const INDEX_PATH = `${FileSystem.documentDirectory}agent-cards.json`;
 export async function syncLocalAgentCards(): Promise<LocalAgentCard[]> {
   const [files, saved] = await Promise.all([listLocalAudioFiles(), readCards()]);
   const shortFiles = files.filter((file) => file.category === 'agent');
-  const cards = shortFiles.map((file) => saved[file.id] ?? createPendingCard(file));
+  const cards = shortFiles.map((file) => {
+    const existing = saved[file.id];
+    if (!existing) return createPendingCard(file);
+    // Keep completed demo payload, but always refresh playable uri/duration from disk.
+    return {
+      ...existing,
+      id: file.id,
+      fileUri: file.uri,
+      fileName: file.name,
+      durationMs: file.durationMs || existing.durationMs,
+      modifiedAt: file.modifiedAt || existing.modifiedAt
+    };
+  });
+
+  // Keep seeded demo cards even if duration decode briefly fails (would mis-bucket as recording).
+  for (const card of Object.values(saved)) {
+    if (!isDemoAudioName(card.fileName)) continue;
+    if (cards.some((item) => item.id === card.id || item.fileName === card.fileName)) continue;
+    cards.push(card);
+  }
+
   await writeCards(Object.fromEntries(cards.map((card) => [card.id, card])));
   return sortCards(cards);
 }
@@ -119,7 +140,9 @@ async function writeCards(cards: Record<string, LocalAgentCard>) {
 }
 
 function sortCards(cards: LocalAgentCard[]) {
-  return [...cards].sort((a, b) => b.modifiedAt - a.modifiedAt);
+  return [...cards].sort((a, b) =>
+    compareDemoFirst(a.fileName, b.fileName, b.modifiedAt - a.modifiedAt)
+  );
 }
 
 function deriveTitle(output: string, transcript: string) {

@@ -65,5 +65,39 @@ target 'RecordingRing' do
         end
       end
     end
+
+    # Xcode 26 enables Explicitly Built Modules by default; CocoaPods / Expo
+    # modulemaps (e.g. EXAV.modulemap) are not ready when the scanner runs,
+    # causing cascading "Unable to find module dependency" failures.
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        config.build_settings['SWIFT_ENABLE_EXPLICIT_MODULES'] = 'NO'
+        config.build_settings['CLANG_ENABLE_EXPLICIT_MODULES'] = 'NO'
+      end
+    end
+
+    # Xcode 26's dependency scanner reads -fmodule-map-file before Pods produce
+    # copies under Build/Products. Only rewrite the *aggregate* app xcconfigs so
+    # early scans of RecordingRing succeed; leave per-pod xcconfigs alone so
+    # Swift compatibility headers still resolve during Pod compilation.
+    pods_root = installer.sandbox.root
+    Dir.glob(File.join(pods_root, 'Target Support Files', 'Pods-RecordingRing', 'Pods-RecordingRing.*.xcconfig')).each do |xcconfig_path|
+      original = File.read(xcconfig_path)
+      rewritten = original.gsub(
+        /-fmodule-map-file="\$\{PODS_CONFIGURATION_BUILD_DIR\}\/([^"\/]+)\/([^"]+\.modulemap)"/
+      ) do
+        pod_dir = Regexp.last_match(1)
+        map_name = Regexp.last_match(2)
+        support_map = File.join(pods_root, 'Target Support Files', pod_dir, map_name)
+        if File.exist?(support_map)
+          %Q(-fmodule-map-file="${PODS_ROOT}/Target Support Files/#{pod_dir}/#{map_name}")
+        else
+          Regexp.last_match(0)
+        end
+      end
+      File.write(xcconfig_path, rewritten) if rewritten != original
+    end
   end
 end
+
+

@@ -20,6 +20,9 @@ export type AudioAgentConfig = {
     flashEndpoint: string
     flashResourceId: string
     fallbackFlashResourceId: string
+    /** 大模型流式语音识别（sauc/bigmodel），悬浮窗语音→文字 */
+    saucEndpoint: string
+    saucResourceId: string
     language: string
     pollIntervalMs: number
     timeoutMs: number
@@ -28,6 +31,12 @@ export type AudioAgentConfig = {
     apiKey: string
     baseUrl: string
     model: string
+    timeoutMs: number
+  }
+  image: {
+    model: string
+    size: string
+    steps: number
     timeoutMs: number
   }
   email: {
@@ -80,6 +89,12 @@ export function getConfig(): AudioAgentConfig {
         process.env.VOLCENGINE_ASR_FLASH_RESOURCE_ID || 'volc.seedasr.auc',
       fallbackFlashResourceId:
         process.env.VOLCENGINE_ASR_FALLBACK_FLASH_RESOURCE_ID || '',
+      saucEndpoint:
+        process.env.VOLCENGINE_SAUC_ENDPOINT ||
+        'wss://openspeech.bytedance.com/api/v3/sauc/bigmodel_nostream',
+      saucResourceId:
+        process.env.VOLCENGINE_SAUC_RESOURCE_ID ||
+        'volc.seedasr.sauc.duration',
       language: process.env.VOLCENGINE_ASR_LANGUAGE || 'zh-CN',
       pollIntervalMs: Number(process.env.VOLCENGINE_ASR_POLL_INTERVAL_MS || 1000),
       timeoutMs: Number(process.env.VOLCENGINE_ASR_TIMEOUT_MS || 180000),
@@ -89,6 +104,12 @@ export function getConfig(): AudioAgentConfig {
       baseUrl: process.env.DEEPSEEK_BASE_URL || 'https://api.deepseek.com',
       model: process.env.DEEPSEEK_MODEL || 'deepseek-v4-flash',
       timeoutMs: Number(process.env.DEEPSEEK_TIMEOUT_MS || 180000),
+    },
+    image: {
+      model: process.env.SILICONFLOW_IMAGE_MODEL || 'Kwai-Kolors/Kolors',
+      size: process.env.SILICONFLOW_IMAGE_SIZE || '1024x1024',
+      steps: Number(process.env.SILICONFLOW_IMAGE_STEPS || 20),
+      timeoutMs: Number(process.env.SILICONFLOW_IMAGE_TIMEOUT_MS || 120000),
     },
     email: {
       enabled: process.env.AUDIO_AGENT_EMAIL_ENABLED === '1',

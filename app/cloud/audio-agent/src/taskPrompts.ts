@@ -1,15 +1,19 @@
-export type AudioTaskType = 'recording_summary' | 'agent_command'
+export type AudioTaskType = 'recording_summary' | 'agent_command' | 'agent_image'
 
 export const DEFAULT_AUDIO_TASK_TYPE: AudioTaskType = 'agent_command'
 
 export function isAudioTaskType(value: unknown): value is AudioTaskType {
-  return value === 'recording_summary' || value === 'agent_command'
+  return (
+    value === 'recording_summary' ||
+    value === 'agent_command' ||
+    value === 'agent_image'
+  )
 }
 
 export function buildTaskPrompt(transcript: string, taskType: AudioTaskType): string {
-  return taskType === 'recording_summary'
-    ? recordingSummaryPrompt(transcript)
-    : agentCommandPrompt(transcript)
+  if (taskType === 'recording_summary') return recordingSummaryPrompt(transcript)
+  if (taskType === 'agent_image') return transcript.trim()
+  return agentCommandPrompt(transcript)
 }
 
 function recordingSummaryPrompt(transcript: string): string {

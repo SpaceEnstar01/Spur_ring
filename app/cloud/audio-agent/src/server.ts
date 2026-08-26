@@ -4,6 +4,16 @@ import { runChat } from './chat.js'
 import { getConfig } from './config.js'
 import { sendAgentResultEmail } from './email.js'
 import { runParentAgent } from './agent.js'
+import {
+  contentTypeForImage,
+  generateAndStoreImage,
+  isSafeImageFileName,
+} from './image.js'
+import { transcriptWantsImage } from './imageIntent.js'
+import { polishSpokenIntent } from './voicePolish.js'
+import { rewriteResultFromIntent } from './resultRewrite.js'
+import { transcribeWithSaucBigmodel } from './stt/saucBigmodel.js'
+import { isAssistantSkill, refineWithSkill } from './skillRefine.js'
 import { DEFAULT_AUDIO_TASK_TYPE, isAudioTaskType } from './taskPrompts.js'
 import { createReportPage } from './report.js'
 import { createPdfReport } from './pdfReport.js'
@@ -25,11 +35,13 @@ const config = getConfig()
 const webRoot = join(config.appRoot, 'src/web')
 const uploadsDir = join(config.appRoot, 'uploads')
 const transcriptsDir = join(config.appRoot, 'transcripts')
+const imagesDir = join(config.appRoot, 'images')
 const demoMeetingAudioPath = join(config.localAudioDir, '1.wav')
 
 await Promise.all([
   mkdir(uploadsDir, { recursive: true }),
   mkdir(transcriptsDir, { recursive: true }),
+  mkdir(imagesDir, { recursive: true }),
 ])
 
 Bun.serve({
@@ -63,6 +75,14 @@ Bun.serve({
         join(config.appRoot, url.pathname.replace(/^\//, '')),
         getReportContentType(url.pathname),
       )
+    }
+
+    if (request.method === 'GET' && url.pathname.startsWith('/images/')) {
+      const fileName = decodeURIComponent(url.pathname.slice('/images/'.length))
+      if (!isSafeImageFileName(fileName)) {
+        return new Response('Not found', { status: 404 })
+      }
+      return serveFile(join(imagesDir, fileName), contentTypeForImage(fileName))
     }
 
     if (request.method === 'POST' && url.pathname === '/api/audio-task') {
@@ -103,6 +123,26 @@ Bun.serve({
 
     if (request.method === 'POST' && url.pathname === '/api/chat') {
       return handleChat(request)
+    }
+
+    if (request.method === 'POST' && url.pathname === '/api/assistant/voice-intent') {
+      return handleAssistantVoiceIntent(request)
+    }
+
+    if (request.method === 'POST' && url.pathname === '/api/assistant/voice-polish') {
+      return handleAssistantVoicePolish(request)
+    }
+
+    if (request.method === 'POST' && url.pathname === '/api/assistant/polish-text') {
+      return handleAssistantPolishText(request)
+    }
+
+    if (request.method === 'POST' && url.pathname === '/api/assistant/rewrite-result') {
+      return handleAssistantRewriteResult(request)
+    }
+
+    if (request.method === 'POST' && url.pathname === '/api/assistant/skill-refine') {
+      return handleAssistantSkillRefine(request)
     }
 
     if (request.method === 'GET' && url.pathname === '/api/recordings') {
@@ -381,6 +421,148 @@ async function handleChat(request: Request): Promise<Response> {
   }
 }
 
+async function handleAssistantVoiceIntent(request: Request): Promise<Response> {
+  try {
+    const formData = await request.formData()
+    const audio = formData.get('audio')
+    if (!(audio instanceof File)) {
+      return Response.json({ error: 'Missing audio file' }, { status: 400 })
+    }
+
+    const id = `${Date.now()}-${crypto.randomUUID()}`
+    const uploadPath = join(uploadsDir, `${id}${getAudioExtension(audio)}`)
+    await writeFile(uploadPath, Buffer.from(await audio.arrayBuffer()))
+
+    // 悬浮窗：大模型流式 STT（sauc/bigmodel）→ 文字意图，不做 Typeless 清洗，不做 S2S。
+    const transcript = await transcribeWithSaucBigmodel({
+      config,
+      filePath: uploadPath,
+      mimeType: audio.type || 'audio/webm',
+    })
+    const intent = transcript.trim()
+    if (!intent) {
+      return Response.json({ error: 'Empty transcript' }, { status: 502 })
+    }
+
+    return Response.json({
+      id,
+      transcript: intent,
+      intent,
+      provider: 'volc.sauc.bigmodel',
+    })
+  } catch (error) {
+    return jsonError(error, 'Voice intent failed')
+  }
+}
+
+async function handleAssistantVoicePolish(request: Request): Promise<Response> {
+  try {
+    const formData = await request.formData()
+    const audio = formData.get('audio')
+    if (!(audio instanceof File)) {
+      return Response.json({ error: 'Missing audio file' }, { status: 400 })
+    }
+
+    const id = `${Date.now()}-${crypto.randomUUID()}`
+    const uploadPath = join(uploadsDir, `${id}${getAudioExtension(audio)}`)
+    await writeFile(uploadPath, Buffer.from(await audio.arrayBuffer()))
+
+    const transcript = await transcribeAudio({
+      filePath: uploadPath,
+      mimeType: audio.type || 'audio/webm',
+      config,
+      preferFlash: true,
+    })
+    const polished = await polishSpokenIntent(transcript, config)
+
+    return Response.json({
+      id,
+      transcript,
+      polished,
+    })
+  } catch (error) {
+    return jsonError(error, 'Voice polish failed')
+  }
+}
+
+async function handleAssistantPolishText(request: Request): Promise<Response> {
+  try {
+    const body = await request.json()
+    const text = typeof body.text === 'string' ? body.text.trim() : ''
+    if (!text) {
+      return Response.json({ error: 'Missing text' }, { status: 400 })
+    }
+    const polished = await polishSpokenIntent(text, config)
+    return Response.json({ polished })
+  } catch (error) {
+    return jsonError(error, 'Polish text failed')
+  }
+}
+
+async function handleAssistantRewriteResult(request: Request): Promise<Response> {
+  try {
+    const body = await request.json()
+    const instruction =
+      typeof body.instruction === 'string' ? body.instruction.trim() : ''
+    if (!instruction) {
+      return Response.json({ error: 'Missing instruction' }, { status: 400 })
+    }
+
+    const rewriteImage =
+      body.rewriteImage === true ||
+      body.mode === 'image' ||
+      Boolean(body.hasImage)
+
+    const result = await rewriteResultFromIntent({
+      config,
+      instruction,
+      rewriteImage,
+      transcript:
+        typeof body.transcript === 'string' ? body.transcript : undefined,
+      previousOutput:
+        typeof body.previousOutput === 'string' ? body.previousOutput : undefined,
+      title: typeof body.title === 'string' ? body.title : undefined,
+    })
+
+    return Response.json(result)
+  } catch (error) {
+    return jsonError(error, 'Rewrite result failed')
+  }
+}
+
+async function handleAssistantSkillRefine(request: Request): Promise<Response> {
+  try {
+    const body = await request.json()
+    const skill = body.skill
+    const instruction =
+      typeof body.instruction === 'string' ? body.instruction.trim() : ''
+    if (!isAssistantSkill(skill)) {
+      return Response.json(
+        { error: 'skill must be document | ppt | image' },
+        { status: 400 },
+      )
+    }
+    if (!instruction) {
+      return Response.json({ error: 'Missing instruction' }, { status: 400 })
+    }
+
+    const result = await refineWithSkill({
+      config,
+      skill,
+      instruction,
+      transcript:
+        typeof body.transcript === 'string' ? body.transcript : undefined,
+      previousOutput:
+        typeof body.previousOutput === 'string' ? body.previousOutput : undefined,
+      title: typeof body.title === 'string' ? body.title : undefined,
+    })
+
+    return Response.json(result)
+  } catch (error) {
+    return jsonError(error, 'Skill refine failed')
+  }
+}
+
 async function handleListRecordings(): Promise<Response> {
   try {
     return Response.json({
@@ -485,12 +667,19 @@ async function handleAudioTask(request: Request): Promise<Response> {
     })
     await writeFile(transcriptPath, transcript)
 
-    const agent = await runParentAgent(transcript, config, taskType)
+    const wantsImage =
+      taskType === 'agent_image' ||
+      (taskType === 'agent_command' &&
+        (await transcriptWantsImage(transcript, config)))
+    const agent = wantsImage
+      ? await generateAndStoreImage({ config, id, transcript })
+      : await runParentAgent(transcript, config, taskType)
     const report = await createReportPage({
       config,
       id,
       transcript,
       agentOutput: agent.output,
+      imageUrl: agent.imageUrl,
     })
     const email = await sendAgentResultEmail({
       config,

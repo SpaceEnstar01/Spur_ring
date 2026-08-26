@@ -6,6 +6,8 @@ export type TranscribeInput = {
   filePath: string
   mimeType: string
   config: AudioAgentConfig
+  /** Short dictation: try Volcengine flash (base64) before submit/query URL flow. */
+  preferFlash?: boolean
 }
 
 export async function transcribeAudio(input: TranscribeInput): Promise<string> {

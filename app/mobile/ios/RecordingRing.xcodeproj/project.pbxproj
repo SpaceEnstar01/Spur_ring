@@ -309,8 +309,8 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-RecordingRing/Pods-RecordingRing-frameworks.sh",
-				"${PODS_ROOT}/../../native-sdk/RingSDK.framework",
-				"${PODS_ROOT}/../../native-sdk/AB_FOTA.framework",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/YanqiangRingSDK/RingSDK.framework/RingSDK",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/YanqiangRingSDK/AB_FOTA.framework/AB_FOTA",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
 			);
 			name = "[CP] Embed Pods Frameworks";

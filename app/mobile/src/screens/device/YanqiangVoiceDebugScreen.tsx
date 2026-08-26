@@ -22,6 +22,7 @@ import {
 import { colors } from '@/theme/colors';
 import { t } from '@/locales';
 import type { RootStackParamList } from '@/types/navigation';
+import { formatRingDisplayName } from '@/utils/ringDisplayName';
 
 export function YanqiangVoiceDebugScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -118,6 +119,13 @@ export function YanqiangVoiceDebugScreen() {
 
     return () => subscriptions.forEach((subscription) => subscription.remove());
   }, [pushLog]);
+
+  useEffect(() => {
+    if (initialized || initializing) return;
+    void initialize();
+    // Auto-prepare Bluetooth once; scan still waits for user tap.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   async function requestBluetoothPermissions() {
     if (Platform.OS !== 'android') return true;
@@ -223,6 +231,10 @@ export function YanqiangVoiceDebugScreen() {
   }
 
   const deviceList = Object.values(devices);
+  const connectedDevice = connectedMac ? devices[connectedMac] : undefined;
+  const connectedLabel = connectedMac
+    ? formatRingDisplayName(connectedDevice?.name, connectedMac)
+    : null;
 
   return (
     <AppScreen tone="plain" bottomInset={32}>
@@ -234,6 +246,8 @@ export function YanqiangVoiceDebugScreen() {
         <View style={styles.backButton} />
       </View>
 
+      <Text style={styles.pageSubtitle}>{t.device.subtitle}</Text>
+
       <View style={styles.statusCard}>
         <View style={styles.statusIcon}>
           <Radio color={connectionState === 'connected' ? colors.success : colors.text} size={18} />
@@ -241,29 +255,40 @@ export function YanqiangVoiceDebugScreen() {
         <View style={styles.flex}>
           <Text style={styles.statusTitle}>{connectionLabel(connectionState)}</Text>
           <Text style={styles.statusText}>
-            {t.device.sdk} · {initialized ? t.device.initialized : t.device.notInitialized}
+            {initializing
+              ? t.device.initializing
+              : connectedLabel
+                ? connectedLabel
+                : t.device.tapToScan}
           </Text>
-          {connectedMac ? <Text style={styles.macText}>{connectedMac}</Text> : null}
         </View>
       </View>
 
+      <View style={styles.hintCard}>
+        <Text style={styles.hintText}>{t.device.noHardwareHint}</Text>
+      </View>
+
       <Pressable
-        style={[styles.primaryButton, scanning && styles.primaryButtonActive]}
+        style={[styles.primaryButton, (scanning || initializing) && styles.primaryButtonActive]}
+        disabled={initializing && !scanning}
         onPress={scanning ? stopScan : () => void startScan()}
       >
         <Bluetooth color="#fff" size={18} />
-        <Text style={styles.primaryButtonText}>{scanning ? t.device.stopScan : t.device.scanDevices}</Text>
-      </Pressable>
-
-      <Pressable
-        style={[styles.secondaryButton, initializing && styles.disabled]}
-        disabled={initializing}
-        onPress={() => void initialize()}
-      >
-        <Text style={styles.secondaryButtonText}>
-          {initializing ? t.device.initializing : t.device.initializeSdk}
+        <Text style={styles.primaryButtonText}>
+          {scanning ? t.device.stopScan : t.device.scanDevices}
         </Text>
       </Pressable>
+
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>{t.device.computerSection}</Text>
+        <Pressable style={styles.row} onPress={() => navigation.navigate('ConnectLaptop')}>
+          <View style={styles.flex}>
+            <Text style={styles.rowLabel}>{t.device.connectLaptop}</Text>
+            <Text style={styles.rowHint}>{t.device.connectLaptopHint}</Text>
+          </View>
+          <ChevronRight color={colors.textTertiary} size={18} />
+        </Pressable>
+      </View>
 
       {connectionState === 'connected' && connectedMac ? (
         <View style={styles.section}>
@@ -278,18 +303,6 @@ export function YanqiangVoiceDebugScreen() {
             </View>
             <ChevronRight color={colors.textTertiary} size={18} />
           </Pressable>
-          {__DEV__ ? (
-            <Pressable
-              style={styles.row}
-              onPress={() => navigation.navigate('YanqiangButtonDebug', { macAddress: connectedMac })}
-            >
-              <View style={styles.flex}>
-                <Text style={styles.rowLabel}>{t.device.buttonDebug}</Text>
-                <Text style={styles.rowHint}>{t.device.buttonDebugHint}</Text>
-              </View>
-              <ChevronRight color={colors.textTertiary} size={18} />
-            </Pressable>
-          ) : null}
         </View>
       ) : null}
 
@@ -305,14 +318,14 @@ export function YanqiangVoiceDebugScreen() {
       ) : (
         deviceList.map((device) => {
           const isCurrent = connectedMac === device.macAddress;
+          const displayName = formatRingDisplayName(device.name, device.macAddress);
           return (
             <View key={device.macAddress} style={styles.deviceCard}>
               <View style={styles.deviceIcon}>
                 <Bluetooth color={colors.text} size={18} />
               </View>
               <View style={styles.flex}>
-                <Text style={styles.deviceName}>{device.name}</Text>
-                <Text style={styles.macText}>{device.macAddress}</Text>
+                <Text style={styles.deviceName}>{displayName}</Text>
               </View>
               {isCurrent && connectionState === 'connected' ? (
                 <Pressable style={styles.disconnectButton} onPress={() => void disconnect()}>
@@ -388,6 +401,26 @@ const styles = StyleSheet.create({
     color: colors.text,
     fontSize: 17,
     fontWeight: '700'
+  },
+  pageSubtitle: {
+    color: colors.textSecondary,
+    fontSize: 13,
+    lineHeight: 18,
+    marginTop: -8,
+    marginBottom: 14
+  },
+  hintCard: {
+    padding: 14,
+    borderRadius: 14,
+    backgroundColor: '#f5f7f9',
+    borderWidth: 1,
+    borderColor: colors.border,
+    marginBottom: 12
+  },
+  hintText: {
+    color: colors.textSecondary,
+    fontSize: 12,
+    lineHeight: 18
   },
   statusCard: {
     flexDirection: 'row',

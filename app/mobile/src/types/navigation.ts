@@ -1,6 +1,7 @@
 export type RootStackParamList = {
   MainTabs: undefined;
   Device: undefined;
+  ConnectLaptop: undefined;
   Me: undefined;
   RecordingSummary: { id: string };
   Transcript: { id: string };

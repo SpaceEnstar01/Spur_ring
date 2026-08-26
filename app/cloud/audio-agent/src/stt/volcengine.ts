@@ -16,6 +16,30 @@ export async function transcribeWithVolcengine(
 
   const mp3Path = await convertToMp3(input)
 
+  if (input.preferFlash) {
+    const audioBase64 = await fileToBase64(mp3Path)
+    const primary = await recognizeFlash({
+      input,
+      audioBase64,
+      resourceId: input.config.volcengine.flashResourceId,
+    })
+    if (primary.transcript) return primary.transcript
+
+    if (
+      input.config.volcengine.fallbackFlashResourceId &&
+      input.config.volcengine.fallbackFlashResourceId !==
+        input.config.volcengine.flashResourceId
+    ) {
+      const fallback = await recognizeFlash({
+        input,
+        audioBase64,
+        resourceId: input.config.volcengine.fallbackFlashResourceId,
+      })
+      if (fallback.transcript) return fallback.transcript
+    }
+    // Fall through to URL submit/query if flash is unavailable.
+  }
+
   if (input.config.volcengine.publicBaseUrl) {
     return transcribeWithSubmitQuery({
       input,
@@ -26,38 +50,6 @@ export async function transcribeWithVolcengine(
   throw new Error(
     'Volcengine ASR 2.0 requires a public audio URL. Set AUDIO_AGENT_PUBLIC_BASE_URL to a public tunnel or deployed server URL.',
   )
-
-  const audioBase64 = await fileToBase64(mp3Path)
-
-  const primary = await recognizeFlash({
-    input,
-    audioBase64,
-    resourceId: input.config.volcengine.flashResourceId,
-  })
-
-  if (primary.transcript) {
-    return primary.transcript
-  }
-
-  if (
-    input.config.volcengine.fallbackFlashResourceId &&
-    input.config.volcengine.fallbackFlashResourceId !==
-      input.config.volcengine.flashResourceId
-  ) {
-    const fallback = await recognizeFlash({
-      input,
-      audioBase64,
-      resourceId: input.config.volcengine.fallbackFlashResourceId,
-    })
-
-    if (fallback.transcript) {
-      return fallback.transcript
-    }
-
-    throw new Error(fallback.error || primary.error || 'Volcengine ASR failed')
-  }
-
-  throw new Error(primary.error || 'Volcengine ASR failed')
 }
 
 async function transcribeWithSubmitQuery(input: {

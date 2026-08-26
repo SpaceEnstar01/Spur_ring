@@ -5,6 +5,7 @@ import { buildTaskPrompt, type AudioTaskType } from './taskPrompts.js'
 export type AgentResult = {
   output: string
   exitCode: number
+  imageUrl?: string
 }
 
 export async function runParentAgent(
@@ -15,16 +16,24 @@ export async function runParentAgent(
   const prompt = buildTaskPrompt(transcript, taskType)
 
   if (config.deepseek.apiKey) {
-    return runDeepSeekAgent(prompt, config)
+    const output = await completeChatPrompt(prompt, config)
+    return { output, exitCode: 0 }
   }
 
   return runLocalAgent(prompt, config)
 }
 
-async function runDeepSeekAgent(
-  prompt: string,
+/** Direct chat completion (no taskPrompts wrapper). Used by voice polish / skill refine. */
+export async function completeChatPrompt(
+  userPrompt: string,
   config: AudioAgentConfig,
-): Promise<AgentResult> {
+  systemPrompt =
+    'You are a reliable AI voice assistant. Follow the task-specific instructions exactly and return only the requested final content.',
+): Promise<string> {
+  if (!config.deepseek.apiKey) {
+    throw new Error('DEEPSEEK_API_KEY is required')
+  }
+
   const endpoint = `${config.deepseek.baseUrl.replace(/\/$/, '')}/chat/completions`
   const response = await fetch(endpoint, {
     method: 'POST',
@@ -35,14 +44,12 @@ async function runDeepSeekAgent(
     body: JSON.stringify({
       model: config.deepseek.model,
       messages: [
-        {
-          role: 'system',
-          content:
-            'You are a reliable AI voice assistant. Follow the task-specific instructions exactly and return only the requested final content.',
-        },
-        { role: 'user', content: prompt },
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: userPrompt },
       ],
-      thinking: { type: 'disabled' },
+      ...(isDeepSeekOfficialHost(config.deepseek.baseUrl)
+        ? { thinking: { type: 'disabled' } }
+        : {}),
       stream: false,
     }),
     signal: AbortSignal.timeout(config.deepseek.timeoutMs),
@@ -67,7 +74,15 @@ async function runDeepSeekAgent(
     throw new Error(`DeepSeek response missing content: body=${text}`)
   }
 
-  return { output, exitCode: 0 }
+  return output
+}
+
+function isDeepSeekOfficialHost(baseUrl: string): boolean {
+  try {
+    return new URL(baseUrl).hostname.endsWith('deepseek.com')
+  } catch {
+    return false
+  }
 }
 
 type DeepSeekResponse = {

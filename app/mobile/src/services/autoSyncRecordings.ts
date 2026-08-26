@@ -6,6 +6,7 @@ import {
   YanqiangVoiceNative
 } from '@/native/YanqiangVoiceNative'
 import { getRingUiSession } from '@/services/ringConnectionSession'
+import { purgeReimportedDeletedAudio } from '@/services/localAudioLibrary'
 
 export const AUTO_SYNC_COMPLETE_EVENT = 'spur.autoSyncComplete'
 
@@ -133,6 +134,7 @@ async function runAutoSync(reason: string) {
   try {
     console.log('[autoSync] syncVoiceRecordings', reason)
     const result = await YanqiangVoiceNative.syncVoiceRecordings()
+    await purgeReimportedDeletedAudio()
     const count = result?.files?.length ?? 0
     console.log('[autoSync] success', reason, 'files=', count)
     DeviceEventEmitter.emit(AUTO_SYNC_COMPLETE_EVENT, { reason, count })

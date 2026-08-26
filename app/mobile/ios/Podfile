@@ -80,6 +80,8 @@ target 'RecordingRing' do
     # copies under Build/Products. Only rewrite the *aggregate* app xcconfigs so
     # early scans of RecordingRing succeed; leave per-pod xcconfigs alone so
     # Swift compatibility headers still resolve during Pod compilation.
+    # Some pods use different on-disk names (e.g. EXDevMenuInterface.modulemap
+    # vs expo-dev-menu-interface.modulemap) — fall back to "#{pod_dir}.modulemap".
     pods_root = installer.sandbox.root
     Dir.glob(File.join(pods_root, 'Target Support Files', 'Pods-RecordingRing', 'Pods-RecordingRing.*.xcconfig')).each do |xcconfig_path|
       original = File.read(xcconfig_path)
@@ -88,9 +90,15 @@ target 'RecordingRing' do
       ) do
         pod_dir = Regexp.last_match(1)
         map_name = Regexp.last_match(2)
-        support_map = File.join(pods_root, 'Target Support Files', pod_dir, map_name)
-        if File.exist?(support_map)
-          %Q(-fmodule-map-file="${PODS_ROOT}/Target Support Files/#{pod_dir}/#{map_name}")
+        support_dir = File.join(pods_root, 'Target Support Files', pod_dir)
+        candidates = [
+          File.join(support_dir, map_name),
+          File.join(support_dir, "#{pod_dir}.modulemap")
+        ]
+        resolved = candidates.find { |path| File.exist?(path) }
+        if resolved
+          resolved_name = File.basename(resolved)
+          %Q(-fmodule-map-file="${PODS_ROOT}/Target Support Files/#{pod_dir}/#{resolved_name}")
         else
           Regexp.last_match(0)
         end

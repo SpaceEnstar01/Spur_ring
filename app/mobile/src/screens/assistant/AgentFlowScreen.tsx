@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Alert, DeviceEventEmitter, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Alert, DeviceEventEmitter, Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { Audio, type AVPlaybackStatus } from 'expo-av';
 import { Heart, LoaderCircle, Mic2, Pause, Play, Sparkles, Trash2 } from 'lucide-react-native';
 
+import { AgentSkillPanel } from '@/components/AgentSkillPanel';
 import { AppScreen } from '@/components/AppScreen';
 import { HomeLeadingActions } from '@/components/HomeLeadingActions';
 import { LoadingState } from '@/components/LoadingState';
@@ -118,7 +119,21 @@ export function AgentFlowScreen() {
   }
 
   const pending = cards.some((card) => card.status === 'pending' || card.status === 'failed');
-  if (selected) return <AgentDetail card={selected} onBack={() => setSelected(null)} />;
+
+  function onVoiceApplied(updated: LocalAgentCard) {
+    setCards((current) => current.map((item) => (item.id === updated.id ? updated : item)));
+    setSelected(updated);
+  }
+
+  if (selected) {
+    return (
+      <View style={styles.flex}>
+        <AgentDetail card={selected} onBack={() => setSelected(null)} />
+        <AgentSkillPanel card={selected} onApplied={onVoiceApplied} />
+      </View>
+    );
+  }
+
   return (
     <AppScreen tone="plain" bottomInset={96}>
       <View style={styles.deviceEntry}><HomeLeadingActions /></View>
@@ -129,6 +144,11 @@ export function AgentFlowScreen() {
           <Text style={styles.allText}>{batch || t.agentFeed.processAll}</Text>
         </Pressable>
       </View>
+      {!loading && cards.some((card) => isDemoAudioName(card.fileName)) ? (
+        <View style={styles.sampleBanner}>
+          <Text style={styles.sampleBannerText}>{t.agentFeed.sampleHint}</Text>
+        </View>
+      ) : null}
       {loading ? <LoadingState /> : cards.length === 0 ? (
         <View style={styles.empty}><Mic2 color={colors.text} size={30} /><Text style={styles.cardTitle}>{t.agentFeed.emptyTitle}</Text><Text style={styles.body}>{t.agentFeed.emptyText}</Text></View>
       ) : (
@@ -151,6 +171,7 @@ function Card({ card, playing, onPlay, onOpen, onProcess, onFavorite, onDelete }
         {isDemo ? <Text style={styles.demoBadge}>{DEMO_BADGE_LABEL}</Text> : null}
       </View>
       <Text style={styles.cardTitle}>{card.title}</Text>
+      {card.imageUrl ? <Image source={{ uri: card.imageUrl }} style={styles.cardImage} /> : null}
       <Text style={styles.body} numberOfLines={4}>{card.summary || statusText(card.status)}</Text>
       <Text style={styles.meta}>{duration(card.durationMs)}</Text>
     </Pressable>
@@ -171,7 +192,15 @@ function AgentDetail({ card, onBack }: { card: LocalAgentCard; onBack: () => voi
       <Text style={styles.detailTitle}>{card.title}</Text>
       <Text style={styles.meta}>{duration(card.durationMs)} · {new Date(card.modifiedAt).toLocaleString()}</Text>
     </View>
-    <View style={styles.detailSection}><Text style={styles.detailHeading}>{t.agentFeed.aiResult}</Text><Text style={styles.detailText}>{card.output ? clean(card.output) : statusText(card.status)}</Text></View>
+    <View style={styles.detailSection}>
+      <Text style={styles.detailHeading}>{t.agentFeed.aiResult}</Text>
+      {card.imageUrl ? <Image source={{ uri: card.imageUrl }} style={styles.detailImage} resizeMode="contain" /> : null}
+      {card.output ? (
+        <Text style={[styles.detailText, card.imageUrl ? styles.detailTextAfterImage : null]}>{clean(card.output)}</Text>
+      ) : card.imageUrl ? null : (
+        <Text style={styles.detailText}>{statusText(card.status)}</Text>
+      )}
+    </View>
     {card.transcript && <View style={styles.detailSection}><Text style={styles.detailHeading}>{t.agentFeed.transcript}</Text><Text style={styles.detailText}>{card.transcript}</Text></View>}
   </AppScreen>;
 }
@@ -183,7 +212,9 @@ function clean(value: string) { return value.replace(/^\s*#{1,6}\s*/gm, '').repl
 const styles = StyleSheet.create({
   flex: { flex: 1 }, deviceEntry: { alignItems: 'flex-start', marginBottom: 12 }, header: { flexDirection: 'row', gap: 10, marginTop: 18, marginBottom: 18 }, eyebrow: { color: colors.textSecondary, fontSize: 10, fontWeight: '900' }, title: { color: colors.text, fontSize: 26, fontWeight: '900', marginTop: 3 }, subtitle: { color: colors.textSecondary, fontSize: 12, lineHeight: 18, marginTop: 5 },
   allButton: { alignSelf: 'flex-start', padding: 10, borderRadius: 12, backgroundColor: colors.text, flexDirection: 'row', gap: 5 }, allText: { color: '#fff', fontSize: 10, fontWeight: '900' }, disabled: { opacity: 0.5 },
-  waterfall: { flexDirection: 'row', alignItems: 'flex-start', gap: 10 }, column: { flex: 1, gap: 10 }, right: { paddingTop: 22 }, card: { padding: 13, borderRadius: 20, backgroundColor: colors.card, borderWidth: 1, borderColor: colors.border }, categoryRow: { flexDirection: 'row', alignItems: 'center', gap: 8 }, category: { color: colors.textSecondary, fontSize: 10, fontWeight: '900', textTransform: 'uppercase' }, demoBadge: { color: '#fff', backgroundColor: DEMO_BADGE_COLOR, overflow: 'hidden', fontSize: 9, fontWeight: '900', letterSpacing: 0.4, paddingHorizontal: 7, paddingVertical: 3, borderRadius: 6 }, cardTitle: { color: colors.text, fontSize: 15, lineHeight: 20, fontWeight: '900', marginTop: 7 }, body: { color: colors.textSecondary, fontSize: 11, lineHeight: 17, marginTop: 8 }, meta: { color: colors.textTertiary, fontSize: 9, marginTop: 9 },
+  sampleBanner: { padding: 12, borderRadius: 14, backgroundColor: '#f5f7f9', borderWidth: 1, borderColor: colors.border, marginBottom: 12 },
+  sampleBannerText: { color: colors.textSecondary, fontSize: 11, lineHeight: 17 },
+  waterfall: { flexDirection: 'row', alignItems: 'flex-start', gap: 10 }, column: { flex: 1, gap: 10 }, right: { paddingTop: 22 }, card: { padding: 13, borderRadius: 20, backgroundColor: colors.card, borderWidth: 1, borderColor: colors.border }, categoryRow: { flexDirection: 'row', alignItems: 'center', gap: 8 }, category: { color: colors.textSecondary, fontSize: 10, fontWeight: '900', textTransform: 'uppercase' }, demoBadge: { color: '#fff', backgroundColor: DEMO_BADGE_COLOR, overflow: 'hidden', fontSize: 9, fontWeight: '900', letterSpacing: 0.4, paddingHorizontal: 7, paddingVertical: 3, borderRadius: 6 }, cardTitle: { color: colors.text, fontSize: 15, lineHeight: 20, fontWeight: '900', marginTop: 7 }, cardImage: { width: '100%', aspectRatio: 1, borderRadius: 12, marginTop: 10, backgroundColor: colors.border }, body: { color: colors.textSecondary, fontSize: 11, lineHeight: 17, marginTop: 8 }, meta: { color: colors.textTertiary, fontSize: 9, marginTop: 9 },
   process: { marginTop: 10, minHeight: 34, borderRadius: 10, backgroundColor: colors.text, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 5 }, processText: { color: '#fff', fontSize: 10, fontWeight: '900' }, actions: { flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', gap: 15, marginTop: 11 }, playButton: { width: 30, height: 30, borderRadius: 15, backgroundColor: colors.text, alignItems: 'center', justifyContent: 'center', marginRight: 'auto' }, empty: { alignItems: 'center', padding: 28, borderRadius: 22, backgroundColor: colors.card, borderWidth: 1, borderColor: colors.border },
-  back: { alignSelf: 'flex-start', paddingVertical: 10 }, backText: { color: colors.text, fontWeight: '900' }, detailHero: { padding: 20, borderRadius: 22, backgroundColor: colors.card, borderWidth: 1, borderColor: colors.border }, detailTitle: { color: colors.text, fontSize: 25, lineHeight: 32, fontWeight: '900', marginTop: 8 }, detailSection: { marginTop: 14, padding: 18, borderRadius: 20, backgroundColor: colors.card, borderWidth: 1, borderColor: colors.border }, detailHeading: { color: colors.text, fontSize: 18, fontWeight: '900', marginBottom: 12 }, detailText: { color: colors.text, fontSize: 14, lineHeight: 23 }
+  back: { alignSelf: 'flex-start', paddingVertical: 10 }, backText: { color: colors.text, fontWeight: '900' }, detailHero: { padding: 20, borderRadius: 22, backgroundColor: colors.card, borderWidth: 1, borderColor: colors.border }, detailTitle: { color: colors.text, fontSize: 25, lineHeight: 32, fontWeight: '900', marginTop: 8 }, detailSection: { marginTop: 14, padding: 18, borderRadius: 20, backgroundColor: colors.card, borderWidth: 1, borderColor: colors.border }, detailHeading: { color: colors.text, fontSize: 18, fontWeight: '900', marginBottom: 12 }, detailImage: { width: '100%', aspectRatio: 1, borderRadius: 14, backgroundColor: colors.border }, detailTextAfterImage: { marginTop: 12 }, detailText: { color: colors.text, fontSize: 14, lineHeight: 23 }
 });

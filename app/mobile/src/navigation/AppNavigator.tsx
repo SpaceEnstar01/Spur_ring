@@ -4,6 +4,7 @@ import { Bot, Mic2 } from 'lucide-react-native';
 
 import { AgentFlowScreen } from '@/screens/assistant/AgentFlowScreen';
 import { YanqiangVoiceDebugScreen } from '@/screens/device/YanqiangVoiceDebugScreen';
+import { ConnectLaptopScreen } from '@/screens/device/ConnectLaptopScreen';
 import { YanqiangRecordingDebugScreen } from '@/screens/device/YanqiangRecordingDebugScreen';
 import { YanqiangButtonDebugScreen } from '@/screens/device/YanqiangButtonDebugScreen';
 import { MeScreen } from '@/screens/me/MeScreen';
@@ -22,6 +23,7 @@ export function AppNavigator() {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="MainTabs" component={MainTabs} />
       <Stack.Screen name="Device" component={YanqiangVoiceDebugScreen} />
+      <Stack.Screen name="ConnectLaptop" component={ConnectLaptopScreen} />
       <Stack.Screen name="Me" component={MeScreen} />
       <Stack.Screen name="RecordingSummary" component={LocalRecordingResultScreen} />
       <Stack.Screen name="Transcript" component={TranscriptScreen} />

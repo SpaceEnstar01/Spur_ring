@@ -4,6 +4,7 @@
     "slug": "recording-ring",
     "version": "1.0.0",
     "orientation": "portrait",
+    "icon": "./assets/icon.png",
     "scheme": "recordingring",
     "userInterfaceStyle": "light",
     "assetBundlePatterns": [
@@ -16,7 +17,11 @@
       "infoPlist": {
         "NSBluetoothAlwaysUsageDescription": "Spur uses Bluetooth to connect to your recording ring, sync recordings, and read battery and device status.",
         "NSBluetoothPeripheralUsageDescription": "Spur uses Bluetooth to connect to your recording ring, sync recordings, and read battery and device status.",
-        "NSMicrophoneUsageDescription": "Spur uses the microphone for on-device recording and audio capture when you choose to record on this iPhone."
+        "NSMicrophoneUsageDescription": "Spur uses the microphone for on-device recording and audio capture when you choose to record on this iPhone.",
+        "NSLocalNetworkUsageDescription": "Spur connects to Spur Buddy on your Mac on the local network to send computer tasks.",
+        "NSAppTransportSecurity": {
+          "NSAllowsLocalNetworking": true
+        }
       }
     },
     "android": {

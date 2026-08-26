@@ -6,10 +6,11 @@ export type AudioAgentResult = {
   agent: {
     output: string;
     exitCode: number;
+    imageUrl?: string;
   };
 };
 
-export type AudioTaskType = 'recording_summary' | 'agent_command';
+export type AudioTaskType = 'recording_summary' | 'agent_command' | 'agent_image';
 
 export async function processAudioWithAi(input: {
   uri: string;
@@ -82,7 +83,8 @@ function isAudioAgentResult(value: unknown): value is AudioAgentResult {
     typeof result.transcript === 'string' &&
     !!result.agent &&
     typeof result.agent.output === 'string' &&
-    typeof result.agent.exitCode === 'number'
+    typeof result.agent.exitCode === 'number' &&
+    (result.agent.imageUrl === undefined || typeof result.agent.imageUrl === 'string')
   );
 }
 

@@ -12,6 +12,7 @@ export async function createReportPage(input: {
   id: string
   transcript: string
   agentOutput: string
+  imageUrl?: string
 }): Promise<ReportResult> {
   const reportsDir = join(input.config.appRoot, 'reports')
   await mkdir(reportsDir, { recursive: true })
@@ -37,7 +38,21 @@ function buildReportHtml(input: {
   id: string
   transcript: string
   agentOutput: string
+  imageUrl?: string
 }): string {
+  const imageSection = input.imageUrl
+    ? `<section>
+        <h2>生成图片</h2>
+        <p><img src="${escapeHtml(input.imageUrl)}" alt="" style="max-width:100%;height:auto" /></p>
+      </section>`
+    : ''
+  const outputSection = input.agentOutput
+    ? `<section>
+        <h2>Agent 输出</h2>
+        <pre>${escapeHtml(input.agentOutput)}</pre>
+      </section>`
+    : ''
+
   return `<!doctype html>
 <html lang="zh-CN">
   <head>
@@ -76,10 +91,8 @@ function buildReportHtml(input: {
     <main>
       <h1>Audio Agent Report</h1>
       <p class="meta">Task ID: ${escapeHtml(input.id)}</p>
-      <section>
-        <h2>Agent 输出</h2>
-        <pre>${escapeHtml(input.agentOutput)}</pre>
-      </section>
+      ${imageSection}
+      ${outputSection}
       <section>
         <h2>语音转写</h2>
         <pre>${escapeHtml(input.transcript)}</pre>

@@ -15,7 +15,6 @@ import {
   type LocalAudioFile
 } from '@/services/localAudioLibrary';
 import {
-  clearRecordingAnalyses,
   deleteRecordingAnalysis,
   listRecordingAnalyses,
   processLocalRecording,
@@ -114,7 +113,6 @@ export function RecordingListScreen() {
   async function clearAllFiles() {
     await stopPlayback();
     await clearLocalAudioFiles();
-    await clearRecordingAnalyses();
     await refresh();
   }
 
@@ -174,6 +172,12 @@ export function RecordingListScreen() {
           <RefreshCw color={colors.text} size={18} />
         </Pressable>
       </View>
+
+      {!loading && files.some((file) => isDemoAudioName(file.name)) ? (
+        <View style={styles.reviewBanner}>
+          <Text style={styles.reviewBannerText}>{t.recordings.sampleReviewHint}</Text>
+        </View>
+      ) : null}
 
       {loading ? <LoadingState label={t.recordings.reading} /> : files.length === 0 ? (
         <View style={styles.emptyCard}>
@@ -279,6 +283,19 @@ function formatBytes(bytes: number) {
 const styles = StyleSheet.create({
   flex: { flex: 1 },
   header: { flexDirection: 'row', alignItems: 'center', gap: 12, marginTop: 8, marginBottom: 18 },
+  reviewBanner: {
+    padding: 14,
+    borderRadius: 14,
+    backgroundColor: '#f5f7f9',
+    borderWidth: 1,
+    borderColor: colors.border,
+    marginBottom: 14
+  },
+  reviewBannerText: {
+    color: colors.textSecondary,
+    fontSize: 12,
+    lineHeight: 18
+  },
   clearIconButton: { padding: 4, marginLeft: 4 },
   iconButton: { padding: 10, borderRadius: 13, backgroundColor: '#f3f3f3', borderWidth: 1, borderColor: colors.border },
   emptyCard: { alignItems: 'center', backgroundColor: colors.card, borderRadius: 22, padding: 28, gap: 8, borderWidth: 1, borderColor: colors.border },

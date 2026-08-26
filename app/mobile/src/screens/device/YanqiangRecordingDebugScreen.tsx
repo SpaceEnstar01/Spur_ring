@@ -6,7 +6,7 @@ import { ArrowLeft, FileAudio, Pause, Play, RefreshCw, Trash2, UploadCloud } fro
 
 import { AppScreen } from '@/components/AppScreen';
 import { AudioAiPanel } from '@/components/AudioAiPanel';
-import { clearLocalAudioFiles, deleteLocalAudioFile } from '@/services/localAudioLibrary';
+import { clearLocalAudioFiles, deleteLocalAudioFile, isDeletedAudioName, purgeReimportedDeletedAudio } from '@/services/localAudioLibrary';
 import {
   YanqiangVoiceEventNames,
   YanqiangVoiceEvents,
@@ -17,6 +17,8 @@ import {
 import { colors } from '@/theme/colors';
 import { t } from '@/locales';
 import type { RootStackParamList } from '@/types/navigation';
+import { getRingUiSession } from '@/services/ringConnectionSession';
+import { formatRingDisplayName } from '@/utils/ringDisplayName';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'YanqiangRecordingDebug'>;
 type SyncPhase = 'idle' | 'starting' | 'receiving' | 'converting' | 'finished' | 'failed';
@@ -69,11 +71,17 @@ export function YanqiangRecordingDebugScreen({ navigation, route }: Props) {
     pushLog('sync: request');
     try {
       const result = await YanqiangVoiceNative.syncVoiceRecordings();
-      setFiles(result.files || []);
+      await purgeReimportedDeletedAudio();
+      const visible: NativeFile[] = [];
+      for (const file of result.files || []) {
+        if (file?.name && (await isDeletedAudioName(file.name))) continue;
+        visible.push(file);
+      }
+      setFiles(visible);
       setSyncPhase('finished');
       setProgress(100);
-      setProgressText(t.sync.completed(result.files?.length ?? 0));
-      pushLog(`sync: resolved local=${result.files?.length ?? 0}`);
+      setProgressText(t.sync.completed(visible.length));
+      pushLog(`sync: resolved local=${visible.length}`);
       await querySummary();
     } catch (error) {
       setSyncPhase('failed');
@@ -114,8 +122,16 @@ export function YanqiangRecordingDebugScreen({ navigation, route }: Props) {
       }),
       YanqiangVoiceEvents.addListener(YanqiangVoiceEventNames.fileReady, (event) => {
         setSyncPhase('converting');
-        setFiles((current) => upsertFile(current, event as NativeFile));
-        pushLog(`save: success name=${event?.name} bytes=${event?.size} uri=${event?.uri}`);
+        const name = String(event?.name || '');
+        void (async () => {
+          if (name && (await isDeletedAudioName(name))) {
+            await purgeReimportedDeletedAudio();
+            pushLog(`save: skipped deleted name=${name}`);
+            return;
+          }
+          setFiles((current) => upsertFile(current, event as NativeFile));
+          pushLog(`save: success name=${event?.name} bytes=${event?.size} uri=${event?.uri}`);
+        })();
       }),
       YanqiangVoiceEvents.addListener(YanqiangVoiceEventNames.error, (event) => {
         setSyncPhase('failed');
@@ -223,6 +239,9 @@ export function YanqiangRecordingDebugScreen({ navigation, route }: Props) {
     ]);
   }
 
+  const sessionDevice = getRingUiSession().devices[route.params.macAddress];
+  const ringLabel = formatRingDisplayName(sessionDevice?.name ?? 'AIZO', route.params.macAddress);
+
   return (
     <AppScreen tone="plain" bottomInset={50}>
       <Pressable style={styles.backButton} onPress={() => navigation.goBack()}>
@@ -231,7 +250,7 @@ export function YanqiangRecordingDebugScreen({ navigation, route }: Props) {
       </Pressable>
 
       <Text style={styles.title}>{t.sync.title}</Text>
-      <Text style={styles.subtitle}>{t.common.device} {route.params.macAddress}</Text>
+      <Text style={styles.subtitle}>{ringLabel}</Text>
 
       <View style={styles.card}>
         <View style={styles.cardHeader}>
@@ -245,12 +264,9 @@ export function YanqiangRecordingDebugScreen({ navigation, route }: Props) {
           <Metric label={t.sync.ringData} value={summary ? formatBytes(summary.totalBytes) : '--'} />
           <Metric label={t.sync.localOgg} value={String(files.length)} />
         </View>
-        <Text style={styles.detailText}>
-          supported={String(summary?.supported ?? '--')} · code={String(summary?.code ?? '--')}
-        </Text>
         {!!summary?.message && <Text style={styles.detailText}>{summary.message}</Text>}
         <Text style={styles.detailText}>
-          {t.sync.workingState}: {workingState === null ? t.sync.waitingState : `${workingStateLabel(workingState)} (${workingState})`}
+          {t.sync.workingState}: {workingState === null ? t.sync.waitingState : workingStateLabel(workingState)}
         </Text>
       </View>
 

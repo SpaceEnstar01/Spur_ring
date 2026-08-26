@@ -19,6 +19,7 @@ export type LocalAgentCard = {
   category: AgentCardCategory;
   transcript?: string;
   output?: string;
+  imageUrl?: string;
   summary?: string;
   remoteId?: string;
   error?: string;
@@ -44,9 +45,11 @@ export async function syncLocalAgentCards(): Promise<LocalAgentCard[]> {
     };
   });
 
-  // Keep seeded demo cards even if duration decode briefly fails (would mis-bucket as recording).
+  // Keep seeded demo cards only when the audio file still exists (duration decode can mis-bucket).
+  const onDiskNames = new Set(files.map((file) => file.name));
   for (const card of Object.values(saved)) {
     if (!isDemoAudioName(card.fileName)) continue;
+    if (!onDiskNames.has(card.fileName)) continue;
     if (cards.some((item) => item.id === card.id || item.fileName === card.fileName)) continue;
     cards.push(card);
   }
@@ -67,6 +70,7 @@ export async function processAgentCard(card: LocalAgentCard): Promise<LocalAgent
   try {
     const result = await processAudioWithAi({ uri: card.fileUri, name: card.fileName, taskType: 'agent_command' });
     const output = result.agent.output.trim();
+    const imageUrl = await cacheGeneratedImage(card.id, result.agent.imageUrl);
     const completed: LocalAgentCard = {
       ...processing,
       status: 'completed',
@@ -74,6 +78,7 @@ export async function processAgentCard(card: LocalAgentCard): Promise<LocalAgent
       category: inferCategory(result.transcript, output),
       transcript: result.transcript,
       output,
+      imageUrl,
       summary: summarize(output || result.transcript),
       remoteId: result.id,
       updatedAt: Date.now()
@@ -98,11 +103,55 @@ export async function toggleAgentCardFavorite(card: LocalAgentCard): Promise<Loc
   return updated;
 }
 
+export async function updateAgentCardResult(
+  card: LocalAgentCard,
+  patch: { output: string; imageUrl?: string }
+): Promise<LocalAgentCard> {
+  const output = patch.output.trim();
+  const imageUrl =
+    patch.imageUrl === undefined
+      ? card.imageUrl
+      : patch.imageUrl
+        ? await cacheGeneratedImage(card.id, patch.imageUrl)
+        : undefined;
+  const updated: LocalAgentCard = {
+    ...card,
+    status: 'completed',
+    title: deriveTitle(output, card.transcript || ''),
+    category: inferCategory(card.transcript || '', output),
+    output,
+    imageUrl,
+    summary: summarize(output || card.transcript || ''),
+    error: undefined,
+    updatedAt: Date.now()
+  };
+  await saveCard(updated);
+  return updated;
+}
+
 export async function deleteAgentCard(card: LocalAgentCard) {
   await deleteLocalAudioFile(card.fileUri);
+  if (card.imageUrl?.startsWith('file')) {
+    await FileSystem.deleteAsync(card.imageUrl, { idempotent: true }).catch(() => undefined);
+  }
   const cards = await readCards();
   delete cards[card.id];
   await writeCards(cards);
+}
+
+async function cacheGeneratedImage(cardId: string, remoteUrl?: string): Promise<string | undefined> {
+  if (!remoteUrl) return undefined;
+  try {
+    const dir = `${FileSystem.documentDirectory}agent-images/`;
+    await FileSystem.makeDirectoryAsync(dir, { intermediates: true });
+    const ext = remoteUrl.match(/\.(png|jpe?g|webp)(?:\?|$)/i)?.[1] || 'png';
+    const dest = `${dir}${cardId}.${ext}`;
+    const downloaded = await FileSystem.downloadAsync(remoteUrl, dest);
+    if (downloaded.status !== 200) return remoteUrl;
+    return downloaded.uri;
+  } catch {
+    return remoteUrl;
+  }
 }
 
 function createPendingCard(file: LocalAudioFile): LocalAgentCard {

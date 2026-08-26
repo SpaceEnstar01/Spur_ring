@@ -7,7 +7,7 @@ Spur 录音戒指 Private 主仓：可编译的 App（Android / iOS）+ 云端�
 ```text
 spur/
 ├── app/          # 主交付：mobile + cloud + web + docs
-├── desktop/      # 占位（桌面端后续）
+├── desktop/      # 桌面端：spur-buddy 为主；bridge 为旧实验
 ├── hardware/     # 占位（固件后续）
 ├── README.md
 └── .gitignore
@@ -46,3 +46,12 @@ cp .env.example .env   # 填写密钥后启动
 ```
 
 上传目标与验收说明见 `app/docs/github/spur-private-repo-upload-目标.md`。
+
+### Mac（Spur Buddy）
+
+```bash
+cd desktop/spur-buddy
+swift run
+```
+
+代码只放在 `desktop/spur-buddy/`。`desktop/bridge/` 是旧的戒指-编程桥，先不动。

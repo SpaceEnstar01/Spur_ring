@@ -4,6 +4,12 @@
 .vscode/
 *.log
 *.tar.gz
+*.pdf
+
+# Agent local artifacts
+agent/runtime/*.zip
+agent/runtime/.deepseek-harness.git.bak/
+
 
 # Dependencies
 **/node_modules/

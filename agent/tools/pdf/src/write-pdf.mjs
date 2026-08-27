@@ -14,6 +14,10 @@ const FONT_CANDIDATES = [
   '/System/Library/Fonts/Supplemental/Arial Unicode.ttf',
   '/System/Library/Fonts/Supplemental/Songti.ttc',
   '/System/Library/Fonts/STHeiti Light.ttc',
+  '/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc',
+  '/usr/share/fonts/google-noto-cjk/NotoSansCJK-Regular.ttc',
+  '/usr/share/fonts/noto-cjk/NotoSansCJKsc-Regular.otf',
+  '/usr/share/fonts/truetype/noto/NotoSansSC-Regular.otf',
 ]
 
 function pickFontPath() {

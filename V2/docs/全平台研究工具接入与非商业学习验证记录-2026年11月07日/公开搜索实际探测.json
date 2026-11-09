@@ -1,0 +1,281 @@
+[
+  {
+    "platform": "reddit",
+    "query": "personal agent",
+    "elapsedMs": 1328,
+    "schema_version": 1,
+    "ok": true,
+    "channel": "reddit",
+    "action": "search",
+    "backend": "public-web",
+    "items": [
+      {
+        "title": "The Best Personal AI Assistant for 2026 : r/AI_Agents",
+        "url": "https://www.reddit.com/r/AI_Agents/comments/1s540ec/the_best_personal_ai_assistant_for_2026/",
+        "author": "u/Justin_3486",
+        "published_at": "2026-03-27T13:24:37.000Z",
+        "text": "Only including tools I've personally used, not whatever shows up first when you Google this. Focused on assistants that actually do things rather than ones that answer questions and wait for you to do the work yourself. Vellum: local, open source, scoped permissions so you decide exactly what it can touch. Good for anyone who cares where their data actually goes. Connects to email, calendar, files. Acts on tasks. Lindy AI: polished experience, handles email and calendar reasonably well. Cloud only, which matters depending on what you're using it for. Pricing adds up once you're actually relying on it day to day. Manus: just added local device access but was fully cloud until recently. Still feels like it's settling into the positioning. Claude Cowork: solid underlying model. The limitation is you're locked into one provider, which is fine until it isn't. Hermes Agent: technically impressive if you're into the self-improving local agent idea. Requires managing your own server\n\n---",
+        "raw": {
+          "source": {
+            "title": "The Best Personal AI Assistant for 2026 : r/AI_Agents",
+            "url": "https://www.reddit.com/r/AI_Agents/comments/1s540ec/the_best_personal_ai_assistant_for_2026/",
+            "published": "2026-03-27T13:24:37.000Z",
+            "author": "u/Justin_3486"
+          },
+          "content_scope": "search_results",
+          "access": "public",
+          "completeness_verified": false
+        }
+      },
+      {
+        "title": "100 Tips & Tricks for Building Your Own Personal AI Agent /LONG POST/ : r/aiagents",
+        "url": "https://www.reddit.com/r/aiagents/comments/1thi7ag/100_tips_tricks_for_building_your_own_personal_ai/",
+        "author": "u/palo888",
+        "published_at": "2026-05-19T09:59:07.000Z",
+        "text": "# 100 Tips & Tricks for Building Your Own Personal AI Agent /LONG POST/\n\nPosted by **u/palo888** in r/aiagents · 14 points · 19 comments · May 19, 2026 at 9:59 AM UTC\n\n*Everything I learned the hard way — 6 weeks, no sleep :), two environments, one agent that actually works.*\n\n# The Story\n\nI spent six weeks building a personal AI agent from scratch — not a chatbot wrapper, but a persistent assistant that manages tasks, tracks deals, reads emails, analyzes business data, and proactively surfaces things I'd otherwise miss.\n\nIt started in the cloud (Claude Projects — shared memory files, rich context windows, custom skills). Then I migrated to Claude Code inside VS Code, which unlocked local file access, git tracking, shell hooks, and scheduled headless tasks. The migration forced us to solve problems we didn't know we had.\n\nThese 100 tips are the distilled result. Most are universal to any serious agentic setup. Claude 20x max is must, start was 100%develompent s 0%real workd, after 3",
+        "raw": {
+          "source": {
+            "title": "100 Tips & Tricks for Building Your Own Personal AI Agent /LONG POST/ : r/aiagents",
+            "url": "https://www.reddit.com/r/aiagents/comments/1thi7ag/100_tips_tricks_for_building_your_own_personal_ai/",
+            "published": "2026-05-19T09:59:07.000Z",
+            "author": "u/palo888"
+          },
+          "content_scope": "search_results",
+          "access": "public",
+          "completeness_verified": false
+        }
+      }
+    ],
+    "meta": {
+      "elapsed_ms": 1250,
+      "attempts": [
+        {
+          "backend": "public-web/exa",
+          "result": "ok"
+        }
+      ],
+      "access": {
+        "mode": "public",
+        "scope": "search_results",
+        "completeness_verified": false,
+        "note": "公开网页结果；不保证站内排序、最新状态、全文或全部评论。需要站内数据时指定 --backend。"
+      }
+    },
+    "error": null
+  },
+  {
+    "platform": "x",
+    "query": "personal agent",
+    "elapsedMs": 1373,
+    "schema_version": 1,
+    "ok": false,
+    "channel": "twitter",
+    "action": "search",
+    "backend": null,
+    "items": [],
+    "meta": {
+      "elapsed_ms": 1313,
+      "attempts": [
+        {
+          "backend": "public-web/exa",
+          "result": "ok"
+        },
+        {
+          "backend": "public-web/content-check",
+          "result": "INSUFFICIENT_CONTENT"
+        }
+      ]
+    },
+    "error": {
+      "code": "UPSTREAM_BROKEN",
+      "message": "Public web returned no usable content in the requested scope",
+      "hint": "Try the site tool; this does not establish a login requirement."
+    }
+  },
+  {
+    "platform": "bilibili",
+    "query": "AI硬件 site:bilibili.com",
+    "elapsedMs": 1268,
+    "schema_version": 1,
+    "ok": true,
+    "channel": "web",
+    "action": "search",
+    "backend": "exa",
+    "items": [
+      {
+        "title": "AI硬件-哔哩哔哩_bilibili",
+        "url": "https://search.bilibili.com/all?keyword=AI%E7%A1%AC%E4%BB%B6",
+        "author": "ChainLens",
+        "published_at": null,
+        "text": "AI硬件-哔哩哔哩_bilibili\n\n7.4万 221\n\n07:04\n\n### CES2026之后， AI硬件只剩两条路\n\n酷玩实验室 · 01-10\n\n156.2万 3726\n\n13:18\n\n### 今年最火的 AI硬件…太差了！何同学工作室7月开箱\n\n何同学工作室 · 2024-07-08\n\n4063\n\n### 实战 AI CNN LLM 硬件加速\n\n芯天行者 · 共77课时\n\n651 0\n\n13:40\n\n### AI时代--所有硬件都有第二次机会\n\nChainLens · 01-11\n\n1.6万 11\n\n28:44\n\n### 【中配】OpenAI全新设备将永远改变人工智能（OpenAI IO设备揭秘） - TheAIGRID\n\nAI译片君 · 2025-10-27\n\n1021 0\n\n34:07\n\n### 做全球化 AI硬件，Plaud许高的复盘与真心话\n\n嘉程商业评论 · 02-04\n\n1123 0\n\n40:22\n\n### 中国 AI的下一个冲击：硬件\n\n声译看世界 · 01-30\n\n184.4万 8333\n\n18:29\n\n### 售价几千甚至上万，这些 AI产品全是画饼吗？\n\n影视飓风 · 2024-06-23\n\n1056\n\n### AI大模型硬件架构\n\n老崔说AI · 共32课时\n\n12.3万 410\n\n23:38\n\n### ESP32S3搭建小智 AI（有手就会版）\n\n闪电蘑菇 · 2025-05-11\n\n17.3万 67\n\n23:56:38\n\n### AI小智系统硬件+后端从零开发\n\n杯面_白 · 2025-04-05\n\n102 0\n\n06:15\n\n### 揭秘 AI硬件：深度剖析东山精密\n\n硬科技公司投研局 · 15小时前\n\n27万 2004\n\n47:19\n\n### 中国 AI产业冰山图！全面盘点～【万字解析】\n\n秋芝2046 · 01-11\n\n14:50\n\n### 【 AI投资第三集】端侧 AI硬件产业深度解析：拐点已现，如何布局全产业链？\n\n鑫观点 · 01-09\n\n12:14\n\n### Clawdbot之后， AI NAS接棒：个人超级助手的硬件赛道之争\n\n王博的会客室 · 17分钟前\n\n54:19:28\n\n### 【整整600集】清华大学196小时讲完的 AI人工智能从入门到精通全套教程，全程干货无废话！学完变大佬！这还学不会，我退出IT圈！机器学习-深度学习-opencv\n\nIT界扛霸子 · 2025-11-28\n\n7.5万 137\n\n01:10:33\n\n### 【2025版】大模型GPU硬件配置保姆级指南｜一站式解决深度学习&大模型硬件问题｜大模型推理与训练，GPU硬件配置指南\n\n九天Hector · 2024-12-16\n\n74.1万 497\n\n15:02\n\n### 把豆包装进耳机！字节新 AI硬件能成吗？\n\n林亦LYi · 2024-10-15\n\n1.3万 4\n\n02:21\n\n### 这可能是我今年用过最合理的 AI硬件形态\n\n赛文乔伊 · 01-19\n\n09:53\n\n### AI需求引发硬件供应链“超级周期”：存储与CPU陷持续短缺，涨价潮或延续至2027年\n\n王博的会客室 · 02-03\n\n42:59\n\n### AI+硬件确定性大爆发！真正的机会在哪\n\n中国好生意 · 01-31\n\n52.4万 269\n\n07:26\n\n### ESP32 大模型 AI 桌面机器人\n\nESP_Friends · 2024-11-29\n\n03:53\n\n### 不用 AI的硬件工程师也许将会被替代\n\n一路带飞_硬件设计 · 2025-12-28\n\n02:16\n\n### AI硬件再次爆发\n\n主升浪杰哥 · 9小时前\n\n04:44\n\n### 用 AI把所有终端硬件重做一遍\n\n江江不怕巷子深 · 02-04\n\n37:43\n\n### AI硬件的理性泡沫， AI硬件供需分析\n\n小齐投资养家 · 01-11\n\n12:30\n\n### 【中配】OpenAI的 AI笔可能是首款真正有用的 AI设备 - TheAIGRID\n\n黑纹白斑马 · 01-06\n\n1.8万 5\n\n41:24\n\n### 大模型时代下的智能硬件新玩法\n\n聆思AI芯片 · 2024-02-26\n\n14:53\n\n### AI爆发的下一个机会,端侧模型 + 硬件-RWKV COO 罗璇\n\n好朋友乐平 · 2025-11-01\n\n03:35\n\n### 2026开年内存条暴涨300%！16GB已成电子垃圾？｜内存暴涨背后是谁逼你为“端侧大模型”买单？【深聊背后的 AI硬件争夺战】\n\nAi商业慢谈 · 01-21\n\n03:51\n\n### 小白必看 2025年我手搓 AI机器人经验总结分享\n\n赛博太白 · 2025-12-30\n\n02:11\n\n### 阿里大模型品牌统一为千问，面壁官宣首款 AI硬件 | 2月6日 AI日报第298期\n\ninfinite灵感港 · 7小时前\n\n21.7万 223\n\n04:35\n\n### 本地跑 AI大模型，到底需要什么电脑配置？｜ Intel U7 265K处理器实测\n\n我是阿众 · 2025-11-16\n\n15:13\n\n### 2.04 大盘异动解密-“老登股”迎来春天，两大“颠覆担忧”导致 AI软硬件双双吃面\n\n大同证券有限责任公司 · 02-04\n\n12:03\n\n### 🚀实测Clawdbot彻底改变我的工作方式！一条命令部署，WhatsApp远程控制电脑，自动编程开发，2026年最强个人 AI员工来了！自我进化+无限记忆\n\n02:18\n\n### 涂鸦T5 AI口袋机：软硬件全开源！可快速复刻功能强大的 AI掌机\n\n涂鸦开发者 · 01-21\n\n04:41\n\n### 暴涨暴跌！商业航天 AI应用 AI硬件剧烈波动！还有机会吗？\n\n趋势天哥 · 02-04\n\n04:49\n\n### 赴一年之约 | 耗时365天，我手搓了这台有灵魂的小智 AI机器人（全开源）沉浸式体验\n\nMovecall · 01-23\n\n02:10\n\n### 可能是墨水屏的终极形态！满足你对无感 AI硬件的所有幻想\n\n极趣实验室 · 01-03\n\n02:09:42\n\n### 和Plaud许高聊创业审美：全球增速最快 AI硬件背后\n\n卫诗婕_漫谈播客集 · 2025-10-27\n\n15:15\n\n### 【深度】 AI占比0%！国产存储拿什么挑战“三巨头”？\n\n爱思考的老梨 · 01-22\n\n06:07\n\n### 钉钉到底造了个什么硬件？\n\n满配小四 · 2025-09-12\n\n---",
+        "raw": {
+          "title": "AI硬件-哔哩哔哩_bilibili",
+          "url": "https://search.bilibili.com/all?keyword=AI%E7%A1%AC%E4%BB%B6",
+          "published": "N/A",
+          "author": "ChainLens"
+        }
+      },
+      {
+        "title": "10分钟搞懂TPU/DPU/NPU：从张量运算到边缘智能的算力革命_哔哩哔哩_bilibili",
+        "url": "https://www.bilibili.com/video/BV1xUSMBxEtB/",
+        "author": "玺总行业框架与科技",
+        "published_at": "2025-11-27T17:49:56.000Z",
+        "text": "10分钟搞懂TPU/DPU/NPU：从张量运算到边缘智能的算力革命_哔哩哔哩_bilibili\n\n# 10分钟搞懂TPU/DPU/NPU：从张量运算到边缘智能的算力革命\n\n2025-11-27 17:53:43\n\nHello各位科技爱好者！今天来扒一扒ASIC芯片的三大核心分支——TPU、DPU和NPU，这仨堪称AI算力圈的“铁三角”，却因为定位不同鲜少被一起详解～ 💡 本期视频核心看点： 1. 架构差异：TPU的脉动阵列、DPU的多引擎集成、NPU的低功耗设计，到底强在哪？ 2. 应用场景：为什么谷歌用TPU训练大模型？数据中心离不开DPU？手机必须有NPU？ 3. 选型逻辑：不同场景下该怎么选？算力、效率、功耗如何平衡？ 视频里用通俗比喻拆解专业知识点，还对比了三者的算力、能效比数据，看完不仅能分清区别，还能理解AI硬件的底层逻辑～ 欢迎在弹幕里分享你的看法，觉得有用记得一键三连，下期聊聊异构计算的未来趋势！",
+        "raw": {
+          "title": "10分钟搞懂TPU/DPU/NPU：从张量运算到边缘智能的算力革命_哔哩哔哩_bilibili",
+          "url": "https://www.bilibili.com/video/BV1xUSMBxEtB/",
+          "published": "2025-11-27T17:49:56.000Z",
+          "author": "玺总行业框架与科技"
+        }
+      }
+    ],
+    "meta": {
+      "elapsed_ms": 1189,
+      "attempts": [
+        {
+          "backend": "exa",
+          "result": "ok"
+        }
+      ]
+    },
+    "error": null
+  },
+  {
+    "platform": "douyin",
+    "query": "AI硬件 site:douyin.com",
+    "elapsedMs": 5029,
+    "schema_version": 1,
+    "ok": true,
+    "channel": "web",
+    "action": "search",
+    "backend": "exa",
+    "items": [
+      {
+        "title": "AI硬件终于能“上钟”了 云栖大会AI硬件众生相实录-抖音精选",
+        "url": "https://jingxuan.douyin.com/m/video/7694600823438904595",
+        "author": "InfoQ",
+        "published_at": "2026-10-09T09:41:05.000Z",
+        "text": "AI硬件终于能“上钟”了 云栖大会AI硬件众生相实录-抖音精选\n\n# AI硬件终于能“上钟”了 云栖大会AI硬件众生相实录\n\n2026-10-09发布\n\n01:32\n\n## 混元Hy4发布，坦承跑分差距，榜单亮眼却陷幻觉争议，首日爆满扩容。\n\n9小时前\n\n01:58\n\n## Ming-3.0以MIT许可开源，团队可下载权重、自己部署和调试语音管线，成本与迭代不再完全受API定价牵制。\n\n3天前\n\n01:46\n\n## MIT CSAIL 提出权重空间编程，Astra 能读写修改小模型权重修复缺陷，性能大幅提升，但不能新增能力，实验尚未经过同行评议，有待复现。\n\n4天前\n\n02:00\n\n## Karpathy两小时用Claude筛HN评论建HackerTube，以跨月推荐去封面竞赛，本质是个人策展。\n\n5天前\n\n01:58\n\n## CVE-2026-98432 是高危 Linux 内核 IPv4 TCP 竞态漏洞，Ubuntu、RHEL 补丁迟迟未出，Go1.24 + 程序默认开启 MPTCP，放大风险，临时防护无法根治。\n\n01:46\n\n## 谷歌发布跑分全球第一的Gemini 4 Carbon，却只开放给少数防御者。\n\n02:11\n\n## LFM3被传2B追平大模型，官方却限制复杂推理；真正看点是单卡微调与d1决策模型。\n\n01:26\n\n## 网盘下载慢，换个工具还麻烦？GitHub上3万多Star的LinkSwift火了！它能提取下载地址、调用第三方下载器，却明确表示不破解限速。那它到底好用在哪？\n\n02:30\n\n## RTX 3090二手有人挂到9000元！开源项目解锁英伟达显卡的部分AI算力，跑分接近翻倍，但大模型逐字生成只快约1%。这波性能解锁，究竟谁能真正受益？\n\n02:03\n\n## 146个Grok模板免费，多Bot共用云电脑，月初权限泄露、月下旬故障连坐。\n\n---",
+        "raw": {
+          "title": "AI硬件终于能“上钟”了 云栖大会AI硬件众生相实录-抖音精选",
+          "url": "https://jingxuan.douyin.com/m/video/7694600823438904595",
+          "published": "2026-10-09T09:41:05.000Z",
+          "author": "InfoQ"
+        }
+      },
+      {
+        "title": "在深圳看了一圈 AI 硬件，真机会竟不是做产品 本期视频，是我和朗翰科技/ INNO100 创始人张文翰 Wayne，在深圳 INNO100 的一次线下对话。",
+        "url": null,
+        "author": null,
+        "published_at": null,
+        "text": "Wayne 从 2017 年就开始做智能硬件出海相关业务，先是创办了朗翰科技，前两年又在深圳开了 1300 平的创新硬件旗舰店 INNO100，见过市面上最前沿、最好玩的一大批 AI 硬件。\n\n这次我带着我们勇士合伙人和很多小白关心的问题，来到 INNO100 向他请教：\n\nAI 硬件创业，到底有什么样的机会？\n\n他的回答，跟我一开始想的很不一样。\n\nAI 吃掉了软件，人们的目光纷纷开始看向硬件，但如果你也想搭上 AI 硬件这波，这集你一定要看到最后～\n\n🎤【本期话题】：\n1、AI 硬件这波，普通人到底还有没有机会？\n2、为什么说真正的机会，其实不在“做产品”本身？\n3、普通人零基础想做一个 AI 硬件，第一步该做什么？\n4、一个硬件发烧友，为什么反而劝大家先别做智能硬件？\n5、怎么判断一个 AI 硬件是真需求，还是把 AI 硬套上去的伪需求？\n6、为什么说智能硬件，几乎只有中国团队才能做成？\n7、不亲自做产品，还能在这条产业链里找到自己的位置吗？\n\n希望对你有启发！-抖音精选\nURL: https://jingxuan.douyin.com/m/video/7689685268747652395\nPublished: 2026-09-26T03:46:18.000Z\nAuthor: 凯莉彭 509视频 关注\n在深圳看了一圈 AI 硬件，真机会竟不是做产品 本期视频，是我和朗翰科技/ INNO100 创始人张文翰 Wayne，在深圳 INNO100 的一次线下对话。 Wayne 从 2017 年就开始做智能硬件出海相关业务，先是创办了朗翰科技，前两年又在深圳开了 1300 平的创新硬件旗舰店 INNO100，见过市面上最前沿、最好玩的一大批 AI 硬件。 这次我带着我们勇士合伙人和很多小白关心的问题，来到 INNO100 向他请教： AI 硬件创业，到底有什么样的机会？ 他的回答，跟我一开始想的很不一样。 AI 吃掉了软件，人们的目光纷纷开始看向硬件，但如果你也想搭上 AI 硬件这波，这集你一定要看到最后～ 🎤【本期话题】： 1、AI 硬件这波，普通人到底还有没有机会？ 2、为什么说真正的机会，其实不在“做产品”本身？ 3、普通人零基础想做一个 AI 硬件，第一步该做什么？ 4、一个硬件发烧友，为什么反而劝大家先别做智能硬件？ 5、怎么判断一个 AI 硬件是真需求，还是把 AI 硬套上去的伪需求？ 6、为什么说智能硬件，几乎只有中国团队才能做成？ 7、不亲自做产品，还能在这条产业链里找到自己的位置吗？ 希望对你有启发！-抖音精选\n\n# 在深圳看了一圈 AI 硬件，真机会竟不是做产品 本期视频，是我和朗翰科技/ INNO100 创始人张文翰 Wayne，在深圳 INNO100 的一次线下对话。 Wayne 从 2017 年就开始做智能硬件出海相关业务，先是创办了朗翰科技，前两年又在深圳开了 1300 平的创新硬件旗舰店 INNO100，见过市面上最前沿、最好玩的一大批 AI 硬件。 这次我带着我们勇士合伙人和很多小白关心的问题，来到 INNO100 向他请教： AI 硬件创业，到底有什么样的机会？ 他的回答，跟我一开始想的很不一样。 AI 吃掉了软件，人们的目光纷纷开始看向硬件，但如果你也想搭上 AI 硬件这波，这集你一定要看到最后～ 🎤【本期话题】： 1、AI 硬件这波，普通人到底还有没有机会？ 2、为什么说真正的机会，其实不在“做产品”本身？ 3、普通人零基础想做一个 AI 硬件，第一步该做什么？ 4、一个硬件发烧友，为什么反而劝大家先别做智能硬件？ 5、怎么判断一个 AI 硬件是真需求，还是把 AI 硬套上去的伪需求？ 6、为什么说智能硬件，几乎只有中国团队才能做成？ 7、不亲自做产品，还能在这条产业链里找到自己的位置吗？ 希望对你有启发！\n\n2026-09-26发布\n\n...\n\n## 大厂在裁员，AI公司却在抢这几种人 本期视频，是我在硅谷的一次线下街头对话，随机采访了5位AI行业的创业者和从业者。 他们当中有前摩根大通投行人、现做院线级AI视频生成的公司CFO，成立三年、去年ARR 1500万美金的端侧AI公司负责人，做了20年客服软件、正转型AI的上市公司创始人，前大厂员工、正在做下一代职业社交的AI创业者，还有清华博士、正在用AI做药物发现的斯坦福博士后。 如果你关心AI创业和就业，一定要看到最后～ 🎤【本期话题】： 1、成立三个月就回本，这家AI公司做对了什么？ 2、做了20年的老生意被AI冲击，上市公司是怎么转型的？ 3、两个人的AI创业团队，最难的一关是什么？ 4、AI公司现在还在招人吗？除了工程师，还缺什么样的人？ 5、前投行人眼里，AI时代最值钱的三种能力是什么？ 希望对你有启发！\n\n...\n\n## 对话傅盛：识别大佬幼年体，看一个细节就够了 本期视频，是我和猎豹移动董事长兼CEO傅盛 的一次对话。 傅盛，猎豹移动创始人，曾在3721、雅虎中国、阿里巴巴和360工作，后创办猎豹移动，并在36岁时带领公司上市。他从传统互联网一路走到AI创业，如今正推动猎豹移动向以AI Agent为核心的应用公司转型，也在探索AI机器人等硬件产品。 这期我们聊了很多关于机会、选择和个人成长的话题：一个人的成功，到底有多少靠运气？为什么有些人能更早看到趋势？明明投资可能赚得更多，傅盛为什么还是选择继续创业？而那些真正厉害的人，身上又有哪些共同特征？ 傅盛分享了自己一路走来的真实经历，包括36岁公司上市时的心态、曾经错过的扫地机器人机会，以及过早 All in AI 带来的反思。 他也聊到了自己观察雷军、马化腾等人的细节：真正厉害的人，往往有很强的学习能力，愿意保持空杯心态，也能在挫折中保持理性、持续迭代。 很多时候，机会并不是靠预测出来的，而是在不断学习、行动和积累的过程中，逐渐被看见的。 如果你正在创业，或者思考如何在变化的时代里做出自己的选择，那么非常值得一听～ 🎤【本期话题】： 1、一个人的成功，到底有多少靠运气？ 2、为什么看到了机会，也不一定能抓住？ 3、36岁公司上市后，傅盛为什么依然不满足？ 4、投资回报可能更高，为什么还要继续创业？ 5、“大佬幼年体”，都有哪些共同特征？ 希望对你有启发！ - ✨ 我是凯莉彭，百万粉丝商业科技博主，畅销书《把热爱变成事业》作者，前硅谷资深数据科学家，很高兴认识你！\n\n...\n\n## 对话傅盛：AI时代，当技能变得廉价，普通人靠什么突围？ 本期视频，是我和猎豹移动董事长兼CEO 的一次对话。 傅盛，猎豹移动创始人，曾在3721、雅虎中国、阿里巴巴和360工作，后来创办猎豹移动，并带领公司上市。他从传统互联网一路走到AI创业，如今正推动猎豹移动向以AI Agent为核心的应用公司转型，也在探索AI机器人等硬件产品。 这期我们聊了很多关于AI时代的变化：一家成立十几年的公司，如何重新变成AI原生公司？当AI开始接管越来越多的技能，普通人还能靠什么建立自己的优势？没有背景、没有资源的人，又该怎么抓住这次机会？ 傅盛分享了他对AI转型、个人成长和职业变化的思考，也讲了自己一路走来的经历。他认为，很多时候，所谓的运气，是你积累了很久，终于等来了一个机会。 如果你也在思考AI时代该如何找到自己的位置，希望这期对话能给你一些启发。 🎤【本期话题】： 1、猎豹移动如何完成AI原生转型？ 2、AI取代的究竟是人，还是人的技能？ 3、没有编程基础，普通人也能用AI做产品吗？ 4、没有背景和资源，如何抓住AI时代的机会？ 5、比学历、背景和技能更重要的，到底是什么？ 希望对你有启发！\n\n...\n\n## 创业最重要的那个能力，可能根本培养不出来 本期视频，是我走进深圳科创学院，和深圳科创学院联合创始人、副院长 对话的第二集（第一集聊了他们怎么批量孵化智能硬件创业者）。 深圳科创学院由科创教父李泽湘教授发起，一栋楼里有上千名创业者，其中 65% 进来的时候没有 idea、没有团队、没有一天工作经验。于盈老师是联合创始人，斯坦福本科、哈佛研究生，做过投资银行，28 岁成为全香港最年轻的电台台长，曾担任凤凰卫视《领航者》的制片人和主持人。 她看人几乎不看简历，而且她说有一种能力，基本上教不会也练不出来。视频中段她讲了自己三次跨界、每次都从零开始的那套方法，相信本期内容会给你带来启发！ 🎤【本期话题】： 1、想创业的人，哪些能力可以训练，哪些能力几乎培养不了？ 2、为什么他们愿意收没想法、没团队、没经验的年轻人？ 3、不看名校、不看项目，他们到底在看一个人的什么？ 4、AI 时代，创业的门槛到底降到了什么程度？ 5、为什么说创业是选择比努力更重要？ 6、进入一个完全陌生的行业，她的学习方法是什么？ 7、手上没想法、没团队、没资源的人，还有机会吗？ 希望对你有启发！",
+        "raw": {
+          "title": "在深圳看了一圈 AI 硬件，真机会竟不是做产品 本期视频，是我和朗翰科技/ INNO100 创始人张文翰 Wayne，在深圳 INNO100 的一次线下对话。"
+        }
+      }
+    ],
+    "meta": {
+      "elapsed_ms": 4953,
+      "attempts": [
+        {
+          "backend": "exa",
+          "result": "ok"
+        }
+      ]
+    },
+    "error": null
+  },
+  {
+    "platform": "weibo",
+    "query": "AI硬件 site:weibo.com",
+    "elapsedMs": 3272,
+    "schema_version": 1,
+    "ok": true,
+    "channel": "web",
+    "action": "search",
+    "backend": "exa",
+    "items": [
+      {
+        "title": "AI算力硬件｜三大核心赛道",
+        "url": null,
+        "author": null,
+        "published_at": null,
+        "text": "1. 半导体算力... 来自李姐的笔记 - 微博\nURL: https://weibo.com/6557740684/RjfBsa6Jg\nPublished: 2026-09-22T01:38:07.000Z\nAuthor: N/A\nAI算力硬件｜三大核心赛道 1. 半导体算力... 来自李姐的笔记 - 微博\n\n 李姐的笔记 \n\n 26-09-22 09:38 发布于 广东 来自 iPhone客户端 \n\n AI算力硬件｜三大核心赛道 1. 半导体算力端 设备、材料、存储芯片、PCB；细分：CCL覆铜板、铜箔、电子布、MLCC、玻璃基板 ​2. 光通信互联端 CPO、高速光模块、光芯片、光电封测、精密传动 ​3. 数据中心配套端 液冷散热、AI高压电源 总结：芯片造算力、光模块传算力、液冷电源稳算力，构成完整AI硬件闭环。 ⚠️仅产业梳理，不构成投资建议\n\n---",
+        "raw": {
+          "title": "AI算力硬件｜三大核心赛道"
+        }
+      },
+      {
+        "title": "IFA观察丨AI硬件不再只会回答问题",
+        "url": "https://weibo.com/ttarticle/x/m/geoshow/id/2309405346632811544598?domain=local",
+        "author": null,
+        "published_at": "2026-09-24T11:21:00.000Z",
+        "text": "IFA观察丨AI硬件不再只会回答问题\n\n## IFA观察丨AI硬件不再只会回答问题\n\n2026-09-24 11:21:00阅读 7343\n\n​​\n\n本文约 2400字，建议阅读 5分钟\n\n如果说过去两年的消费电子展，所有产品都急着证明自己“接入了AI”，那么到了IFA 2026，一个变化正在发生：AI不再只是被塞进电视、冰箱和电脑里的附加功能，而是开始成为硬件运行的底层逻辑。\n\n9月4日至8日，IFA 2026在德国柏林举行。根据官方数据，本届展会聚集超过1900个品牌，机器人、人工智能、智能家居乃至飞行汽车都成为展示重点。\n\n但比新品数量更值得关注的是，AI硬件的竞争问题已经变了。\n\n过去，厂商比的是谁能接入更大的模型、生成更流畅的文字；现在，行业开始回答更具体的问题：AI能否在本地独立运行？能否理解物理世界并执行任务？能否在真实场景里，为用户节省时间、降低成本，甚至增强人的身体能力？\n\n从桌面上的智能体PC，到穿在身上的外骨骼，AI正在离开聊天框，进入现实世界。\n\nAI进入本地，电脑开始从工具变成“智能体”\n\n这一轮 AI 浪潮中，个人电脑一度处在一个尴尬的位置。\n\n一边是 PC 厂商密集发布 AI PC，处理器的 AI 算力不断提升；另一边，用户真正使用大模型时，主要计算仍发生在云端。电脑更像是连接 AI 服务的入口，而不是独立承载 AI 的设备。\n\n但云端并非所有场景的最优解。对普通消费者而言，把数据上传云端或许只是隐私顾虑；对政务、医疗、金融、科研等行业而言，数据能否离开本地，往往是一条明确的合规红线。此外，当智能体需要长时间运行、频繁调用模型完成任务并处理企业内部数据时消耗更多词元，云端推理的延迟和成本也会被进一步放大。\n\n因此，本届 IFA 上，一个明显方向是把更多 AI 任务留在本地通过拥有更大参数、更智能的端侧模型来完成。极摩客在展会全球首发桌面级 AI 超算工作站 EVO-X5 Pro，搭载AMD锐龙AI Max+ PRO 495处理器，全球首台可完全离线运行300B参数级大语言模型（LLM）的智能体PC，并将其定义为面向智能体时代的 Agentic PC。\n\n这款产品搭载 AMD Ryzen AI Max+ PRO 495 处理器，采用 CPU、GPU 与 NPU 协同架构，配备 192GB 统一共享内存，最高支持分配 160GB 为专属显存。极摩客称，EVO-X5 Pro 可以在完全离线的情况下运行 300B 参数级大语言模型，主要面向政务、生物医疗、金融投资、涉密科研和企业商用等场景。它还支持多机互联组建分布式计算集群，并加入带外远程管理与独立安全芯片，以满足企业持续运行和数据安全需求。\n\n真正值得注意的并不只是 “300B” 这个数字，而是 PC 角色的变化：它不再只负责调用 AI，而是开始在本地承载模型、数据和智能体任务。如果说 AI PC 解决的是 “电脑能不能运行 AI”，Agentic PC 试图回答的则是 “电脑能不能替人持续完成任务”。\n\n当然，本地大模型仍然面临功耗、散热、软件生态和实际部署成本等问题。参数规模也不等于真实体验。但当模型运行的位置从云端回到桌面，围绕数据、算力和智能体入口的新一轮竞争已经开始。\n\n## AI进入身体，机器人不一定长得像人\n\nAI进入物理世界的另一条路径，是机器人。\n\n今年IFA将机器人列为核心未来议题之一，参展产品既包括会跳舞、打太极和完成高难度动作的人形机器人，也包括用于家庭、救援和辅助生活的智能设备。IFA官方将这一趋势概括为Physical AI：AI不再只是处理信息，而是感知环境、响应变化并完成现实任务。\n\n不过，具身智能并不只有“造一个完整的人”这一种答案。相比追求通用能力的人形机器人，外骨骼选择了一条更贴近人的路径：不替代人，而是识别人的运动意图，再放大人的身体能力。\n\n在具身智能赛道，大多数聚光灯投向的是试图替代人的人形机器人，但也有企业选择另一条路径：让智能科技与人的身体协作，增强人的行动能力。\n\n远山智行便是其中之一。这家公司以人的全生命周期服务为中心搭建EAI全场景智慧生态，目前已推出外骨骼机器人、四足机器人和云端技术平台，试图将智能科技应用于行动辅助、陪伴、安全和健康管理等场景。\n\n此次IFA，远山智行带来“踏山S1”髋部助行外骨骼和“搬山M1”轻型搬运外骨骼，其中踏山S1为海外首发。据了解，与目前市场上部分追求重量、续航或助力强度等单项参数的产品不同，踏山S1主要面向活力老人，基于超过1万名老年人的步态数据进行针对性调校，更注重日常使用中的安全和舒适。产品加入防跌伤气囊附件、多层机械锁止结构和远程足迹共享等功能。目前，远山智行已进入全国50余座城市的数百个体验点，累计服务老年用户超过1万人，并通过文旅租赁、养老社区及C端销售等路径推进商业化。\n\n外骨骼并不是一个新概念，但它过去更多应用于康复医疗、工业搬运等专业领域。如今，随着传感器、电机、算法和电池不断成熟，外骨骼正在尝试从医疗器械或工业装备，变成普通用户可以购买、租赁和持续使用的消费级产品。\n\n这也意味着，机器人的价值不只在于模仿人。相比在舞台上完成后空翻，一台机器能否稳定、安全地帮助老人多走一公里，可能更接近具身智能商业化的真实起点。\n\n中国AI硬件出海，进入“场景竞争”\n\n从极摩客到远山智行，两家公司选择的产品形态完全不同：一个把更大的模型装进桌面设备，一个把算法和电机穿到人身上。但它们背后指向的是同一趋势——AI硬件正在从展示能力，转向解决任务。\n\n这也意味着，中国科技企业在欧洲展会上的竞争方式正在改变。\n\n过去，中国企业出海最突出的优势是供应链效率：产品做得更快、配置更高、价格更低。今天，这些能力依然重要，但已经不足以建立长期壁垒。尤其当AI成为所有产品的标准配置，简单接入大模型、增加语音交互，很容易被竞争对手复制。\n\n下一阶段真正的差异，将来自对场景的理解。\n\n一台本地AI工作站，不能只证明自己可以运行多大的模型，还要回答哪些行业愿意部署、如何保证数据安全、能否融入原有工作流程；一台助行外骨骼，也不能只在展台上让人体验“被推着走”的新鲜感，还要回答老人敢不敢使用、长时间佩戴是否舒适、出现意外如何保护，以及谁愿意为它付费。\n\n这或许也是IFA 2026释放出的信号：当AI开始从云端进入桌面，从屏幕进入身体，硬件公司的竞争终点不再是做出一个带AI的新品，而是找到一个足够具体、足够高频，也足以支撑商业闭环的真实场景。\n\nAI硬件的上半场，大家争相证明机器能够理解人。\n\n下半场，真正决定胜负的，是机器能否开始替人做事，又或者，帮助人做得更多。",
+        "raw": {
+          "title": "IFA观察丨AI硬件不再只会回答问题",
+          "url": "https://weibo.com/ttarticle/x/m/geoshow/id/2309405346632811544598?domain=local",
+          "published": "2026-09-24T11:21:00.000Z",
+          "author": "N/A"
+        }
+      }
+    ],
+    "meta": {
+      "elapsed_ms": 3177,
+      "attempts": [
+        {
+          "backend": "exa",
+          "result": "ok"
+        }
+      ]
+    },
+    "error": null
+  },
+  {
+    "platform": "tiktok",
+    "query": "personal agent site:tiktok.com",
+    "elapsedMs": 3688,
+    "schema_version": 1,
+    "ok": true,
+    "channel": "web",
+    "action": "search",
+    "backend": "exa",
+    "items": [
+      {
+        "title": "Stanford's FREE Local AI Jarvis: Your Private AI Assistant | TikTok",
+        "url": "https://www.tiktok.com/@idlc.aidailytools/video/7628746765264506130",
+        "author": "AIDAILYTOOLS",
+        "published_at": null,
+        "text": "Stanford's FREE Local AI Jarvis: Your Private AI Assistant | TikTok\n\nAIDAILYTOOLS\n\nStanford just built a FREE open-source JARVIS that runs 100% on YOUR device 🤯🔒 No ChatGPT. No cloud. No subscriptions. No one reading your data. Just pure local AI — running entirely on your laptop or GPU. Here's what it does: ☀️ Morning Digest — reads your emails, calendar & news, speaks it out loud 🔬 Deep Research — multi-hop research with citations across your docs 💻 Code Assistant — writes, runs, and debugs Python locally 🧠 13,700+ community skills — install with one command ⚡ Setup in 3 steps — auto-detects your hardware Backed by Stanford, Google Cloud, IBM Research & Ollama. Apache 2.0 — completely free forever. Your AI. Your device. Your data. Period. 🔒 Drop a 🤖 if you want this on your machine 👇 https://github.com/open-jarvis/OpenJarvis . . \n\n#openjarvis\n\n#localai\n\n#privacy\n\n#aitools\n\n#opensource\n\n#stanford\n\n...\n\ntasks\n\n...\n\n🚀 Build powerful AI agents and LLM applications with LangChain.Meet LangChain — an open-source framework designed to help developers build applications powered by large language models and AI agents. 🤖🧠With LangChain, developers can connect LLMs, tools, APIs, data sources, vector stores, and external systems to create intelligent applications that can reason, retrieve information, use tools, and take action.🔥 From simple AI apps to powerful autonomous agents.Whether you're building:🤖 AI agents 💬 Intelligent chatbots 📚 RAG applications 🔎 AI-powered search ⚙️ Automated workflows 🧠 Multi-step AI systems LangChain gives developers a flexible ecosystem for turning AI models into real-world applications.💡 The next generation of software isn't just powered by AI — it's built around AI agents. Would you use LangChain to build your next AI project? 👇🔗 Explore LangChain on GitHub and start building. #LangChain #AI #ArtificialIntelligence #AIAgents #LLM #GenerativeAI #RAG #MachineLearning#OpenSource #AIEngineering #Automation #Python #JavaScript #Programming #Coding #Developer #SoftwareDevelopment #GitHub #Tech #AIInnovation #FutureOfAI #AIDailyTools\n\n🚀 What if you could run your own AI workspace locally?Meet Open WebUI — a powerful, self-hosted AI platform designed to give you a user-friendly interface for interacting with LLMs, including support for Ollama and OpenAI-compatible APIs. 🤖💻With Open WebUI, you can build a more private and flexible AI environment with features for chat, RAG, knowledge bases, model management, tools, and AI workflows —all from one interface.🔥 Your AI. Your models. Your environment.Perfect for developers, AI enthusiasts, teams, and anyone interested in running AI locally instead of relying entirely on cloud-based platforms.💡 Local AI is becoming more powerful—and easier to use.Would you run your own AI workspace? 👇🔗 Explore Open WebUI on GitHub and start building your own AI environment.#OpenWebUI #AI #ArtificialIntelligence #LocalAI #Ollama #LLM #GenerativeAI #OpenSource #SelfHosted #AIAgents #RAG #AIWorkflow #AITools #MachineLearning #Developer #Coding #Programming #GitHub #Tech #AIInnovation #FutureOfAI #OpenSourceAI #AIDailyTools\n\n🚀 Build AI apps, agents, and workflows—without starting from scratch.Meet Dify — an open-source LLM application development platform that helps you build, test, deploy, and manage AI-powered applications with an intuitive visual interface. It ... AI workflows, RAG pipelines, agent capabilities, model management, and observability tools in one platform, making it easier to move from prototype to production .🤖 ... your favorite AI models, ... knowledge bases, build intelligent agents, and automate complex workflows— ... from a single workspace. ... developers ... D ... :Visual AI workflow builder R ... AI agents and automation Multi- ... Self-hosted ... cloud deployment ... ready ... From idea to production—faster than ... .Whether you ... chatbots, internal assistants, customer support tools ... AI solutions, D ... you the flexibility to build ... AI applications with confidence ... 🔥 The future of AI development is visual, collaborative, and open source.What would you build with Dify? Let us know in the comments! 👇#Dify #AI #ArtificialIntelligence #LLM #AIAgents #RAG #GenerativeAI #OpenSource #Automation #WorkflowAutomation #AIApps #Developer #Coding\n\n---",
+        "raw": {
+          "title": "Stanford's FREE Local AI Jarvis: Your Private AI Assistant | TikTok",
+          "url": "https://www.tiktok.com/@idlc.aidailytools/video/7628746765264506130",
+          "published": "N/A",
+          "author": "AIDAILYTOOLS"
+        }
+      },
+      {
+        "title": "NVIDIA RTX Spark: Personal AI Agents for Windows PCs | TikTok",
+        "url": "https://www.tiktok.com/@nvidiartxspark/video/7646305647423704334",
+        "author": null,
+        "published_at": null,
+        "text": "NVIDIA RTX Spark: Personal AI Agents for Windows PCs | TikTok\n\nLog in\n\nSearch\n\nMore\n\nLog in\n\n#### Company\n\n#### Program\n\n#### Terms & Policies\n\n© 2026 TikTok\n\nWe're having trouble playing this video. Please refresh and try again.\n\n2135\n\n110\n\n361\n\n211\n\nEverything to know about RTX Spark in less than 90 seconds:🟢 Personal AI agents🟢 Faster creator workflows🟢 RTX ON gamingAll in thin and light laptops, and SFF desktops.\n\nmore\n\n00:00 / 00:00\n\n1764\n\n86\n\n252\n\n177\n\nDownload the app for the full FIFA World Cup 2026™ experience\n\n...\n\nEverything to know about RTX Spark in less than 90 seconds: 🟢 Personal AI agents 🟢 Faster creator workflows 🟢 RTX ON gaming All in thin and light laptops, and SFF desktops.",
+        "raw": {
+          "title": "NVIDIA RTX Spark: Personal AI Agents for Windows PCs | TikTok",
+          "url": "https://www.tiktok.com/@nvidiartxspark/video/7646305647423704334",
+          "published": "N/A",
+          "author": "N/A"
+        }
+      }
+    ],
+    "meta": {
+      "elapsed_ms": 3596,
+      "attempts": [
+        {
+          "backend": "exa",
+          "result": "ok"
+        }
+      ]
+    },
+    "error": null
+  }
+]

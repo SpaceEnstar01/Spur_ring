@@ -1,0 +1,239 @@
+{
+  "voice": "en-GB-SoniaNeural",
+  "rate": "-8%",
+  "segments": [
+    {
+      "id": 0,
+      "narration": "I left before dawn, wondering why I'd dragged myself out into the cold.",
+      "duration": 7,
+      "original_tts_seconds": 5.208,
+      "speed_factor": 1,
+      "path": "/Users/x/X/space/spur/V2/docs/OpenMontage\u963f\u5c14\u5351\u65af\u5c71\u5341\u4e94\u6761\u8bb0\u5f55\u5236\u4f5c\u516d\u5341\u79d2\u65c5\u884c\u89c6\u9891\u9a8c\u8bc1-2026\u5e7411\u670809\u65e5/\u82f1\u6587Sonia\u6210\u7247/audio/0.wav",
+      "recording_ids": [
+        1
+      ]
+    },
+    {
+      "id": 1,
+      "narration": "Then the first light caught the peaks. Some moments just don't fit inside a photograph.",
+      "duration": 7,
+      "original_tts_seconds": 6.336,
+      "speed_factor": 1,
+      "path": "/Users/x/X/space/spur/V2/docs/OpenMontage\u963f\u5c14\u5351\u65af\u5c71\u5341\u4e94\u6761\u8bb0\u5f55\u5236\u4f5c\u516d\u5341\u79d2\u65c5\u884c\u89c6\u9891\u9a8c\u8bc1-2026\u5e7411\u670809\u65e5/\u82f1\u6587Sonia\u6210\u7247/audio/1.wav",
+      "recording_ids": [
+        2
+      ]
+    },
+    {
+      "id": 2,
+      "narration": "But the trail got rough. My legs ached. For a while, I really wanted to turn back.",
+      "duration": 8,
+      "original_tts_seconds": 7.032,
+      "speed_factor": 1,
+      "path": "/Users/x/X/space/spur/V2/docs/OpenMontage\u963f\u5c14\u5351\u65af\u5c71\u5341\u4e94\u6761\u8bb0\u5f55\u5236\u4f5c\u516d\u5341\u79d2\u65c5\u884c\u89c6\u9891\u9a8c\u8bc1-2026\u5e7411\u670809\u65e5/\u82f1\u6587Sonia\u6210\u7247/audio/2.wav",
+      "recording_ids": [
+        3,
+        6
+      ]
+    },
+    {
+      "id": 3,
+      "narration": "An old man on the path told me, 'Don't rush to the top. Take your time.'",
+      "duration": 8,
+      "original_tts_seconds": 5.592,
+      "speed_factor": 1,
+      "path": "/Users/x/X/space/spur/V2/docs/OpenMontage\u963f\u5c14\u5351\u65af\u5c71\u5341\u4e94\u6761\u8bb0\u5f55\u5236\u4f5c\u516d\u5341\u79d2\u65c5\u884c\u89c6\u9891\u9a8c\u8bc1-2026\u5e7411\u670809\u65e5/\u82f1\u6587Sonia\u6210\u7247/audio/3.wav",
+      "recording_ids": [
+        5
+      ]
+    },
+    {
+      "id": 4,
+      "narration": "So I put my phone away. Cowbells, wind... bread and cheese. Somehow, it was enough.",
+      "duration": 8,
+      "original_tts_seconds": 7.728,
+      "speed_factor": 1.0235761589403973,
+      "path": "/Users/x/X/space/spur/V2/docs/OpenMontage\u963f\u5c14\u5351\u65af\u5c71\u5341\u4e94\u6761\u8bb0\u5f55\u5236\u4f5c\u516d\u5341\u79d2\u65c5\u884c\u89c6\u9891\u9a8c\u8bc1-2026\u5e7411\u670809\u65e5/\u82f1\u6587Sonia\u6210\u7247/audio/4.wav",
+      "recording_ids": [
+        4,
+        8,
+        9
+      ]
+    },
+    {
+      "id": 5,
+      "narration": "Then the clouds lifted. The whole valley opened up. I just stood there, saying nothing.",
+      "duration": 8,
+      "original_tts_seconds": 6.96,
+      "speed_factor": 1,
+      "path": "/Users/x/X/space/spur/V2/docs/OpenMontage\u963f\u5c14\u5351\u65af\u5c71\u5341\u4e94\u6761\u8bb0\u5f55\u5236\u4f5c\u516d\u5341\u79d2\u65c5\u884c\u89c6\u9891\u9a8c\u8bc1-2026\u5e7411\u670809\u65e5/\u82f1\u6587Sonia\u6210\u7247/audio/5.wav",
+      "recording_ids": [
+        7,
+        10
+      ]
+    },
+    {
+      "id": 6,
+      "narration": "The hard part passed. From up here, the things I'd worried about felt so small.",
+      "duration": 7,
+      "original_tts_seconds": 6.12,
+      "speed_factor": 1,
+      "path": "/Users/x/X/space/spur/V2/docs/OpenMontage\u963f\u5c14\u5351\u65af\u5c71\u5341\u4e94\u6761\u8bb0\u5f55\u5236\u4f5c\u516d\u5341\u79d2\u65c5\u884c\u89c6\u9891\u9a8c\u8bc1-2026\u5e7411\u670809\u65e5/\u82f1\u6587Sonia\u6210\u7247/audio/6.wav",
+      "recording_ids": [
+        11,
+        12
+      ]
+    },
+    {
+      "id": 7,
+      "narration": "By dusk, the village lights felt like home. What I'd found was my own pace.",
+      "duration": 7,
+      "original_tts_seconds": 6.144,
+      "speed_factor": 1,
+      "path": "/Users/x/X/space/spur/V2/docs/OpenMontage\u963f\u5c14\u5351\u65af\u5c71\u5341\u4e94\u6761\u8bb0\u5f55\u5236\u4f5c\u516d\u5341\u79d2\u65c5\u884c\u89c6\u9891\u9a8c\u8bc1-2026\u5e7411\u670809\u65e5/\u82f1\u6587Sonia\u6210\u7247/audio/7.wav",
+      "recording_ids": [
+        13,
+        14,
+        15
+      ]
+    }
+  ],
+  "captions": [
+    {
+      "word": "I left before dawn",
+      "startMs": 150,
+      "endMs": 1509
+    },
+    {
+      "word": "wondering why I'd dragged myself out into the cold.",
+      "startMs": 1509,
+      "endMs": 5358
+    },
+    {
+      "word": "Then the first light caught the peaks.",
+      "startMs": 7150,
+      "endMs": 9950
+    },
+    {
+      "word": "Some moments just don't fit inside a photograph.",
+      "startMs": 9950,
+      "endMs": 13486
+    },
+    {
+      "word": "But the trail got rough.",
+      "startMs": 14150,
+      "endMs": 16314
+    },
+    {
+      "word": "My legs ached.",
+      "startMs": 16314,
+      "endMs": 17576
+    },
+    {
+      "word": "For a while",
+      "startMs": 17576,
+      "endMs": 18568
+    },
+    {
+      "word": "I really wanted to turn back.",
+      "startMs": 18568,
+      "endMs": 21182
+    },
+    {
+      "word": "An old man on the path told me",
+      "startMs": 22150,
+      "endMs": 24581
+    },
+    {
+      "word": "'Don't rush to the top.",
+      "startMs": 24581,
+      "endMs": 26445
+    },
+    {
+      "word": "Take your time.'",
+      "startMs": 26445,
+      "endMs": 27742
+    },
+    {
+      "word": "So I put my phone away.",
+      "startMs": 30150,
+      "endMs": 32529
+    },
+    {
+      "word": "Cowbells",
+      "startMs": 32529,
+      "endMs": 33356
+    },
+    {
+      "word": "wind",
+      "startMs": 33356,
+      "endMs": 33770
+    },
+    {
+      "word": "bread and cheese.",
+      "startMs": 33770,
+      "endMs": 35528
+    },
+    {
+      "word": "Somehow",
+      "startMs": 35528,
+      "endMs": 36252
+    },
+    {
+      "word": "it was enough.",
+      "startMs": 36252,
+      "endMs": 37700
+    },
+    {
+      "word": "Then the clouds lifted.",
+      "startMs": 38150,
+      "endMs": 40079
+    },
+    {
+      "word": "The whole valley opened up.",
+      "startMs": 40079,
+      "endMs": 42343
+    },
+    {
+      "word": "I just stood there",
+      "startMs": 42343,
+      "endMs": 43852
+    },
+    {
+      "word": "saying nothing.",
+      "startMs": 43852,
+      "endMs": 45110
+    },
+    {
+      "word": "The hard part passed.",
+      "startMs": 46150,
+      "endMs": 47841
+    },
+    {
+      "word": "From up here",
+      "startMs": 47841,
+      "endMs": 48807
+    },
+    {
+      "word": "the things I'd worried about felt so small.",
+      "startMs": 48807,
+      "endMs": 52270
+    },
+    {
+      "word": "By dusk",
+      "startMs": 53150,
+      "endMs": 53747
+    },
+    {
+      "word": "the village lights felt like home.",
+      "startMs": 53747,
+      "endMs": 56649
+    },
+    {
+      "word": "What I'd found was my own pace.",
+      "startMs": 56649,
+      "endMs": 59294
+    }
+  ],
+  "alignment": "clause-level estimated timings, not ASR"
+}

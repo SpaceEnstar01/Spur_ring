@@ -1,14 +1,17 @@
 import { assertAudioAgentHttpsForRelease, AUDIO_AGENT_BASE_URL } from '@/config/api';
 
 export type AudioAgentResult = {
-  id: string;
-  transcript: string;
+  id: string
+  /** Raw ASR transcript */
+  transcript: string
+  /** Full-text polished transcript (Recordings only) */
+  polishedTranscript?: string
   agent: {
-    output: string;
-    exitCode: number;
-    imageUrl?: string;
-  };
-};
+    output: string
+    exitCode: number
+    imageUrl?: string
+  }
+}
 
 export type AudioTaskType = 'recording_summary' | 'agent_command' | 'agent_image';
 
@@ -76,16 +79,17 @@ function mimeTypeForAudioName(name: string): string {
 }
 
 function isAudioAgentResult(value: unknown): value is AudioAgentResult {
-  if (!value || typeof value !== 'object') return false;
-  const result = value as Partial<AudioAgentResult>;
+  if (!value || typeof value !== 'object') return false
+  const result = value as Partial<AudioAgentResult>
   return (
     typeof result.id === 'string' &&
     typeof result.transcript === 'string' &&
     !!result.agent &&
     typeof result.agent.output === 'string' &&
     typeof result.agent.exitCode === 'number' &&
-    (result.agent.imageUrl === undefined || typeof result.agent.imageUrl === 'string')
-  );
+    (result.agent.imageUrl === undefined || typeof result.agent.imageUrl === 'string') &&
+    (result.polishedTranscript === undefined || typeof result.polishedTranscript === 'string')
+  )
 }
 
 function readErrorMessage(value: unknown): string | null {

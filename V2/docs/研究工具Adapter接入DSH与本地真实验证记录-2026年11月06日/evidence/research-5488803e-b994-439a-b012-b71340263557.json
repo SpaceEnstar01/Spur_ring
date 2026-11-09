@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "status": "partial",
+  "platform": "youtube",
+  "provider": "agent-reach",
+  "preferredProvider": "agent-reach",
+  "backend": "yt-dlp",
+  "retrievedAt": "2026-11-06T14:27:08.298Z",
+  "elapsedMs": 5510,
+  "items": [
+    {
+      "title": "Meta Ray-Ban Smart Glasses Review - 6 Months Later",
+      "url": "https://www.youtube.com/watch?v=ViA4-YWx8Y4",
+      "author": "6 Months Later",
+      "publishedAt": null,
+      "text": "Have the Meta Ray-Ban Smart Glasses been worth the purchase 6 Months Later? Who are these glasses designed for, and what ...",
+      "metrics": {
+        "views": 3408867,
+        "durationSeconds": 694
+      },
+      "evidenceType": "search_metadata"
+    }
+  ],
+  "limits": {
+    "complete": false,
+    "dateRangeVerified": false,
+    "popularityRankingVerified": false,
+    "commentsAvailable": false,
+    "note": "Search metadata or indexed text only; no verified recent ranking, full content or audience-comment analysis."
+  },
+  "error": null
+}

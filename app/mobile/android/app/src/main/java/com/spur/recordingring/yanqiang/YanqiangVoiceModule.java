@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 
 import com.eiot.aizo.sdk.callback.AizoDeviceConnectCallback;
 import com.eiot.ringsdk.ServiceSdkCommandV2;
+import com.eiot.ringsdk.bean.AlarmModel;
 import com.eiot.ringsdk.bean.ExBluetoothDevice;
 import com.eiot.ringsdk.bean.FileUploadStateBean;
 import com.eiot.ringsdk.bean.OpusFileBean;
@@ -545,6 +546,109 @@ public class YanqiangVoiceModule extends ReactContextBaseJavaModule {
           });
     } catch (Exception error) {
       promise.reject("YANQIANG_SET_RECORD_PARAM_FAILED", error);
+    }
+  }
+
+  @ReactMethod
+  public void sendVibrationWithType(int type, int times, Promise promise) {
+    try {
+      ensureInitialized();
+      if (type < 1 || type > 6) {
+        promise.reject("YANQIANG_VIBRATION_FAILED", "Invalid vibration type (expect 1-6)");
+        return;
+      }
+      final int buzzCount = Math.max(1, Math.min(times, 20));
+      // Wide gap so each pulse is distinct (~0.85s). Firmware mode.times often caps near 4.
+      final long gapMs = 850L;
+      Handler handler = new Handler(Looper.getMainLooper());
+      final int[] sentOk = {0};
+      final int[] done = {0};
+      for (int i = 0; i < buzzCount; i++) {
+        final int index = i;
+        handler.postDelayed(() -> {
+          try {
+            ServiceSdkCommandV2.INSTANCE.callVibrationExperience(Math.min(type, 5), new BCallback() {
+              @Override
+              public void result(boolean result) {
+                if (result) sentOk[0] += 1;
+                done[0] += 1;
+                if (done[0] < buzzCount) return;
+                if (sentOk[0] == 0) {
+                  promise.reject("YANQIANG_VIBRATION_FAILED", "callVibrationExperience failed");
+                  return;
+                }
+                WritableMap body = Arguments.createMap();
+                body.putBoolean("ok", true);
+                body.putInt("type", type);
+                body.putInt("times", buzzCount);
+                body.putString("mode", "sequential");
+                body.putInt("gapMs", (int) gapMs);
+                body.putInt("sentOk", sentOk[0]);
+                promise.resolve(body);
+              }
+            });
+          } catch (Exception error) {
+            done[0] += 1;
+            if (done[0] >= buzzCount) {
+              if (sentOk[0] == 0) {
+                promise.reject("YANQIANG_VIBRATION_FAILED", error);
+              } else {
+                WritableMap body = Arguments.createMap();
+                body.putBoolean("ok", true);
+                body.putInt("type", type);
+                body.putInt("times", buzzCount);
+                body.putString("mode", "sequential");
+                body.putInt("gapMs", (int) gapMs);
+                body.putInt("sentOk", sentOk[0]);
+                promise.resolve(body);
+              }
+            }
+          }
+        }, index * gapMs);
+      }
+    } catch (Exception error) {
+      promise.reject("YANQIANG_VIBRATION_FAILED", error);
+    }
+  }
+
+  @ReactMethod
+  public void setOneMinuteAlarm(Promise promise) {
+    try {
+      ensureInitialized();
+      java.util.Calendar cal = java.util.Calendar.getInstance();
+      cal.add(java.util.Calendar.MINUTE, 1);
+      int hour = cal.get(java.util.Calendar.HOUR_OF_DAY);
+      int minute = cal.get(java.util.Calendar.MINUTE);
+      long timeMinutes = hour * 60L + minute;
+      // opType 3 = modify slot 1 (repeatable debug); duration 1 = ring 1 minute
+      char[] repeats = new char[] { 0, 0, 0, 0, 0, 0, 0 };
+      AlarmModel alarmModel = new AlarmModel(
+          1,
+          1,
+          repeats,
+          timeMinutes,
+          1,
+          "Spur 1min",
+          3
+      );
+      ServiceSdkCommandV2.INSTANCE.setVibrateAlarm(alarmModel, new BCallback() {
+        @Override
+        public void result(boolean result) {
+          if (result) {
+            WritableMap body = Arguments.createMap();
+            body.putBoolean("ok", true);
+            body.putInt("alarmID", 1);
+            body.putInt("hour", hour);
+            body.putInt("minute", minute);
+            body.putDouble("fireAt", cal.getTimeInMillis() / 1000.0);
+            promise.resolve(body);
+          } else {
+            promise.reject("YANQIANG_ALARM_FAILED", "setVibrateAlarm failed");
+          }
+        }
+      });
+    } catch (Exception error) {
+      promise.reject("YANQIANG_ALARM_FAILED", error);
     }
   }
 

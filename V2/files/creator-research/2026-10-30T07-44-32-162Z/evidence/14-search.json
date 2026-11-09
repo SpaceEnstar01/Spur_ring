@@ -1,0 +1,58 @@
+{
+  "args": {
+    "query": "Kara Nate YouTube travel video"
+  },
+  "source_url": "https://www.bing.com/search?format=rss&q=Kara%20Nate%20YouTube%20travel%20video",
+  "results": [
+    {
+      "title": "Microsoft Lists Integration with Power Automate | Microsoft Community Hub",
+      "url": "https://techcommunity.microsoft.com/blog/nonprofittechies/microsoft-lists-integration-with-power-automate/4372166",
+      "snippet": "Discover Microsoft Lists &nbsp; &nbsp; &nbsp; Microsoft Lists, part of Microsoft 365, is ideal for nonprofits. This intuitive app helps organize information..."
+    },
+    {
+      "title": "Sign in to your account - techcommunity.microsoft.com",
+      "url": "https://techcommunity.microsoft.com/blog/microsoft365insiderblog/streamline-your-workflow-with-automation-in-microsoft-loop/4223906",
+      "snippet": "Create Power Automate-backed rules in Loop to handle time-consuming and tedious tasks so you can focus on strategic, high-value work."
+    },
+    {
+      "title": "如何使用power automate 读取PDF? - 知乎",
+      "url": "https://www.zhihu.com/question/648118689",
+      "snippet": "正文 业务场景说明： 今天领导大毛发了小E同学许多PDF格式的TAX INVOICE（发票），并要求小E今天下班前将发票信息整理成Excel格式。在经过短暂思考后小E同学选择了PAD（Power AutoMate Desktop，以下简称PAD）来完成这项工作。 下面是操作步骤： 第一步：确定需求 转换样本示例，这个PDF文档，有很多信息 ..."
+    },
+    {
+      "title": "Power Automate 入门教程 - 知乎",
+      "url": "https://www.zhihu.com/column/c_1416150319630344192",
+      "snippet": "在日常工作中，我们经常需要在个人存储空间（如OneDrive）和团队协作空间（如SharePoint）之间转移文件。手动进行这些操作不仅繁琐、耗时，还容易出错或遗忘。如何实现文件从OneDrive到SharePoint的自动化、智能化迁移呢？ Power Automate为此提供了强大的解决方案。本文将通过两个非常实用的…"
+    },
+    {
+      "title": "Planner Premium + Power Automate | Microsoft Community Hub",
+      "url": "https://techcommunity.microsoft.com/discussions/planner/planner-premium--power-automate/4228841",
+      "snippet": "The secret to using Power Automate cloud flows on Planner Premium plans is in understanding that they are fundamentally Project for the Web projects. See this thread for a solution. In case you want to understand why the Premium plans behave so differently compared to Planner Basic plans, check out this article I wrote about the topic."
+    },
+    {
+      "title": "Best practices for Power Automate with service account | Microsoft ...",
+      "url": "https://techcommunity.microsoft.com/discussions/microsoft-365/best-practices-for-power-automate-with-service-account/3052046",
+      "snippet": "We had a colleague leave who had their work email address and account connected to MANY Power Automate flows, SharePoint, OneDrive, Forms, Excel, etc. We are looking to create a recommendation / best practices for a single account that will be used by the I.T. department for use in Power Automate, etc."
+    },
+    {
+      "title": "Power Automate | Microsoft Community Hub",
+      "url": "https://techcommunity.microsoft.com/category/PowerAutomate",
+      "snippet": "This community hub is on a different Microsoft community You can find it here and we will redirect you in 55 seconds."
+    },
+    {
+      "title": "Sharepoint button to run a Power Automate flow. | Microsoft Community Hub",
+      "url": "https://techcommunity.microsoft.com/discussions/sharepoint_general/sharepoint-button-to-run-a-power-automate-flow-/2249294",
+      "snippet": "But I have sucessfully used Power Automate to create a flow, which collects file metadata, asks for a filename and uploads the file to a SharePoint Doc Library."
+    },
+    {
+      "title": "Retrieve Full Page Body of SharePoint News Page with Power Automate",
+      "url": "https://techcommunity.microsoft.com/discussions/powerappflow/retrieve-full-page-body-of-sharepoint-news-page-with-power-automate/3102382",
+      "snippet": "I have a SharePoint Communication site with a News webpart set up. In Power Automate, (when I try to pull in the News page body) the only field for the body..."
+    },
+    {
+      "title": "How do I send a message to myself with PowerAutomate?",
+      "url": "https://techcommunity.microsoft.com/discussions/teamsdeveloper/how-do-i-send-a-message-to-myself-with-powerautomate/3731304",
+      "snippet": "Has somebody found a way to message himself via power automate? I can't create it as a \"new chat\" in PA because it says users cannot be duplicate. Then I figured out I had to find the ID of the chat with myself. I tried using the microsoft graph api to retrieve the id from \"me/chats\" but the chat with myself is not shown."
+    }
+  ]
+}

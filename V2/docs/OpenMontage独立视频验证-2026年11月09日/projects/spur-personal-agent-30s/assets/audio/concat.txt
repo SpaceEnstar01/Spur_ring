@@ -1,0 +1,6 @@
+file '/Users/x/X/space/spur/V2/docs/OpenMontage独立视频验证-2026年11月09日/projects/spur-personal-agent-30s/assets/audio/0.wav'
+file '/Users/x/X/space/spur/V2/docs/OpenMontage独立视频验证-2026年11月09日/projects/spur-personal-agent-30s/assets/audio/1.wav'
+file '/Users/x/X/space/spur/V2/docs/OpenMontage独立视频验证-2026年11月09日/projects/spur-personal-agent-30s/assets/audio/2.wav'
+file '/Users/x/X/space/spur/V2/docs/OpenMontage独立视频验证-2026年11月09日/projects/spur-personal-agent-30s/assets/audio/3.wav'
+file '/Users/x/X/space/spur/V2/docs/OpenMontage独立视频验证-2026年11月09日/projects/spur-personal-agent-30s/assets/audio/4.wav'
+file '/Users/x/X/space/spur/V2/docs/OpenMontage独立视频验证-2026年11月09日/projects/spur-personal-agent-30s/assets/audio/5.wav'

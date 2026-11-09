@@ -1,0 +1,9 @@
+target/
+.env
+.env.*
+!.env.example
+.idea/
+*.log
+.agent-data/
+*.mv.db
+*.trace.db

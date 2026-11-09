@@ -1,0 +1,12 @@
+{
+  "version": "1.0",
+  "assets": [
+    {
+      "id": "narration",
+      "type": "narration",
+      "path": "/Users/x/X/space/spur/V2/docs/OpenMontage独立视频验证-2026年11月09日/projects/spur-personal-agent-30s/assets/audio/narration.wav",
+      "source_tool": "macOS say Tingting + FFmpeg; explicit local alternative",
+      "scene_id": "all"
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "version": "1.0",
+  "project_id": "spur-personal-agent-30s",
+  "pipeline_type": "animated-explainer",
+  "stage": "proposal",
+  "status": "completed",
+  "timestamp": "2026-11-09T02:59:41.929057+00:00",
+  "checkpoint_policy": "guided",
+  "human_approval_required": true,
+  "human_approved": true,
+  "artifacts": {
+    "proposal_packet": {
+      "version": "1.0",
+      "concept_options": [
+        {
+          "id": "0",
+          "title": "\u4e0d\u6b62\u804a\u5929",
+          "hook": "\u4e0d\u6b62\u804a\u5929",
+          "narrative_structure": "problem_solution",
+          "visual_approach": "\u672c\u5730\u79d1\u6280\u98ce\u52a8\u6001\u56fe\u6587\uff0c\u4e0d\u4f7f\u7528\u751f\u6210\u5f0f\u5b9e\u62cd\u7d20\u6750",
+          "target_duration_seconds": 30,
+          "why_this_works": "\u4f7f\u7528\u7528\u6237\u660e\u786e\u63d0\u4f9b\u7684\u89c2\u70b9\uff1b\u4ec5\u6280\u672f\u9a8c\u8bc1\u5907\u9009\u6982\u5ff5"
+        },
+        {
+          "id": "1",
+          "title": "\u8bb0\u4f4f\u4e0e\u884c\u52a8",
+          "hook": "\u8bb0\u4f4f\u4e0e\u884c\u52a8",
+          "narrative_structure": "problem_solution",
+          "visual_approach": "\u672c\u5730\u79d1\u6280\u98ce\u52a8\u6001\u56fe\u6587\uff0c\u4e0d\u4f7f\u7528\u751f\u6210\u5f0f\u5b9e\u62cd\u7d20\u6750",
+          "target_duration_seconds": 30,
+          "why_this_works": "\u4f7f\u7528\u7528\u6237\u660e\u786e\u63d0\u4f9b\u7684\u89c2\u70b9\uff1b\u4ec5\u6280\u672f\u9a8c\u8bc1\u5907\u9009\u6982\u5ff5"
+        },
+        {
+          "id": "2",
+          "title": "\u8f7b\u4ea4\u4e92\u878d\u5165\u65e5\u5e38",
+          "hook": "\u8f7b\u4ea4\u4e92\u878d\u5165\u65e5\u5e38",
+          "narrative_structure": "problem_solution",
+          "visual_approach": "\u672c\u5730\u79d1\u6280\u98ce\u52a8\u6001\u56fe\u6587\uff0c\u4e0d\u4f7f\u7528\u751f\u6210\u5f0f\u5b9e\u62cd\u7d20\u6750",
+          "target_duration_seconds": 30,
+          "why_this_works": "\u4f7f\u7528\u7528\u6237\u660e\u786e\u63d0\u4f9b\u7684\u89c2\u70b9\uff1b\u4ec5\u6280\u672f\u9a8c\u8bc1\u5907\u9009\u6982\u5ff5"
+        }
+      ],
+      "selected_concept": {
+        "concept_id": "0",
+        "rationale": "\u7528\u6237\u6307\u5b9a\u79d1\u6280\u98ce\u300130\u79d2\u30019:16\uff1b\u4ee5\u539f\u89c2\u70b9\u4e3a\u4e3b\u7ebf"
+      },
+      "production_plan": {
+        "pipeline": "animated-explainer",
+        "render_runtime": "remotion",
+        "renderer_family": "explainer-data",
+        "composition_mode": "templated",
+        "stages": [
+          {
+            "stage": "compose",
+            "tools": [
+              {
+                "tool_name": "video_compose",
+                "role": "OpenMontage\u6b63\u5f0f\u5408\u6210\u548c\u68c0\u67e5",
+                "available": true
+              }
+            ],
+            "approach": "Remotion\u73b0\u6709\u7ec4\u4ef6\uff0bMac\u672c\u5730\u4e2d\u6587TTS\uff0b\u5206\u53e5\u65f6\u95f4\u8f74"
+          }
+        ]
+      },
+      "cost_estimate": {
+        "total_estimated_usd": 0,
+        "line_items": [
+          {
+            "tool": "video_compose",
+            "operation": "local render",
+            "estimated_usd": 0
+          }
+        ],
+        "budget_verdict": "within_budget"
+      },
+      "approval": {
+        "status": "approved",
+        "user_notes": "\u7528\u6237\u660e\u786e\u6279\u51c6\u672c\u5730\u72ec\u7acb\u751f\u6210\uff1b\u73b0\u6709API\u670d\u52a1\u4ea6\u5df2\u83b7\u51c6\u590d\u7528\uff0c\u672c\u6b21\u9009\u62e9\u96f6API\u672c\u5730\u8def\u7ebf\uff0c\u4e0d\u90e8\u7f72\u3001\u4e0d\u53d1\u5e03"
+      }
+    }
+  },
+  "style_playbook": "flat-motion-graphics",
+  "metadata": {
+    "approval_source": "User explicitly approved dependency installation and standalone 30s 9:16 rendering; no cloud/publishing."
+  }
+}

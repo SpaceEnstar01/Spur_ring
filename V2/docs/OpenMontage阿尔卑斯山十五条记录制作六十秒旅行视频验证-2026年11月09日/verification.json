@@ -1,0 +1,13 @@
+{
+  "status": "completed",
+  "video_path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/阿尔卑斯山徒步-找回自己的节奏-60秒-9比16.mp4",
+  "duration": 60.0,
+  "frames": "1800",
+  "width": 1080,
+  "height": 1920,
+  "bytes": 52817305,
+  "sha256": "e453e7ec0f898ea2ccf044eb6ca5b8907e8e830432cb70ee90772ecaf0a4d585",
+  "native_compose_seconds": 138.21592903137207,
+  "verified_decode_exit": 0,
+  "main_spur_code_modified": false
+}

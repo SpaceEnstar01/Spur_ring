@@ -1,0 +1,165 @@
+{
+  "version": "1.0",
+  "project_id": "alps-sonia-english",
+  "pipeline_type": "documentary-montage",
+  "stage": "assets",
+  "status": "completed",
+  "timestamp": "2026-11-09T03:34:29.157991+00:00",
+  "checkpoint_policy": "guided",
+  "human_approval_required": true,
+  "human_approved": true,
+  "artifacts": {
+    "asset_manifest": {
+      "version": "1.0",
+      "assets": [
+        {
+          "id": "01",
+          "type": "video",
+          "path": "/Users/x/X/space/spur/V2/docs/OpenMontage\u963f\u5c14\u5351\u65af\u5c71\u5341\u4e94\u6761\u8bb0\u5f55\u5236\u4f5c\u516d\u5341\u79d2\u65c5\u884c\u89c6\u9891\u9a8c\u8bc1-2026\u5e7411\u670809\u65e5/shots/01.mp4",
+          "source_tool": "OpenMontage DirectClipSearch / WikimediaSource, then FFmpeg crop/trim",
+          "scene_id": "01",
+          "provider": "wikimedia",
+          "license": "CC BY 3.0",
+          "original_url": "https://commons.wikimedia.org/wiki/File:Timelapse_of_Swiss_mountains.webm",
+          "duration_seconds": 7,
+          "generation_summary": "Third-party illustrative stock; not captured by user; night shot animated from a still."
+        },
+        {
+          "id": "02",
+          "type": "video",
+          "path": "/Users/x/X/space/spur/V2/docs/OpenMontage\u963f\u5c14\u5351\u65af\u5c71\u5341\u4e94\u6761\u8bb0\u5f55\u5236\u4f5c\u516d\u5341\u79d2\u65c5\u884c\u89c6\u9891\u9a8c\u8bc1-2026\u5e7411\u670809\u65e5/shots/02.mp4",
+          "source_tool": "OpenMontage DirectClipSearch / WikimediaSource, then FFmpeg crop/trim",
+          "scene_id": "02",
+          "provider": "wikimedia",
+          "license": "CC BY 3.0",
+          "original_url": "https://commons.wikimedia.org/wiki/File:Timelapse_of_the_Matterhorn_viewed_from_Zermatt.webm",
+          "duration_seconds": 7,
+          "generation_summary": "Third-party illustrative stock; not captured by user; night shot animated from a still."
+        },
+        {
+          "id": "03",
+          "type": "video",
+          "path": "/Users/x/X/space/spur/V2/docs/OpenMontage\u963f\u5c14\u5351\u65af\u5c71\u5341\u4e94\u6761\u8bb0\u5f55\u5236\u4f5c\u516d\u5341\u79d2\u65c5\u884c\u89c6\u9891\u9a8c\u8bc1-2026\u5e7411\u670809\u65e5/shots/03.mp4",
+          "source_tool": "OpenMontage DirectClipSearch / WikimediaSource, then FFmpeg crop/trim",
+          "scene_id": "03",
+          "provider": "wikimedia",
+          "license": "CC BY 3.0",
+          "original_url": "https://commons.wikimedia.org/wiki/File:Aerial_views_of_the_Swiss_Alps.webm",
+          "duration_seconds": 8,
+          "generation_summary": "Third-party illustrative stock; not captured by user; night shot animated from a still."
+        },
+        {
+          "id": "04",
+          "type": "video",
+          "path": "/Users/x/X/space/spur/V2/docs/OpenMontage\u963f\u5c14\u5351\u65af\u5c71\u5341\u4e94\u6761\u8bb0\u5f55\u5236\u4f5c\u516d\u5341\u79d2\u65c5\u884c\u89c6\u9891\u9a8c\u8bc1-2026\u5e7411\u670809\u65e5/shots/04.mp4",
+          "source_tool": "OpenMontage DirectClipSearch / WikimediaSource, then FFmpeg crop/trim",
+          "scene_id": "04",
+          "provider": "wikimedia",
+          "license": "CC BY 3.0",
+          "original_url": "https://commons.wikimedia.org/wiki/File:Aerial_views_of_the_Swiss_Alps.webm",
+          "duration_seconds": 8,
+          "generation_summary": "Third-party illustrative stock; not captured by user; night shot animated from a still."
+        },
+        {
+          "id": "05a",
+          "type": "video",
+          "path": "/Users/x/X/space/spur/V2/docs/OpenMontage\u963f\u5c14\u5351\u65af\u5c71\u5341\u4e94\u6761\u8bb0\u5f55\u5236\u4f5c\u516d\u5341\u79d2\u65c5\u884c\u89c6\u9891\u9a8c\u8bc1-2026\u5e7411\u670809\u65e5/shots/05a.mp4",
+          "source_tool": "OpenMontage DirectClipSearch / WikimediaSource, then FFmpeg crop/trim",
+          "scene_id": "05a",
+          "provider": "wikimedia",
+          "license": "CC BY 2.0",
+          "original_url": "https://commons.wikimedia.org/wiki/File:Alpine_cows.webm",
+          "duration_seconds": 4,
+          "generation_summary": "Third-party illustrative stock; not captured by user; night shot animated from a still."
+        },
+        {
+          "id": "05b",
+          "type": "video",
+          "path": "/Users/x/X/space/spur/V2/docs/OpenMontage\u963f\u5c14\u5351\u65af\u5c71\u5341\u4e94\u6761\u8bb0\u5f55\u5236\u4f5c\u516d\u5341\u79d2\u65c5\u884c\u89c6\u9891\u9a8c\u8bc1-2026\u5e7411\u670809\u65e5/shots/05b.mp4",
+          "source_tool": "OpenMontage DirectClipSearch / WikimediaSource, then FFmpeg crop/trim",
+          "scene_id": "05b",
+          "provider": "wikimedia",
+          "license": "CC BY 3.0",
+          "original_url": "https://commons.wikimedia.org/wiki/File:Aerial_views_of_the_Swiss_Alps.webm",
+          "duration_seconds": 4,
+          "generation_summary": "Third-party illustrative stock; not captured by user; night shot animated from a still."
+        },
+        {
+          "id": "06a",
+          "type": "video",
+          "path": "/Users/x/X/space/spur/V2/docs/OpenMontage\u963f\u5c14\u5351\u65af\u5c71\u5341\u4e94\u6761\u8bb0\u5f55\u5236\u4f5c\u516d\u5341\u79d2\u65c5\u884c\u89c6\u9891\u9a8c\u8bc1-2026\u5e7411\u670809\u65e5/shots/06a.mp4",
+          "source_tool": "OpenMontage DirectClipSearch / WikimediaSource, then FFmpeg crop/trim",
+          "scene_id": "06a",
+          "provider": "wikimedia",
+          "license": "CC BY 3.0",
+          "original_url": "https://commons.wikimedia.org/wiki/File:Timelapse_of_Swiss_mountains.webm",
+          "duration_seconds": 3,
+          "generation_summary": "Third-party illustrative stock; not captured by user; night shot animated from a still."
+        },
+        {
+          "id": "06b",
+          "type": "video",
+          "path": "/Users/x/X/space/spur/V2/docs/OpenMontage\u963f\u5c14\u5351\u65af\u5c71\u5341\u4e94\u6761\u8bb0\u5f55\u5236\u4f5c\u516d\u5341\u79d2\u65c5\u884c\u89c6\u9891\u9a8c\u8bc1-2026\u5e7411\u670809\u65e5/shots/06b.mp4",
+          "source_tool": "OpenMontage DirectClipSearch / WikimediaSource, then FFmpeg crop/trim",
+          "scene_id": "06b",
+          "provider": "wikimedia",
+          "license": "CC BY 3.0",
+          "original_url": "https://commons.wikimedia.org/wiki/File:Aerial_views_of_the_Swiss_Alps.webm",
+          "duration_seconds": 5,
+          "generation_summary": "Third-party illustrative stock; not captured by user; night shot animated from a still."
+        },
+        {
+          "id": "07",
+          "type": "video",
+          "path": "/Users/x/X/space/spur/V2/docs/OpenMontage\u963f\u5c14\u5351\u65af\u5c71\u5341\u4e94\u6761\u8bb0\u5f55\u5236\u4f5c\u516d\u5341\u79d2\u65c5\u884c\u89c6\u9891\u9a8c\u8bc1-2026\u5e7411\u670809\u65e5/shots/07.mp4",
+          "source_tool": "OpenMontage DirectClipSearch / WikimediaSource, then FFmpeg crop/trim",
+          "scene_id": "07",
+          "provider": "wikimedia",
+          "license": "CC BY 3.0",
+          "original_url": "https://commons.wikimedia.org/wiki/File:Aerial_views_of_the_Swiss_Alps.webm",
+          "duration_seconds": 7,
+          "generation_summary": "Third-party illustrative stock; not captured by user; night shot animated from a still."
+        },
+        {
+          "id": "08",
+          "type": "video",
+          "path": "/Users/x/X/space/spur/V2/docs/OpenMontage\u963f\u5c14\u5351\u65af\u5c71\u5341\u4e94\u6761\u8bb0\u5f55\u5236\u4f5c\u516d\u5341\u79d2\u65c5\u884c\u89c6\u9891\u9a8c\u8bc1-2026\u5e7411\u670809\u65e5/shots/08.mp4",
+          "source_tool": "OpenMontage DirectClipSearch / WikimediaSource, then FFmpeg crop/trim",
+          "scene_id": "08",
+          "provider": "wikimedia",
+          "license": "CC BY-SA 4.0",
+          "original_url": "https://commons.wikimedia.org/wiki/File:1_zermatt_night_2012.jpg",
+          "duration_seconds": 7,
+          "generation_summary": "Third-party illustrative stock; not captured by user; night shot animated from a still."
+        },
+        {
+          "id": "narration",
+          "type": "narration",
+          "path": "/Users/x/X/space/spur/V2/docs/OpenMontage\u963f\u5c14\u5351\u65af\u5c71\u5341\u4e94\u6761\u8bb0\u5f55\u5236\u4f5c\u516d\u5341\u79d2\u65c5\u884c\u89c6\u9891\u9a8c\u8bc1-2026\u5e7411\u670809\u65e5/\u82f1\u6587Sonia\u6210\u7247/narration-sonia.wav",
+          "source_tool": "Microsoft Edge neural TTS via edge-tts, user-selected en-GB-SoniaNeural",
+          "scene_id": "all"
+        },
+        {
+          "id": "score",
+          "type": "music",
+          "path": "/Users/x/X/space/spur/V2/docs/OpenMontage\u963f\u5c14\u5351\u65af\u5c71\u5341\u4e94\u6761\u8bb0\u5f55\u5236\u4f5c\u516d\u5341\u79d2\u65c5\u884c\u89c6\u9891\u9a8c\u8bc1-2026\u5e7411\u670809\u65e5/music-original.wav",
+          "source_tool": "local original procedural score",
+          "scene_id": "all",
+          "license": "Original score, shared under CC BY-SA 4.0 for this test"
+        }
+      ],
+      "total_cost_usd": 0,
+      "metadata": {
+        "search_stats": {
+          "downloaded_usable_sources": 5,
+          "initial_search_timed_out": true,
+          "review_method": "manual inspection of source thumbnails and contact sheets; rejected Czech Switzerland and New Zealand"
+        },
+        "warning": "Source label Alpine cows does not establish Swiss location; illustrative Alpine stock. 7 seconds of final scene are an animated Zermatt photo."
+      }
+    }
+  },
+  "metadata": {
+    "approval": "User selected voice 4 Sonia for full English narration and subtitles; retain 60s picture and music."
+  }
+}

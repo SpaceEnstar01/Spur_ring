@@ -1,0 +1,242 @@
+{
+  "segments": [
+    {
+      "id": "1",
+      "path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/audio/1.wav",
+      "start_seconds": 0,
+      "duration": 7,
+      "spoken_duration": 5.86625,
+      "speed_factor": 1
+    },
+    {
+      "id": "2",
+      "path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/audio/2.wav",
+      "start_seconds": 7,
+      "duration": 7,
+      "spoken_duration": 5.571,
+      "speed_factor": 1
+    },
+    {
+      "id": "3",
+      "path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/audio/3.wav",
+      "start_seconds": 14,
+      "duration": 8,
+      "spoken_duration": 6.098396,
+      "speed_factor": 1
+    },
+    {
+      "id": "4",
+      "path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/audio/4.wav",
+      "start_seconds": 22,
+      "duration": 8,
+      "spoken_duration": 6.004521,
+      "speed_factor": 1
+    },
+    {
+      "id": "5",
+      "path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/audio/5.wav",
+      "start_seconds": 30,
+      "duration": 8,
+      "spoken_duration": 6.366167,
+      "speed_factor": 1
+    },
+    {
+      "id": "6",
+      "path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/audio/6.wav",
+      "start_seconds": 38,
+      "duration": 8,
+      "spoken_duration": 5.871958,
+      "speed_factor": 1
+    },
+    {
+      "id": "7",
+      "path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/audio/7.wav",
+      "start_seconds": 46,
+      "duration": 7,
+      "spoken_duration": 6.271646,
+      "speed_factor": 1
+    },
+    {
+      "id": "8",
+      "path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/audio/8.wav",
+      "start_seconds": 53,
+      "duration": 7,
+      "spoken_duration": 6.4,
+      "speed_factor": 1.06527015625
+    }
+  ],
+  "captions": [
+    {
+      "word": "天还没亮",
+      "startMs": 250,
+      "endMs": 1316
+    },
+    {
+      "word": "我就出发了",
+      "startMs": 1316,
+      "endMs": 2649
+    },
+    {
+      "word": "冷得有点后悔",
+      "startMs": 2649,
+      "endMs": 4249
+    },
+    {
+      "word": "却又期待着什么",
+      "startMs": 4249,
+      "endMs": 6116
+    },
+    {
+      "word": "直到第一束光",
+      "startMs": 7250,
+      "endMs": 8841
+    },
+    {
+      "word": "把雪山染成金色",
+      "startMs": 8841,
+      "endMs": 10698
+    },
+    {
+      "word": "照片装不下那一刻",
+      "startMs": 10698,
+      "endMs": 12821
+    },
+    {
+      "word": "可碎石路越走越难",
+      "startMs": 14250,
+      "endMs": 16467
+    },
+    {
+      "word": "腿越来越酸",
+      "startMs": 16467,
+      "endMs": 17853
+    },
+    {
+      "word": "我第一次想",
+      "startMs": 17853,
+      "endMs": 19239
+    },
+    {
+      "word": "要不算了",
+      "startMs": 19239,
+      "endMs": 20348
+    },
+    {
+      "word": "路上",
+      "startMs": 22250,
+      "endMs": 22795
+    },
+    {
+      "word": "一位走了三十年的老人说",
+      "startMs": 22795,
+      "endMs": 25798
+    },
+    {
+      "word": "别急着到山顶",
+      "startMs": 25798,
+      "endMs": 27435
+    },
+    {
+      "word": "慢慢走",
+      "startMs": 27435,
+      "endMs": 28254
+    },
+    {
+      "word": "我收起手机",
+      "startMs": 30250,
+      "endMs": 31765
+    },
+    {
+      "word": "听风",
+      "startMs": 31765,
+      "endMs": 32372
+    },
+    {
+      "word": "听牛铃",
+      "startMs": 32372,
+      "endMs": 33281
+    },
+    {
+      "word": "一块面包",
+      "startMs": 33281,
+      "endMs": 34494
+    },
+    {
+      "word": "也吃得格外满足",
+      "startMs": 34494,
+      "endMs": 36616
+    },
+    {
+      "word": "后来",
+      "startMs": 38250,
+      "endMs": 38809
+    },
+    {
+      "word": "云突然散了",
+      "startMs": 38809,
+      "endMs": 40207
+    },
+    {
+      "word": "山谷整个出现在眼前",
+      "startMs": 40207,
+      "endMs": 42723
+    },
+    {
+      "word": "我站了很久",
+      "startMs": 42723,
+      "endMs": 44121
+    },
+    {
+      "word": "原来",
+      "startMs": 46250,
+      "endMs": 46820
+    },
+    {
+      "word": "有些疲惫",
+      "startMs": 46820,
+      "endMs": 47960
+    },
+    {
+      "word": "不必急着战胜",
+      "startMs": 47960,
+      "endMs": 49670
+    },
+    {
+      "word": "走过这一段",
+      "startMs": 49670,
+      "endMs": 51096
+    },
+    {
+      "word": "就会不一样",
+      "startMs": 51096,
+      "endMs": 52521
+    },
+    {
+      "word": "下山时",
+      "startMs": 53250,
+      "endMs": 54050
+    },
+    {
+      "word": "小镇亮起了灯",
+      "startMs": 54050,
+      "endMs": 55650
+    },
+    {
+      "word": "今天找回的",
+      "startMs": 55650,
+      "endMs": 56983
+    },
+    {
+      "word": "不是高度",
+      "startMs": 56983,
+      "endMs": 58050
+    },
+    {
+      "word": "是自己的节奏",
+      "startMs": 58050,
+      "endMs": 59650
+    }
+  ],
+  "elapsed_seconds": 6.71619987487793,
+  "alignment": "clause-level estimated proportional timings from local TTS segments; not ASR"
+}

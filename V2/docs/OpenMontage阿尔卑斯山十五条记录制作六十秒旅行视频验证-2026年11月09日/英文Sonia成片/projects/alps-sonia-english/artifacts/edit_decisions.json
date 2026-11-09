@@ -1,0 +1,138 @@
+{
+  "version": "1.0",
+  "cuts": [
+    {
+      "id": "01",
+      "source": "01",
+      "in_seconds": 0,
+      "out_seconds": 7,
+      "reason": "dark cloudy peak / expectation",
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.25
+    },
+    {
+      "id": "02",
+      "source": "02",
+      "in_seconds": 0,
+      "out_seconds": 7,
+      "reason": "sunlight breaking into valley",
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.25
+    },
+    {
+      "id": "03",
+      "source": "03",
+      "in_seconds": 0,
+      "out_seconds": 8,
+      "reason": "rocky mountain face / fatigue",
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.25
+    },
+    {
+      "id": "04",
+      "source": "04",
+      "in_seconds": 0,
+      "out_seconds": 8,
+      "reason": "ridge / slow down",
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.25
+    },
+    {
+      "id": "05a",
+      "source": "05a",
+      "in_seconds": 0,
+      "out_seconds": 4,
+      "reason": "alpine cows / attention",
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.25
+    },
+    {
+      "id": "05b",
+      "source": "05b",
+      "in_seconds": 0,
+      "out_seconds": 4,
+      "reason": "quiet meadow",
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.25
+    },
+    {
+      "id": "06a",
+      "source": "06a",
+      "in_seconds": 0,
+      "out_seconds": 3,
+      "reason": "clouds / held breath",
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.25
+    },
+    {
+      "id": "06b",
+      "source": "06b",
+      "in_seconds": 0,
+      "out_seconds": 5,
+      "reason": "valley opening / release",
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.25
+    },
+    {
+      "id": "07",
+      "source": "07",
+      "in_seconds": 0,
+      "out_seconds": 7,
+      "reason": "wide mountain landscape / perspective",
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.25
+    },
+    {
+      "id": "08",
+      "source": "08",
+      "in_seconds": 0,
+      "out_seconds": 7,
+      "reason": "Zermatt at night / home",
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.25
+    }
+  ],
+  "renderer_family": "documentary-montage",
+  "render_runtime": "remotion",
+  "composition_mode": "templated",
+  "audio": {
+    "narration": {
+      "segments": [
+        {
+          "asset_id": "narration",
+          "start_seconds": 0,
+          "end_seconds": 60
+        }
+      ]
+    },
+    "music": {
+      "asset_id": "score",
+      "volume": 0.28,
+      "fade_in_seconds": 2,
+      "fade_out_seconds": 4
+    }
+  },
+  "end_tag": {
+    "offset_seconds": 55,
+    "notes": "Native CinematicRenderer title overlay, background is Zermatt night image animated as video."
+  },
+  "metadata": {
+    "render_props_path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/projects/alps-finding-my-own-pace/artifacts/render_props.json",
+    "subtitles": "English clause-level estimated timing",
+    "raw_records": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/原始记录.txt",
+    "story_path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/story.json",
+    "stock_reconstruction": true,
+    "language": "English",
+    "voice": "Sonia"
+  }
+}

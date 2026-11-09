@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "status": "unavailable",
+  "platform": "douyin",
+  "provider": null,
+  "items": [],
+  "error": {
+    "code": "ACTION_UNAVAILABLE",
+    "message": "Not yet validated locally; use existing public search with explicit evidence limits."
+  }
+}

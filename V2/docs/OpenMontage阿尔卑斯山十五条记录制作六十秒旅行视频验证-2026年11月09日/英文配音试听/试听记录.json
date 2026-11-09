@@ -1,0 +1,40 @@
+{
+  "text": "I thought I was climbing toward a summit. Somewhere along the way, I stopped rushing... and found my own pace.",
+  "engine": "Microsoft Edge neural TTS via edge-tts; no API key",
+  "rate": "-8%",
+  "samples": [
+    {
+      "file": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/英文配音试听/01-British-male-Ryan.mp3",
+      "voice": "en-GB-RyanNeural",
+      "status": "completed",
+      "duration": 8.496,
+      "elapsed_seconds": 3.726864814758301,
+      "bytes": 50976
+    },
+    {
+      "file": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/英文配音试听/02-American-male-Guy.mp3",
+      "voice": "en-US-GuyNeural",
+      "status": "completed",
+      "duration": 7.848,
+      "elapsed_seconds": 1.8092150688171387,
+      "bytes": 47088
+    },
+    {
+      "file": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/英文配音试听/03-Australian-male-William.mp3",
+      "voice": "en-AU-WilliamNeural",
+      "status": "completed",
+      "duration": 7.704,
+      "elapsed_seconds": 5.344100713729858,
+      "bytes": 46224
+    },
+    {
+      "file": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/英文配音试听/04-British-female-Sonia.mp3",
+      "voice": "en-GB-SoniaNeural",
+      "status": "completed",
+      "duration": 7.848,
+      "elapsed_seconds": 4.081175088882446,
+      "bytes": 47088
+    }
+  ],
+  "video_modified": false
+}

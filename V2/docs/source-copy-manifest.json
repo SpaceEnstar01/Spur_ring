@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-28",
+  "sources": {
+    "V2/cloud/audio-agent": 32,
+    "V2/agent": 7942
+  },
+  "excludedDirectories": [
+    ".artifacts",
+    ".cache",
+    ".dsh-build",
+    ".git",
+    ".idea",
+    ".playwright-mcp",
+    ".pnpm-store",
+    ".pytest_cache",
+    ".sessions",
+    ".storages",
+    ".turbo",
+    ".venv",
+    ".vscode",
+    ".worktrees",
+    "DerivedData",
+    "Pods",
+    "__pycache__",
+    "build",
+    "coverage",
+    "data",
+    "dist",
+    "images",
+    "lib",
+    "node_modules",
+    "output",
+    "reports",
+    "target",
+    "transcripts",
+    "uploads",
+    "venv",
+    "worktrees"
+  ],
+  "note": "Full Harness source including vendored Cordis, examples, tests, lockfiles and licenses. No nested Git history, installed dependencies, secrets or runtime outputs."
+}

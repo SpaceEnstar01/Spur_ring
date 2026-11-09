@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Spur Agent Workspace — Today message</title>
+  <style>
+    :root {
+      --ink: #141d32;
+      --text: #111827;
+      --muted: #858992;
+      --soft: #777b83;
+      --line: #e6e8ed;
+      --blue: #2563eb;
+      --online: #4a9b6b;
+      --paper: #ffffff;
+      --wash: #f6f7f9;
+      --mine: #111111;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      min-height: 100%;
+      background: #eceef2;
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .stage {
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+    }
+    .caption {
+      width: min(390px, 100%);
+      margin: 0 0 12px;
+      color: #6b7280;
+      font-size: 12px;
+      letter-spacing: 0.01em;
+    }
+    .phone {
+      width: min(390px, 100%);
+      height: min(844px, calc(100vh - 72px));
+      min-height: 640px;
+      background: var(--paper);
+      border-radius: 28px;
+      box-shadow: 0 18px 50px rgba(24, 34, 53, 0.12);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+    .toolbar {
+      height: 53px;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex: none;
+    }
+    .brand {
+      margin: 0;
+      border: 0;
+      background: none;
+      padding: 0;
+      font: 800 30px/1 -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+      letter-spacing: -1.6px;
+      color: #111;
+    }
+    .brand i { color: var(--blue); font-style: normal; }
+    .ring {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #777c72;
+      font-size: 10px;
+      background: none;
+      border: 0;
+      padding: 8px 0;
+    }
+    .ring svg { display: block; }
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--online);
+      box-shadow: 0 0 0 2px #fff;
+    }
+    .scroll {
+      flex: 1;
+      overflow: auto;
+      padding: 4px 20px 24px;
+    }
+    .greeting { margin: 8px 0 22px; }
+    .greeting h2 {
+      margin: 0;
+      font-size: 27px;
+      line-height: 36px;
+      font-weight: 700;
+      letter-spacing: -0.8px;
+      color: var(--ink);
+    }
+    .greeting p {
+      margin: 5px 0 0;
+      font-size: 12px;
+      line-height: 19px;
+      color: var(--muted);
+    }
+    .thread { display: flex; flex-direction: column; gap: 14px; }
+    .who {
+      margin: 0 0 6px 2px;
+      font-size: 11px;
+      color: var(--soft);
+    }
+    .bubble {
+      max-width: 100%;
+      background: var(--wash);
+      color: var(--text);
+      border-radius: 18px 18px 18px 6px;
+      padding: 12px 14px;
+      font-size: 15px;
+      line-height: 1.45;
+    }
+    .mine {
+      align-self: flex-end;
+      background: var(--mine);
+      color: #fff;
+      border-radius: 18px 18px 6px 18px;
+      max-width: 86%;
+    }
+    .today {
+      width: 100%;
+      text-align: left;
+      border: 0;
+      cursor: pointer;
+      font: inherit;
+      color: inherit;
+      padding: 0;
+      background: none;
+    }
+    .today-card {
+      background: var(--wash);
+      border-radius: 18px 18px 18px 6px;
+      padding: 12px 14px 10px;
+    }
+    .today-card:focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 3px;
+    }
+    .kicker {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 6px;
+      font-size: 11px;
+      color: var(--soft);
+    }
+    .kicker b { font-weight: 600; color: #3d4450; }
+    .lead { margin: 0; font-size: 15px; line-height: 1.45; color: var(--text); }
+    .fold {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 220ms ease;
+    }
+    .today[aria-expanded="true"] .fold { grid-template-rows: 1fr; }
+    .fold-inner { overflow: hidden; }
+    .list {
+      list-style: none;
+      margin: 12px 0 0;
+      padding: 2px 0 0;
+      border-top: 1px solid #e7e9ee;
+    }
+    .list li {
+      padding: 11px 0;
+      border-bottom: 1px solid #eceef2;
+    }
+    .list li:last-child { border-bottom: 0; padding-bottom: 4px; }
+    .item-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 11px;
+      color: var(--soft);
+      margin-bottom: 3px;
+    }
+    .item-top strong { color: var(--ink); font-size: 13px; font-weight: 650; }
+    .list p { margin: 0; font-size: 14px; line-height: 1.4; color: #2a3140; }
+    .open-hint {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--blue);
+    }
+    .composer {
+      flex: none;
+      margin: 0 16px 12px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 5px;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(24, 34, 53, 0.06);
+    }
+    .mic, .send {
+      width: 36px;
+      height: 36px;
+      border: 0;
+      border-radius: 50%;
+      background: transparent;
+      color: #777b83;
+      display: grid;
+      place-items: center;
+      flex: none;
+    }
+    .send { color: #111; font-weight: 650; font-size: 13px; }
+    .send[disabled] { color: #c5c8ce; }
+    .composer input {
+      flex: 1;
+      min-width: 0;
+      border: 0;
+      outline: none;
+      font: 12px/1.3 -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+      color: var(--text);
+      padding: 10px 4px;
+      background: transparent;
+    }
+    .composer input::placeholder { color: #9599a1; }
+    @media (max-width: 460px) {
+      .stage { padding: 0; }
+      .caption { display: none; }
+      .phone {
+        width: 100%;
+        height: 100vh;
+        height: 100dvh;
+        min-height: 0;
+        border-radius: 0;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <p class="caption">Demo only. The today box is one chat message until you tap it.</p>
+    <main class="phone">
+      <header class="toolbar">
+        <h1 class="brand">spur<i>.</i></h1>
+        <div class="ring" aria-label="戒指已连接">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="7.2" stroke="#777C72" stroke-width="1.6"/>
+            <circle cx="12" cy="12" r="3.1" stroke="#777C72" stroke-width="1.6"/>
+          </svg>
+          <span class="dot"></span>
+          <span>已连接</span>
+        </div>
+      </header>
+      <div class="scroll" id="scroll">
+        <section class="greeting">
+          <h2 id="greeting">Good evening.</h2>
+          <p id="dateline"></p>
+        </section>
+        <div class="thread" id="thread">
+          <div>
+            <p class="who">Spur</p>
+            <div class="bubble">I’m around. Nothing noisy — just the one thing that actually has a clock on it.</div>
+          </div>
+          <div>
+            <p class="who">Spur</p>
+            <button class="today" id="today" type="button" aria-expanded="false" aria-controls="today-list" aria-labelledby="lead">
+              <div class="today-card">
+                <div class="kicker">
+                  <b>Today</b>
+                  <span id="today-count">1 of 3</span>
+                </div>
+                <p class="lead" id="lead"></p>
+                <div class="fold">
+                  <div class="fold-inner">
+                    <ul class="list" id="today-list"></ul>
+                  </div>
+                </div>
+                <span class="open-hint" id="hint">See the rest of today</span>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+      <form class="composer" id="composer">
+        <button class="mic" type="button" aria-label="Record an idea">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="9" y="3" width="6" height="11" rx="3" stroke="#777B83" stroke-width="1.6"/>
+            <path d="M6.5 11.5a5.5 5.5 0 0 0 11 0M12 17v3" stroke="#777B83" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <input id="input" type="text" placeholder="Ask Spur or update a project..." aria-label="Ask Spur or update a project" />
+        <button class="send" id="send" type="submit" disabled>Send</button>
+      </form>
+    </main>
+  </div>
+  <script>
+    const reminders = [
+      {
+        when: "3:00 PM",
+        kind: "Meeting",
+        title: "Paris edit check-in",
+        line: "Show up for this one. The rest of the afternoon can stay open."
+      },
+      {
+        when: "Today",
+        kind: "To-do",
+        title: "Review the travel video research",
+        line: "It's ready whenever you sit down. No need before 3."
+      },
+      {
+        when: "Today",
+        kind: "Email",
+        title: "Follow up with Jack",
+        line: "A short note is enough. Ask when the Paris footage will land."
+      }
+    ];
+
+    const now = new Date();
+    const hour = now.getHours();
+    document.getElementById("greeting").textContent =
+      hour < 12 ? "Good morning." : hour < 18 ? "Good afternoon." : "Good evening.";
+    const date = now.toLocaleDateString("en-US", {
+      weekday: "long",
+      month: "long",
+      day: "numeric"
+    });
+    document.getElementById("dateline").textContent = date + " · Agent Workspace";
+
+    document.getElementById("lead").textContent =
+      "You've got a check-in at 3 — the Paris edit. I'd leave the hour around it alone.";
+    const list = document.getElementById("today-list");
+    list.setAttribute("aria-hidden", "true");
+    reminders.forEach(function (item) {
+      const li = document.createElement("li");
+      li.innerHTML =
+        '<div class="item-top"><strong></strong><span></span></div><p></p>';
+      li.querySelector("strong").textContent = item.title;
+      li.querySelector("span").textContent = item.when + " · " + item.kind;
+      li.querySelector("p").textContent = item.line;
+      list.appendChild(li);
+    });
+
+    const today = document.getElementById("today");
+    const hint = document.getElementById("hint");
+    const count = document.getElementById("today-count");
+    today.addEventListener("click", function () {
+      const open = today.getAttribute("aria-expanded") === "true";
+      const next = open ? "false" : "true";
+      today.setAttribute("aria-expanded", next);
+      list.setAttribute("aria-hidden", open ? "true" : "false");
+      hint.textContent = open ? "See the rest of today" : "Just this one";
+      count.textContent = open ? "1 of 3" : "3 today";
+    });
+
+    const input = document.getElementById("input");
+    const send = document.getElementById("send");
+    const thread = document.getElementById("thread");
+    const scroll = document.getElementById("scroll");
+    input.addEventListener("input", function () {
+      send.disabled = !input.value.trim();
+    });
+    document.getElementById("composer").addEventListener("submit", function (event) {
+      event.preventDefault();
+      const text = input.value.trim();
+      if (!text) return;
+      const wrap = document.createElement("div");
+      wrap.className = "bubble mine";
+      wrap.textContent = text;
+      thread.appendChild(wrap);
+      input.value = "";
+      send.disabled = true;
+      scroll.scrollTop = scroll.scrollHeight;
+    });
+  </script>
+</body>
+</html>

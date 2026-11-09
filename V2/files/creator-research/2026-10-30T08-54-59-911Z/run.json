@@ -1,0 +1,8 @@
+{
+  "started": "2026-10-30T08:54:59.914Z",
+  "harness": "/Users/x/X/space/spur/agent/runtime/deepseek-harness",
+  "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+  "baseURL": "https://api.siliconflow.cn/v1",
+  "scope": "public sources, read-only; no UI or video generation",
+  "researchBackend": "direct public HTTPS"
+}

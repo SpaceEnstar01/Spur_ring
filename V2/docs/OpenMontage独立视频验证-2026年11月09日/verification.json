@@ -1,0 +1,15 @@
+{
+  "status": "completed",
+  "video_path": "/Users/x/X/space/spur/V2/docs/OpenMontage独立视频验证-2026年11月09日/Spur-Personal-Agent-30s-9x16.mp4",
+  "duration": 30.0,
+  "width": 1080,
+  "height": 1920,
+  "fps": "30/1",
+  "frames": "900",
+  "bytes": 3596391,
+  "sha256": "ad12a3699c6b5232b5a18ede138940787c7f63389857ab96465e15d95afe574a",
+  "openmontage_original": "/Users/x/X/space/spur/V2/docs/OpenMontage独立视频验证-2026年11月09日/projects/spur-personal-agent-30s/renders/Spur-Personal-Agent-30s-9x16.mp4",
+  "full_decode_exit": 0,
+  "paid_api_calls": 0,
+  "spur_main_integration": "not performed"
+}

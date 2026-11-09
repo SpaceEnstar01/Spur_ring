@@ -1,0 +1,49 @@
+{
+  "version": "1.0",
+  "title": "慢下来，才看见山",
+  "hook": "出发时想赶到山顶，回来时想找回自己。",
+  "key_points": [
+    "期待出发",
+    "疲惫与放弃念头",
+    "老人的提醒",
+    "云散与安静",
+    "归途找回节奏"
+  ],
+  "tone": "reverent",
+  "style": "克制自然的电影感旅行叙事，素材重构而非个人实拍",
+  "target_platform": "tiktok",
+  "target_duration_seconds": 60,
+  "reference_material": [
+    "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/原始记录.txt"
+  ],
+  "core_message": "从想放弃，到重新找回自己的节奏",
+  "metadata": {
+    "thematic_question": "当不再急着到山顶，我们能找回什么？",
+    "shape": "before/after with emotional turn",
+    "render_runtime": "remotion",
+    "renderer_family": "documentary-montage",
+    "sources_allowed": [
+      "wikimedia"
+    ],
+    "generated_clips_allowed": false,
+    "music_plan": {
+      "source": "original_local",
+      "source_path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/music-original.wav",
+      "description": "本地原创氛围钢琴/持续和弦，前半克制，后半舒展"
+    },
+    "narration": "macOS Tingting local Chinese speech",
+    "end_tag_plan": {
+      "text": "慢下来，找回自己的节奏。",
+      "mode": "overlay",
+      "duration_seconds": 7,
+      "render_engine": "remotion",
+      "component": "CinematicRenderer title overlay"
+    },
+    "delegated_approval": true,
+    "source_records_simulated": true,
+    "runtime_options_considered": {
+      "remotion": "selected: native CinematicRenderer",
+      "hyperframes": "not used: no documentary parity on this pipeline"
+    }
+  }
+}

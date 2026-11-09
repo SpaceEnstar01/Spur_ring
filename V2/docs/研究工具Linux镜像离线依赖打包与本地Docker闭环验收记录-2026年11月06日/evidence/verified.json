@@ -1,0 +1,20 @@
+{
+  "health": true,
+  "authRejectsUnauthenticated": true,
+  "runId": "0b058c2a-a8e0-4050-b1fa-ef4682ffa43f",
+  "provider": "agent-reach",
+  "backend": "public-web",
+  "count": 2,
+  "toolMs": 3970,
+  "timing": {
+    "startedAt": "2026-11-06T15:41:45.450Z",
+    "totalMs": 14893,
+    "toolMs": 3980,
+    "nonToolMs": 10913,
+    "firstOutputMs": 14818,
+    "toolCalls": 2,
+    "timedOut": false,
+    "exitCode": 0
+  },
+  "report": "# 容器研究工具验收\n\n状态：部分成功。已调用 research_capabilities 与 research_search（xiaohongshu，\"AI硬件\"，limit=2），仅执行一次搜索，未使用浏览器等外部工具。\n\n来源：\n1. Looki「人生回看器」团队招人（作者 Looki）：http://xhslink.com/o/kOoQ1R4mDO\n2. xiaochao 小红书主页：https://xhslink.com/m/1x5YKmCcLsr\n\n证据限制：MediaCrawler 未授权，实际走 agent-reach public-web 搜索索引，仅含标题/索引文本与主页简介；无发布日期、热度排名、评论数据，非站内完整内容，不能代表近期排序或受众观点。检索时间 2026-11-06T15:41:53Z。\n"
+}

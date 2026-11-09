@@ -1,0 +1,18 @@
+[
+  {
+    "path": "README.md",
+    "status": "adapted-in-V2"
+  },
+  {
+    "path": "package.json",
+    "status": "adapted-in-V2"
+  },
+  {
+    "path": "src/agent.ts",
+    "status": "adapted-in-V2"
+  },
+  {
+    "path": "src/config.ts",
+    "status": "adapted-in-V2"
+  }
+]

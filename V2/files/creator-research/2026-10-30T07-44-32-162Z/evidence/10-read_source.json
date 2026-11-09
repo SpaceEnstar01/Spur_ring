@@ -1,0 +1,7 @@
+{
+  "args": {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCyEd6QBSgat5kkC6svyjudA"
+  },
+  "error": "ValueError: Private address denied",
+  "available": false
+}

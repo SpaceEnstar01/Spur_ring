@@ -1,0 +1,11 @@
+{
+  "status": "FAILED",
+  "loginAttempted": false,
+  "importedSession": false,
+  "keyword": "AI硬件",
+  "requestedPeriod": "2026-10-06 through 2026-11-06 Asia/Shanghai",
+  "sort": "popularity_descending",
+  "errorType": "Error",
+  "message": "Page.goto: net::ERR_CONNECTION_CLOSED at https://www.xiaohongshu.com/\nCall log:\n  - navigating to \"https://www.xiaohongshu.com/\", waiting until \"load\"\n",
+  "seconds": 2.76
+}

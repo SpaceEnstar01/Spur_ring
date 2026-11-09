@@ -1,0 +1,72 @@
+{
+  "elapsed_seconds": 150.6046450138092,
+  "result": {
+    "success": false,
+    "data": {
+      "timed_out": true,
+      "phase": "download",
+      "query": "Swiss Alps",
+      "source": "wikimedia",
+      "clip_id": "wikimedia_44586973",
+      "output_dir": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/stock",
+      "clips_downloaded": 2,
+      "clips_reused": 0,
+      "total_clips": 2,
+      "per_source_counts": {
+        "wikimedia": 2
+      },
+      "queries_run": 1,
+      "resolved_sources": [
+        "wikimedia"
+      ],
+      "clips": [
+        {
+          "clip_id": "wikimedia_127709956",
+          "source": "wikimedia",
+          "source_id": "127709956",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Aerial_views_of_the_Swiss_Alps.webm",
+          "query": "Swiss Alps",
+          "slot_id": "alps",
+          "kind": "video",
+          "path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/stock/clips/wikimedia_127709956.webm",
+          "thumbnail": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/stock/thumbnails/wikimedia_127709956.jpg",
+          "duration": 142.008,
+          "width": 3840,
+          "height": 2160,
+          "creator": "anotherview",
+          "license": "CC BY 3.0",
+          "source_tags": "Aerial views of the Swiss Alps Aerial views of the Swiss Alps. Alps of Switzerland|Media from YouTube|License review needed (video)|Uploaded with video2commons",
+          "skipped_existing": false
+        },
+        {
+          "clip_id": "wikimedia_44585217",
+          "source": "wikimedia",
+          "source_id": "44585217",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Timelapse_of_Swiss_mountains.webm",
+          "query": "Swiss Alps",
+          "slot_id": "alps",
+          "kind": "video",
+          "path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/stock/clips/wikimedia_44585217.webm",
+          "thumbnail": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/stock/thumbnails/wikimedia_44585217.jpg",
+          "duration": 67.154,
+          "width": 1920,
+          "height": 1080,
+          "creator": "jendall",
+          "license": "CC BY 3.0",
+          "source_tags": "Timelapse of Swiss mountains Lombardy (an administrative region of Italy) and Swiss mountains. 1. Early morning - Matterhorn (from Zermatt) 2. Afternoon - Matterhorn (from Zermatt) 3. Breithorn (from Klien Matterhorn) 4. Top of the Mt. Legnone (Lombardy) 5. Findelgletscher glacier (from Rothorn) 6. Evening - Matterhorn (from Zermatt) In this video, the audio has been removed from the original material. Alps of Switzerland|Videos without audio",
+          "skipped_existing": false
+        }
+      ],
+      "errors": [],
+      "elapsed_seconds": 150.6,
+      "timeout_seconds": 150.0
+    },
+    "artifacts": [],
+    "error": "Direct clip search timed out after 150.0s during download.",
+    "cost_usd": 0.0,
+    "duration_seconds": 150.6,
+    "seed": null,
+    "model": null,
+    "from_cache": false
+  }
+}

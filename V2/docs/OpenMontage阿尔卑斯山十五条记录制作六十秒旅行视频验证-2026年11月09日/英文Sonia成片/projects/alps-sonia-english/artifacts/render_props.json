@@ -1,0 +1,441 @@
+{
+  "version": "1.0",
+  "cuts": [
+    {
+      "id": "01",
+      "source": "01",
+      "in_seconds": 0,
+      "out_seconds": 7,
+      "reason": "dark cloudy peak / expectation",
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.25
+    },
+    {
+      "id": "02",
+      "source": "02",
+      "in_seconds": 0,
+      "out_seconds": 7,
+      "reason": "sunlight breaking into valley",
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.25
+    },
+    {
+      "id": "03",
+      "source": "03",
+      "in_seconds": 0,
+      "out_seconds": 8,
+      "reason": "rocky mountain face / fatigue",
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.25
+    },
+    {
+      "id": "04",
+      "source": "04",
+      "in_seconds": 0,
+      "out_seconds": 8,
+      "reason": "ridge / slow down",
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.25
+    },
+    {
+      "id": "05a",
+      "source": "05a",
+      "in_seconds": 0,
+      "out_seconds": 4,
+      "reason": "alpine cows / attention",
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.25
+    },
+    {
+      "id": "05b",
+      "source": "05b",
+      "in_seconds": 0,
+      "out_seconds": 4,
+      "reason": "quiet meadow",
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.25
+    },
+    {
+      "id": "06a",
+      "source": "06a",
+      "in_seconds": 0,
+      "out_seconds": 3,
+      "reason": "clouds / held breath",
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.25
+    },
+    {
+      "id": "06b",
+      "source": "06b",
+      "in_seconds": 0,
+      "out_seconds": 5,
+      "reason": "valley opening / release",
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.25
+    },
+    {
+      "id": "07",
+      "source": "07",
+      "in_seconds": 0,
+      "out_seconds": 7,
+      "reason": "wide mountain landscape / perspective",
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.25
+    },
+    {
+      "id": "08",
+      "source": "08",
+      "in_seconds": 0,
+      "out_seconds": 7,
+      "reason": "Zermatt at night / home",
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.25
+    }
+  ],
+  "renderer_family": "documentary-montage",
+  "render_runtime": "remotion",
+  "composition_mode": "templated",
+  "audio": {
+    "narration": {
+      "segments": [
+        {
+          "asset_id": "narration",
+          "start_seconds": 0,
+          "end_seconds": 60
+        }
+      ]
+    },
+    "music": {
+      "asset_id": "score",
+      "volume": 0.28,
+      "fade_in_seconds": 2,
+      "fade_out_seconds": 4
+    }
+  },
+  "end_tag": {
+    "offset_seconds": 55,
+    "notes": "Native CinematicRenderer title overlay, background is Zermatt night image animated as video."
+  },
+  "metadata": {
+    "render_props_path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/projects/alps-finding-my-own-pace/artifacts/render_props.json",
+    "subtitles": "clause-level proportional local TTS timing, no ASR",
+    "raw_records": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/原始记录.txt",
+    "story_path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/story.json",
+    "stock_reconstruction": true
+  },
+  "scenes": [
+    {
+      "id": "01",
+      "kind": "video",
+      "src": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/shots/01.mp4",
+      "startSeconds": 0,
+      "durationSeconds": 7,
+      "fadeInFrames": 15,
+      "fadeOutFrames": 8,
+      "filter": "contrast(1.035) saturate(0.92) brightness(0.98)"
+    },
+    {
+      "id": "02",
+      "kind": "video",
+      "src": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/shots/02.mp4",
+      "startSeconds": 7,
+      "durationSeconds": 7,
+      "fadeInFrames": 8,
+      "fadeOutFrames": 8,
+      "filter": "contrast(1.035) saturate(0.92) brightness(0.98)"
+    },
+    {
+      "id": "03",
+      "kind": "video",
+      "src": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/shots/03.mp4",
+      "startSeconds": 14,
+      "durationSeconds": 8,
+      "fadeInFrames": 8,
+      "fadeOutFrames": 8,
+      "filter": "contrast(1.035) saturate(0.92) brightness(0.98)"
+    },
+    {
+      "id": "04",
+      "kind": "video",
+      "src": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/shots/04.mp4",
+      "startSeconds": 22,
+      "durationSeconds": 8,
+      "fadeInFrames": 8,
+      "fadeOutFrames": 8,
+      "filter": "contrast(1.035) saturate(0.92) brightness(0.98)"
+    },
+    {
+      "id": "05a",
+      "kind": "video",
+      "src": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/shots/05a.mp4",
+      "startSeconds": 30,
+      "durationSeconds": 4,
+      "fadeInFrames": 8,
+      "fadeOutFrames": 8,
+      "filter": "contrast(1.035) saturate(0.92) brightness(0.98)"
+    },
+    {
+      "id": "05b",
+      "kind": "video",
+      "src": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/shots/05b.mp4",
+      "startSeconds": 34,
+      "durationSeconds": 4,
+      "fadeInFrames": 8,
+      "fadeOutFrames": 8,
+      "filter": "contrast(1.035) saturate(0.92) brightness(0.98)"
+    },
+    {
+      "id": "06a",
+      "kind": "video",
+      "src": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/shots/06a.mp4",
+      "startSeconds": 38,
+      "durationSeconds": 3,
+      "fadeInFrames": 8,
+      "fadeOutFrames": 8,
+      "filter": "contrast(1.035) saturate(0.92) brightness(0.98)"
+    },
+    {
+      "id": "06b",
+      "kind": "video",
+      "src": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/shots/06b.mp4",
+      "startSeconds": 41,
+      "durationSeconds": 5,
+      "fadeInFrames": 8,
+      "fadeOutFrames": 8,
+      "filter": "contrast(1.035) saturate(0.92) brightness(0.98)"
+    },
+    {
+      "id": "07",
+      "kind": "video",
+      "src": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/shots/07.mp4",
+      "startSeconds": 46,
+      "durationSeconds": 7,
+      "fadeInFrames": 8,
+      "fadeOutFrames": 8,
+      "filter": "contrast(1.035) saturate(0.92) brightness(0.98)"
+    },
+    {
+      "id": "08",
+      "kind": "video",
+      "src": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/shots/08.mp4",
+      "startSeconds": 53,
+      "durationSeconds": 7,
+      "fadeInFrames": 8,
+      "fadeOutFrames": 8,
+      "filter": "contrast(1.035) saturate(0.92) brightness(0.98)"
+    },
+    {
+      "id": "opening",
+      "kind": "title",
+      "startSeconds": 0.7,
+      "durationSeconds": 3.5,
+      "text": "Slow Down.\nSee More.",
+      "accent": "ALPS · A DAY IN EIGHT MOMENTS",
+      "backgroundSrc": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/shots/01.mp4",
+      "backgroundTrimBeforeSeconds": 0.7,
+      "variant": "overlay",
+      "intensity": 0.1
+    },
+    {
+      "id": "end-tag",
+      "kind": "title",
+      "startSeconds": 55,
+      "durationSeconds": 5,
+      "text": "Find your own pace.",
+      "accent": "THE SUMMIT CAN WAIT",
+      "backgroundSrc": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/shots/08.mp4",
+      "backgroundTrimBeforeSeconds": 2,
+      "variant": "overlay",
+      "intensity": 0.08
+    }
+  ],
+  "soundtrack": {
+    "src": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/英文Sonia成片/narration-sonia.wav",
+    "volume": 1,
+    "fadeInSeconds": 0.1,
+    "fadeOutSeconds": 0.6
+  },
+  "music": {
+    "src": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/music-original.wav",
+    "volume": 0.28,
+    "fadeInSeconds": 2,
+    "fadeOutSeconds": 4
+  },
+  "captions": {
+    "words": [
+      {
+        "word": "I left before dawn",
+        "startMs": 150,
+        "endMs": 1509
+      },
+      {
+        "word": "wondering why I'd dragged myself out into the cold.",
+        "startMs": 1509,
+        "endMs": 5358
+      },
+      {
+        "word": "Then the first light caught the peaks.",
+        "startMs": 7150,
+        "endMs": 9950
+      },
+      {
+        "word": "Some moments just don't fit inside a photograph.",
+        "startMs": 9950,
+        "endMs": 13486
+      },
+      {
+        "word": "But the trail got rough.",
+        "startMs": 14150,
+        "endMs": 16314
+      },
+      {
+        "word": "My legs ached.",
+        "startMs": 16314,
+        "endMs": 17576
+      },
+      {
+        "word": "For a while",
+        "startMs": 17576,
+        "endMs": 18568
+      },
+      {
+        "word": "I really wanted to turn back.",
+        "startMs": 18568,
+        "endMs": 21182
+      },
+      {
+        "word": "An old man on the path told me",
+        "startMs": 22150,
+        "endMs": 24581
+      },
+      {
+        "word": "'Don't rush to the top.",
+        "startMs": 24581,
+        "endMs": 26445
+      },
+      {
+        "word": "Take your time.'",
+        "startMs": 26445,
+        "endMs": 27742
+      },
+      {
+        "word": "So I put my phone away.",
+        "startMs": 30150,
+        "endMs": 32529
+      },
+      {
+        "word": "Cowbells",
+        "startMs": 32529,
+        "endMs": 33356
+      },
+      {
+        "word": "wind",
+        "startMs": 33356,
+        "endMs": 33770
+      },
+      {
+        "word": "bread and cheese.",
+        "startMs": 33770,
+        "endMs": 35528
+      },
+      {
+        "word": "Somehow",
+        "startMs": 35528,
+        "endMs": 36252
+      },
+      {
+        "word": "it was enough.",
+        "startMs": 36252,
+        "endMs": 37700
+      },
+      {
+        "word": "Then the clouds lifted.",
+        "startMs": 38150,
+        "endMs": 40079
+      },
+      {
+        "word": "The whole valley opened up.",
+        "startMs": 40079,
+        "endMs": 42343
+      },
+      {
+        "word": "I just stood there",
+        "startMs": 42343,
+        "endMs": 43852
+      },
+      {
+        "word": "saying nothing.",
+        "startMs": 43852,
+        "endMs": 45110
+      },
+      {
+        "word": "The hard part passed.",
+        "startMs": 46150,
+        "endMs": 47841
+      },
+      {
+        "word": "From up here",
+        "startMs": 47841,
+        "endMs": 48807
+      },
+      {
+        "word": "the things I'd worried about felt so small.",
+        "startMs": 48807,
+        "endMs": 52270
+      },
+      {
+        "word": "By dusk",
+        "startMs": 53150,
+        "endMs": 53747
+      },
+      {
+        "word": "the village lights felt like home.",
+        "startMs": 53747,
+        "endMs": 56649
+      },
+      {
+        "word": "What I'd found was my own pace.",
+        "startMs": 56649,
+        "endMs": 59294
+      }
+    ],
+    "wordsPerPage": 1,
+    "fontSize": 42,
+    "color": "#F9F6EF",
+    "highlightColor": "#F9F6EF",
+    "backgroundColor": "rgba(0,0,0,0.40)"
+  },
+  "captionProps": {
+    "wordsPerPage": 1,
+    "fontSize": 40,
+    "bottomOffset": 245,
+    "fontFamily": "Arial, sans-serif",
+    "wordSeparator": " ",
+    "boxStyle": {
+      "maxWidth": "84%",
+      "borderRadius": 8,
+      "padding": "8px 18px",
+      "textAlign": "center"
+    },
+    "wordPop": {
+      "scale": 1
+    },
+    "wordStyle": {
+      "whiteSpace": "normal",
+      "maxWidth": "100%"
+    }
+  },
+  "titleFontSize": 64,
+  "titleWidth": 900,
+  "signalLineCount": 0
+}

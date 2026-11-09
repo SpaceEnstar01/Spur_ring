@@ -1,0 +1,7 @@
+const {execFile}=require('node:child_process');
+const fs=require('node:fs');const os=require('node:os');const path=require('node:path');
+const binary='/private/tmp/spur-creator-research-local-20261106/venv/bin/agent-reach';
+const rows=[['x','twitter','personal agent'],['reddit','reddit','personal agent'],['bilibili','web','AI硬件 site:bilibili.com'],['douyin','web','AI硬件 site:douyin.com'],['weibo','web','AI硬件 site:weibo.com'],['tiktok','web','personal agent site:tiktok.com']];
+const out=[];
+async function one([platform,channel,query]){const home=fs.mkdtempSync(path.join(os.tmpdir(),'spur-platform-public-'));const start=Date.now();const args=[channel,'search',query,'--limit','2',...(channel==='web'?[]:['--backend','public-web']),'--timeout','25'];return new Promise(resolve=>execFile(binary,args,{env:{PATH:path.dirname(binary)+':/usr/bin:/bin',HOME:fs.realpathSync(home),LANG:'en_US.UTF-8'},timeout:30000,maxBuffer:512000},(err,stdout)=>{let data;try{data=JSON.parse(stdout)}catch{data={ok:false,error:{code:err?.killed?'TIMEOUT':'INVALID_OUTPUT'}}}const row={platform,query,elapsedMs:Date.now()-start,...data};out.push(row);console.log(JSON.stringify({platform,ok:data.ok,count:data.items?.length||0,error:data.error?.code,backend:data.backend}));resolve();}));}
+(async()=>{for(let i=0;i<rows.length;i+=2)await Promise.all(rows.slice(i,i+2).map(one));fs.writeFileSync('V2/docs/全平台研究工具接入与非商业学习验证记录-2026年11月07日/公开搜索实际探测.json',JSON.stringify(out,null,2));})();

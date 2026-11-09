@@ -1,0 +1,326 @@
+{
+  "version": "1.0",
+  "project_id": "alps-finding-my-own-pace",
+  "pipeline_type": "documentary-montage",
+  "stage": "scene_plan",
+  "status": "completed",
+  "timestamp": "2026-11-09T03:18:52.326232+00:00",
+  "checkpoint_policy": "guided",
+  "human_approval_required": true,
+  "human_approved": true,
+  "artifacts": {
+    "scene_plan": {
+      "version": "1.0",
+      "scenes": [
+        {
+          "id": "01",
+          "type": "broll",
+          "description": "dark cloudy peak / expectation",
+          "start_seconds": 0,
+          "end_seconds": 7
+        },
+        {
+          "id": "02",
+          "type": "broll",
+          "description": "sunlight breaking into valley",
+          "start_seconds": 7,
+          "end_seconds": 14
+        },
+        {
+          "id": "03",
+          "type": "broll",
+          "description": "rocky mountain face / fatigue",
+          "start_seconds": 14,
+          "end_seconds": 22
+        },
+        {
+          "id": "04",
+          "type": "broll",
+          "description": "ridge / slow down",
+          "start_seconds": 22,
+          "end_seconds": 30
+        },
+        {
+          "id": "05a",
+          "type": "broll",
+          "description": "alpine cows / attention",
+          "start_seconds": 30,
+          "end_seconds": 34
+        },
+        {
+          "id": "05b",
+          "type": "broll",
+          "description": "quiet meadow",
+          "start_seconds": 34,
+          "end_seconds": 38
+        },
+        {
+          "id": "06a",
+          "type": "broll",
+          "description": "clouds / held breath",
+          "start_seconds": 38,
+          "end_seconds": 41
+        },
+        {
+          "id": "06b",
+          "type": "broll",
+          "description": "valley opening / release",
+          "start_seconds": 41,
+          "end_seconds": 46
+        },
+        {
+          "id": "07",
+          "type": "broll",
+          "description": "wide mountain landscape / perspective",
+          "start_seconds": 46,
+          "end_seconds": 53
+        },
+        {
+          "id": "08",
+          "type": "broll",
+          "description": "Zermatt at night / home",
+          "start_seconds": 53,
+          "end_seconds": 60
+        }
+      ],
+      "metadata": {
+        "slots": [
+          {
+            "id": "01",
+            "type": "broll",
+            "description": "dark cloudy peak / expectation",
+            "start_seconds": 0,
+            "end_seconds": 7,
+            "queries": [
+              "Swiss Alps",
+              "dawn"
+            ],
+            "preferred_sources": [
+              "wikimedia"
+            ],
+            "target_hold_seconds": 7
+          },
+          {
+            "id": "02",
+            "type": "broll",
+            "description": "sunlight breaking into valley",
+            "start_seconds": 7,
+            "end_seconds": 14,
+            "queries": [
+              "Swiss Alps",
+              "sunrise"
+            ],
+            "preferred_sources": [
+              "wikimedia"
+            ],
+            "target_hold_seconds": 7
+          },
+          {
+            "id": "03",
+            "type": "broll",
+            "description": "rocky mountain face / fatigue",
+            "start_seconds": 14,
+            "end_seconds": 22,
+            "queries": [
+              "Swiss Alps",
+              "fatigue"
+            ],
+            "preferred_sources": [
+              "wikimedia"
+            ],
+            "target_hold_seconds": 8
+          },
+          {
+            "id": "04",
+            "type": "broll",
+            "description": "ridge / slow down",
+            "start_seconds": 22,
+            "end_seconds": 30,
+            "queries": [
+              "Swiss Alps",
+              "turning"
+            ],
+            "preferred_sources": [
+              "wikimedia"
+            ],
+            "target_hold_seconds": 8
+          },
+          {
+            "id": "05a",
+            "type": "broll",
+            "description": "alpine cows / attention",
+            "start_seconds": 30,
+            "end_seconds": 34,
+            "queries": [
+              "Swiss Alps",
+              "calm"
+            ],
+            "preferred_sources": [
+              "wikimedia"
+            ],
+            "target_hold_seconds": 4
+          },
+          {
+            "id": "05b",
+            "type": "broll",
+            "description": "quiet meadow",
+            "start_seconds": 34,
+            "end_seconds": 38,
+            "queries": [
+              "Swiss Alps",
+              "reveal"
+            ],
+            "preferred_sources": [
+              "wikimedia"
+            ],
+            "target_hold_seconds": 4
+          },
+          {
+            "id": "06a",
+            "type": "broll",
+            "description": "clouds / held breath",
+            "start_seconds": 38,
+            "end_seconds": 41,
+            "queries": [
+              "Swiss Alps",
+              "release"
+            ],
+            "preferred_sources": [
+              "wikimedia"
+            ],
+            "target_hold_seconds": 3
+          },
+          {
+            "id": "06b",
+            "type": "broll",
+            "description": "valley opening / release",
+            "start_seconds": 41,
+            "end_seconds": 46,
+            "queries": [
+              "Swiss Alps",
+              "home"
+            ],
+            "preferred_sources": [
+              "wikimedia"
+            ],
+            "target_hold_seconds": 5
+          },
+          {
+            "id": "07",
+            "type": "broll",
+            "description": "wide mountain landscape / perspective",
+            "start_seconds": 46,
+            "end_seconds": 53,
+            "queries": [
+              "Swiss Alps",
+              "home"
+            ],
+            "preferred_sources": [
+              "wikimedia"
+            ],
+            "target_hold_seconds": 7
+          },
+          {
+            "id": "08",
+            "type": "broll",
+            "description": "Zermatt at night / home",
+            "start_seconds": 53,
+            "end_seconds": 60,
+            "queries": [
+              "Swiss Alps",
+              "home"
+            ],
+            "preferred_sources": [
+              "wikimedia"
+            ],
+            "target_hold_seconds": 7
+          }
+        ],
+        "recording_to_narration": [
+          {
+            "id": "1",
+            "duration_seconds": 7,
+            "narration": "\u5929\u8fd8\u6ca1\u4eae\uff0c\u6211\u5c31\u51fa\u53d1\u4e86\u3002\u51b7\u5f97\u6709\u70b9\u540e\u6094\uff0c\u5374\u53c8\u671f\u5f85\u7740\u4ec0\u4e48\u3002",
+            "recording_ids": [
+              1
+            ],
+            "emotion": "dawn"
+          },
+          {
+            "id": "2",
+            "duration_seconds": 7,
+            "narration": "\u76f4\u5230\u7b2c\u4e00\u675f\u5149\uff0c\u628a\u96ea\u5c71\u67d3\u6210\u91d1\u8272\u3002\u7167\u7247\u88c5\u4e0d\u4e0b\u90a3\u4e00\u523b\u3002",
+            "recording_ids": [
+              2
+            ],
+            "emotion": "sunrise"
+          },
+          {
+            "id": "3",
+            "duration_seconds": 8,
+            "narration": "\u53ef\u788e\u77f3\u8def\u8d8a\u8d70\u8d8a\u96be\uff0c\u817f\u8d8a\u6765\u8d8a\u9178\u3002\u6211\u7b2c\u4e00\u6b21\u60f3\uff0c\u8981\u4e0d\u7b97\u4e86\u3002",
+            "recording_ids": [
+              3,
+              6
+            ],
+            "emotion": "fatigue"
+          },
+          {
+            "id": "4",
+            "duration_seconds": 8,
+            "narration": "\u8def\u4e0a\uff0c\u4e00\u4f4d\u8d70\u4e86\u4e09\u5341\u5e74\u7684\u8001\u4eba\u8bf4\uff1a\u522b\u6025\u7740\u5230\u5c71\u9876\uff0c\u6162\u6162\u8d70\u3002",
+            "recording_ids": [
+              5
+            ],
+            "emotion": "turning"
+          },
+          {
+            "id": "5",
+            "duration_seconds": 8,
+            "narration": "\u6211\u6536\u8d77\u624b\u673a\uff0c\u542c\u98ce\uff0c\u542c\u725b\u94c3\u3002\u4e00\u5757\u9762\u5305\uff0c\u4e5f\u5403\u5f97\u683c\u5916\u6ee1\u8db3\u3002",
+            "recording_ids": [
+              4,
+              8,
+              9
+            ],
+            "emotion": "calm"
+          },
+          {
+            "id": "6",
+            "duration_seconds": 8,
+            "narration": "\u540e\u6765\uff0c\u4e91\u7a81\u7136\u6563\u4e86\u3002\u5c71\u8c37\u6574\u4e2a\u51fa\u73b0\u5728\u773c\u524d\u3002\u6211\u7ad9\u4e86\u5f88\u4e45\u3002",
+            "recording_ids": [
+              7,
+              10
+            ],
+            "emotion": "reveal"
+          },
+          {
+            "id": "7",
+            "duration_seconds": 7,
+            "narration": "\u539f\u6765\uff0c\u6709\u4e9b\u75b2\u60eb\uff0c\u4e0d\u5fc5\u6025\u7740\u6218\u80dc\u3002\u8d70\u8fc7\u8fd9\u4e00\u6bb5\uff0c\u5c31\u4f1a\u4e0d\u4e00\u6837\u3002",
+            "recording_ids": [
+              11,
+              12
+            ],
+            "emotion": "release"
+          },
+          {
+            "id": "8",
+            "duration_seconds": 7,
+            "narration": "\u4e0b\u5c71\u65f6\uff0c\u5c0f\u9547\u4eae\u8d77\u4e86\u706f\u3002\u4eca\u5929\u627e\u56de\u7684\uff0c\u4e0d\u662f\u9ad8\u5ea6\uff0c\u662f\u81ea\u5df1\u7684\u8282\u594f\u3002",
+            "recording_ids": [
+              13,
+              14,
+              15
+            ],
+            "emotion": "home"
+          }
+        ]
+      }
+    }
+  },
+  "metadata": {
+    "user_delegation": "User explicitly requests final MP4 without stepwise approval; sources are stock reconstruction of simulated recordings, no publishing."
+  }
+}

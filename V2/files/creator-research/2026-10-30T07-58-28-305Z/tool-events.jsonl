@@ -1,0 +1,30 @@
+{"at":"2026-10-30T07:58:30.876Z","event":"call","id":1,"tool":"creator_search","args":{"query":"American travel vlogger Japan 1 million views"}}
+{"at":"2026-10-30T07:59:21.936Z","event":"result","id":1,"tool":"creator_search","source":"web search","available":true}
+{"at":"2026-10-30T07:59:21.941Z","event":"call","id":2,"tool":"creator_search","args":{"query":"US travel youtuber Italy travel vlog million views"}}
+{"at":"2026-10-30T07:59:32.954Z","event":"result","id":2,"tool":"creator_search","source":"web search","available":true}
+{"at":"2026-10-30T07:59:38.589Z","event":"call","id":3,"tool":"creator_search","args":{"query":"Kara and Nate YouTube video"}}
+{"at":"2026-10-30T07:59:46.598Z","event":"result","id":3,"tool":"creator_search","source":"web search","available":true}
+{"at":"2026-10-30T07:59:46.607Z","event":"call","id":4,"tool":"creator_search","args":{"query":"Peter Santenello YouTube Appalachia full episode"}}
+{"at":"2026-10-30T07:59:55.618Z","event":"result","id":4,"tool":"creator_search","source":"web search","available":true}
+{"at":"2026-10-30T08:00:03.437Z","event":"call","id":5,"tool":"creator_video_metadata","args":{"url":"https://www.youtube.com/watch?v=p3O6bKdPLbw"}}
+{"at":"2026-10-30T08:00:12.448Z","event":"result","id":5,"tool":"creator_video_metadata","source":"https://www.youtube.com/watch?v=p3O6bKdPLbw","available":true}
+{"at":"2026-10-30T08:00:12.454Z","event":"call","id":6,"tool":"creator_read_source","args":{"url":"https://en.wikipedia.org/wiki/Peter_Santenello"}}
+{"at":"2026-10-30T08:02:47.618Z","event":"result","id":6,"tool":"creator_read_source","source":"https://en.wikipedia.org/wiki/Peter_Santenello","available":true}
+{"at":"2026-10-30T08:02:55.420Z","event":"call","id":7,"tool":"creator_transcript","args":{"url":"https://www.youtube.com/watch?v=p3O6bKdPLbw"}}
+{"at":"2026-10-30T08:03:04.432Z","event":"result","id":7,"tool":"creator_transcript","source":"https://www.youtube.com/watch?v=p3O6bKdPLbw","available":true}
+{"at":"2026-10-30T08:03:12.056Z","event":"call","id":8,"tool":"creator_search","args":{"query":"petersantenello.com Poorest Region of America transcript"}}
+{"at":"2026-10-30T08:03:22.068Z","event":"result","id":8,"tool":"creator_search","source":"web search","available":true}
+{"at":"2026-10-30T08:03:22.074Z","event":"call","id":9,"tool":"creator_read_source","args":{"url":"https://petersantenello.com/videos/"}}
+{"at":"2026-10-30T08:03:29.083Z","event":"result","id":9,"tool":"creator_read_source","source":"https://petersantenello.com/videos/","available":true}
+{"at":"2026-10-30T08:03:36.069Z","event":"call","id":10,"tool":"creator_read_source","args":{"url":"https://petersantenello.com/videos/poorest-region-of-america-what-it-really-looks-like/"}}
+{"at":"2026-10-30T08:03:46.080Z","event":"result","id":10,"tool":"creator_read_source","source":"https://petersantenello.com/videos/poorest-region-of-america-what-it-really-looks-like/","available":true}
+{"at":"2026-10-30T08:03:46.086Z","event":"call","id":11,"tool":"creator_read_source","args":{"url":"https://archive.ventilaar.net/watch?v=p3O6bKdPLbw"}}
+{"at":"2026-10-30T08:05:27.197Z","event":"result","id":11,"tool":"creator_read_source","source":"https://archive.ventilaar.net/watch?v=p3O6bKdPLbw","available":true}
+{"at":"2026-10-30T08:05:35.071Z","event":"call","id":12,"tool":"creator_search","args":{"query":"p3O6bKdPLbw transcript timestamps Appalachia"}}
+{"at":"2026-10-30T08:05:53.092Z","event":"result","id":12,"tool":"creator_search","source":"web search","available":true}
+{"at":"2026-10-30T08:06:15.712Z","event":"call","id":13,"tool":"creator_read_source","args":{"url":"https://youtubetranscript.com/?v=p3O6bKdPLbw"}}
+{"at":"2026-10-30T08:06:22.724Z","event":"result","id":13,"tool":"creator_read_source","source":"https://youtubetranscript.com/?v=p3O6bKdPLbw","available":true}
+{"at":"2026-10-30T08:07:00.338Z","event":"call","id":14,"tool":"creator_transcript","args":{"url":"https://www.youtube.com/watch?v=xpJrR5-Ndpw"}}
+{"at":"2026-10-30T08:07:13.355Z","event":"result","id":14,"tool":"creator_transcript","source":"https://www.youtube.com/watch?v=xpJrR5-Ndpw","available":true}
+{"at":"2026-10-30T08:08:11.438Z","event":"call","id":15,"tool":"creator_search","args":{"query":"Peter Santenello Appalachia coal miner 68 hours video"}}
+{"at":"2026-10-30T08:09:30.525Z","event":"result","id":15,"tool":"creator_search","source":"web search","available":true}

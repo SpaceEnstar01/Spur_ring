@@ -1,0 +1,69 @@
+{
+  "version": "1.0",
+  "project_id": "spur-personal-agent-30s",
+  "pipeline_type": "animated-explainer",
+  "stage": "script",
+  "status": "completed",
+  "timestamp": "2026-11-09T02:59:00.493323+00:00",
+  "checkpoint_policy": "guided",
+  "human_approval_required": true,
+  "human_approved": true,
+  "artifacts": {
+    "script": {
+      "version": "1.0",
+      "title": "Personal Agent \u00b7 \u4e0d\u6b62\u804a\u5929",
+      "total_duration_seconds": 30,
+      "voice_performance": {
+        "performance_intent": "\u6e05\u695a\u3001\u514b\u5236\u7684\u4e2d\u6587\u79d1\u6280\u53d9\u8ff0",
+        "pacing_profile": "conversational",
+        "energy_curve": "\u5e73\u7a33\u5f00\u573a\uff0c\u91cd\u70b9\u5f3a\u8c03\u884c\u52a8\uff0c\u6e29\u548c\u6536\u5c3e",
+        "pause_policy": "\u6309\u8bed\u4e49\u5206\u53e5\uff0c\u516d\u6bb5\u5404\u4e94\u79d2",
+        "provider_notes": {
+          "local": "macOS say Tingting\uff0c\u65e0\u4e91\u7aef\u8bf7\u6c42"
+        }
+      },
+      "sections": [
+        {
+          "id": "0",
+          "text": "\u4eca\u5929\uff0c\u6211\u5728\u7814\u7a76\uff0c\u4e2a\u4ebaAI\u667a\u80fd\u4f53\u3002",
+          "start_seconds": 0,
+          "end_seconds": 5
+        },
+        {
+          "id": "1",
+          "text": "\u6211\u8ba4\u4e3a\uff0c\u672a\u6765\u7684\u4eba\u5de5\u667a\u80fd\uff0c\u4e0d\u5e94\u8be5\u53ea\u662f\u804a\u5929\u5de5\u5177\u3002",
+          "start_seconds": 5,
+          "end_seconds": 10
+        },
+        {
+          "id": "2",
+          "text": "\u5b83\u5e94\u8be5\u7406\u89e3\u7528\u6237\u7684\u957f\u671f\u8bb0\u5fc6\u3002",
+          "start_seconds": 10,
+          "end_seconds": 15
+        },
+        {
+          "id": "3",
+          "text": "\u5e76\u4e14\uff0c\u4e3b\u52a8\u5e2e\u52a9\u7528\u6237\uff0c\u5b8c\u6210\u771f\u6b63\u7684\u4efb\u52a1\u3002",
+          "start_seconds": 15,
+          "end_seconds": 20
+        },
+        {
+          "id": "4",
+          "text": "\u771f\u6b63\u4f18\u79c0\u7684\u4e2a\u4eba\u667a\u80fd\u4f53\uff0c\u5e94\u8be5\u901a\u8fc7\u8f7b\u4ea4\u4e92\uff0c",
+          "start_seconds": 20,
+          "end_seconds": 25
+        },
+        {
+          "id": "5",
+          "text": "\u81ea\u7136\u5730\uff0c\u878d\u5165\u6211\u4eec\u7684\u65e5\u5e38\u751f\u6d3b\u3002",
+          "start_seconds": 25,
+          "end_seconds": 30
+        }
+      ]
+    }
+  },
+  "style_playbook": "flat-motion-graphics",
+  "metadata": {
+    "approval_source": "User explicitly approved dependency installation and standalone 30s 9:16 rendering; no cloud/publishing."
+  }
+}

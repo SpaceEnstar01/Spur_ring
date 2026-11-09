@@ -1,0 +1,26 @@
+{
+  "ok": true,
+  "status": "partial",
+  "platform": "weibo",
+  "provider": "mediacrawler",
+  "items": [
+    {
+      "title": "为什么我这次左侧反对大家去抄AI硬件，其实之前分析过很多次，这些玩意一旦扩产根本不缺，股价都是先于行业一两年见顶。为什么我唯独安利了100的村龙，因为国产替代跟AI硬件不是同一赛道，这就是我为什么虽然“mail”却依然不慌的原因，如果我在硬件里埋了我绝对不可能死扛，当时想的是大不了我提前相约明年6月。这两天的硬件和设备的差距，大家可以验证验证了。",
+      "url": "https://m.weibo.cn/detail/5361882718275312",
+      "text": "为什么我这次左侧反对大家去抄AI硬件，其实之前分析过很多次，这些玩意一旦扩产根本不缺，股价都是先于行业一两年见顶。为什么我唯独安利了100的村龙，因为国产替代跟AI硬件不是同一赛道，这就是我为什么虽然“mail”却依然不慌的原因，如果我在硬件里埋了我绝对不可能死扛，当时想的是大不了我提前相约明年6月。这两天的硬件和设备的差距，大家可以验证验证了。",
+      "evidenceType": "native_search_result"
+    },
+    {
+      "title": "今晚美股AI硬件真是跌的酸爽，也差不多该反弹了吧 ",
+      "url": "https://m.weibo.cn/detail/5362048116720456",
+      "text": "今晚美股AI硬件真是跌的酸爽，也差不多该反弹了吧 ",
+      "evidenceType": "native_search_result"
+    }
+  ],
+  "limits": {
+    "commentsAvailable": false,
+    "popularityRankingVerified": false,
+    "dateRangeVerified": false
+  },
+  "error": null
+}

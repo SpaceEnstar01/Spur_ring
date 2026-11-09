@@ -1,0 +1,39 @@
+{"at":"2026-10-30T07:44:38.648Z","event":"call","id":1,"tool":"creator_search","args":{"query":"site:youtube.com Kara and Nate travel video million views American travel creators"}}
+{"at":"2026-10-30T07:44:42.316Z","event":"result","id":1,"tool":"creator_search","source":"https://www.bing.com/search?format=rss&q=site%3Ayoutube.com%20Kara%20and%20Nate%20travel%20video%20million%20views%20American%20travel%20creators","available":true}
+{"at":"2026-10-30T07:44:42.325Z","event":"call","id":2,"tool":"creator_search","args":{"query":"Mark Wiens American travel food vlogger biography born Arizona"}}
+{"at":"2026-10-30T07:44:47.722Z","event":"result","id":2,"tool":"creator_search","source":"https://www.bing.com/search?format=rss&q=Mark%20Wiens%20American%20travel%20food%20vlogger%20biography%20born%20Arizona","available":true}
+{"at":"2026-10-30T07:44:47.729Z","event":"call","id":3,"tool":"creator_search","args":{"query":"site:youtube.com \"Kara and Nate\" \"American\" travel vlog"}}
+{"at":"2026-10-30T07:44:51.414Z","event":"result","id":3,"tool":"creator_search","source":"https://www.bing.com/search?format=rss&q=site%3Ayoutube.com%20%22Kara%20and%20Nate%22%20%22American%22%20travel%20vlog","available":true}
+{"at":"2026-10-30T07:44:55.197Z","event":"call","id":4,"tool":"creator_search","args":{"query":"Kara Nate travel YouTubers from Nashville Tennessee biography"}}
+{"at":"2026-10-30T07:45:01.791Z","event":"result","id":4,"tool":"creator_search","source":"https://www.bing.com/search?format=rss&q=Kara%20Nate%20travel%20YouTubers%20from%20Nashville%20Tennessee%20biography","available":true}
+{"at":"2026-10-30T07:45:01.798Z","event":"call","id":5,"tool":"creator_search","args":{"query":"Mark Wiens YouTube travel food channel Arizona American biography"}}
+{"at":"2026-10-30T07:45:07.126Z","event":"result","id":5,"tool":"creator_search","source":"https://www.bing.com/search?format=rss&q=Mark%20Wiens%20YouTube%20travel%20food%20channel%20Arizona%20American%20biography","available":true}
+{"at":"2026-10-30T07:45:07.133Z","event":"call","id":6,"tool":"creator_search","args":{"query":"Drew Binsky American travel YouTuber biography born"}}
+{"at":"2026-10-30T07:45:15.852Z","event":"result","id":6,"tool":"creator_search","source":"https://www.bing.com/search?format=rss&q=Drew%20Binsky%20American%20travel%20YouTuber%20biography%20born","available":true}
+{"at":"2026-10-30T07:45:20.047Z","event":"call","id":7,"tool":"creator_search","args":{"query":"\"Kara and Nate\" YouTube channel travel"}}
+{"at":"2026-10-30T07:45:24.769Z","event":"result","id":7,"tool":"creator_search","source":"https://www.bing.com/search?format=rss&q=%22Kara%20and%20Nate%22%20YouTube%20channel%20travel","available":true}
+{"at":"2026-10-30T07:45:24.775Z","event":"call","id":8,"tool":"creator_search","args":{"query":"\"Mark Wiens\" YouTube channel"}}
+{"at":"2026-10-30T07:45:29.590Z","event":"result","id":8,"tool":"creator_search","source":"https://www.bing.com/search?format=rss&q=%22Mark%20Wiens%22%20YouTube%20channel","available":true}
+{"at":"2026-10-30T07:45:29.596Z","event":"call","id":9,"tool":"creator_search","args":{"query":"\"Drew Binsky\" YouTube channel"}}
+{"at":"2026-10-30T07:45:35.002Z","event":"result","id":9,"tool":"creator_search","source":"https://www.bing.com/search?format=rss&q=%22Drew%20Binsky%22%20YouTube%20channel","available":true}
+{"at":"2026-10-30T07:45:42.780Z","event":"call","id":10,"tool":"creator_read_source","args":{"url":"https://www.youtube.com/feeds/videos.xml?channel_id=UCyEd6QBSgat5kkC6svyjudA"}}
+{"at":"2026-10-30T07:45:42.821Z","event":"result","id":10,"tool":"creator_read_source","available":false,"error":"ValueError: Private address denied"}
+{"at":"2026-10-30T07:45:42.826Z","event":"call","id":11,"tool":"creator_read_source","args":{"url":"https://www.youtube.com/@karaandnate/videos"}}
+{"at":"2026-10-30T07:45:42.866Z","event":"result","id":11,"tool":"creator_read_source","available":false,"error":"ValueError: Private address denied"}
+{"at":"2026-10-30T07:45:42.871Z","event":"call","id":12,"tool":"creator_read_source","args":{"url":"https://www.youtube.com/@MarkWiens/videos"}}
+{"at":"2026-10-30T07:45:42.910Z","event":"result","id":12,"tool":"creator_read_source","available":false,"error":"ValueError: Private address denied"}
+{"at":"2026-10-30T07:45:48.790Z","event":"call","id":13,"tool":"creator_search","args":{"query":"travel vlog youtube millions views street food india"}}
+{"at":"2026-10-30T07:45:53.985Z","event":"result","id":13,"tool":"creator_search","source":"https://www.bing.com/search?format=rss&q=travel%20vlog%20youtube%20millions%20views%20street%20food%20india","available":true}
+{"at":"2026-10-30T07:45:53.991Z","event":"call","id":14,"tool":"creator_search","args":{"query":"Kara Nate YouTube travel video"}}
+{"at":"2026-10-30T07:46:01.946Z","event":"result","id":14,"tool":"creator_search","source":"https://www.bing.com/search?format=rss&q=Kara%20Nate%20YouTube%20travel%20video","available":true}
+{"at":"2026-10-30T07:46:01.953Z","event":"call","id":15,"tool":"creator_search","args":{"query":"Mark Wiens YouTube street food"}}
+{"at":"2026-10-30T07:46:06.332Z","event":"result","id":15,"tool":"creator_search","source":"https://www.bing.com/search?format=rss&q=Mark%20Wiens%20YouTube%20street%20food","available":true}
+{"at":"2026-10-30T07:46:16.340Z","event":"call","id":16,"tool":"creator_search","args":{"query":"karaandnate"}}
+{"at":"2026-10-30T07:46:21.802Z","event":"result","id":16,"tool":"creator_search","source":"https://www.bing.com/search?format=rss&q=karaandnate","available":true}
+{"at":"2026-10-30T07:46:21.809Z","event":"call","id":17,"tool":"creator_video_metadata","args":{"url":"https://www.youtube.com/results?search_query=kara+and+nate+travel"}}
+{"at":"2026-10-30T07:46:21.875Z","event":"result","id":17,"tool":"creator_video_metadata","available":false,"error":"ValueError: Invalid YouTube video ID"}
+{"at":"2026-10-30T07:46:28.720Z","event":"call","id":18,"tool":"creator_read_source","args":{"url":"https://html.duckduckgo.com/html/?q=site%3Ayoutube.com%2Fwatch+%22Kara+and+Nate%22+travel"}}
+{"at":"2026-10-30T07:46:36.426Z","event":"result","id":18,"tool":"creator_read_source","source":"https://html.duckduckgo.com/html/?q=site%3Ayoutube.com%2Fwatch+%22Kara+and+Nate%22+travel","available":true}
+{"at":"2026-10-30T07:47:11.482Z","event":"call","id":19,"tool":"creator_read_source","args":{"url":"https://www.mojeek.com/search?q=%22Kara+and+Nate%22+YouTube+travel"}}
+{"at":"2026-10-30T07:47:46.622Z","event":"result","id":19,"tool":"creator_read_source","available":false,"error":"URLError: <urlopen error _ssl.c:1112: The handshake operation timed out>"}
+{"at":"2026-10-30T07:49:11.066Z","event":"saved","files":["report.md","outline.md","prompt.md"]}

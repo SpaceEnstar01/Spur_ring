@@ -1,0 +1,310 @@
+{
+  "version": "1.0",
+  "scenes": [
+    {
+      "id": "01",
+      "type": "broll",
+      "description": "dark cloudy peak / expectation",
+      "start_seconds": 0,
+      "end_seconds": 7
+    },
+    {
+      "id": "02",
+      "type": "broll",
+      "description": "sunlight breaking into valley",
+      "start_seconds": 7,
+      "end_seconds": 14
+    },
+    {
+      "id": "03",
+      "type": "broll",
+      "description": "rocky mountain face / fatigue",
+      "start_seconds": 14,
+      "end_seconds": 22
+    },
+    {
+      "id": "04",
+      "type": "broll",
+      "description": "ridge / slow down",
+      "start_seconds": 22,
+      "end_seconds": 30
+    },
+    {
+      "id": "05a",
+      "type": "broll",
+      "description": "alpine cows / attention",
+      "start_seconds": 30,
+      "end_seconds": 34
+    },
+    {
+      "id": "05b",
+      "type": "broll",
+      "description": "quiet meadow",
+      "start_seconds": 34,
+      "end_seconds": 38
+    },
+    {
+      "id": "06a",
+      "type": "broll",
+      "description": "clouds / held breath",
+      "start_seconds": 38,
+      "end_seconds": 41
+    },
+    {
+      "id": "06b",
+      "type": "broll",
+      "description": "valley opening / release",
+      "start_seconds": 41,
+      "end_seconds": 46
+    },
+    {
+      "id": "07",
+      "type": "broll",
+      "description": "wide mountain landscape / perspective",
+      "start_seconds": 46,
+      "end_seconds": 53
+    },
+    {
+      "id": "08",
+      "type": "broll",
+      "description": "Zermatt at night / home",
+      "start_seconds": 53,
+      "end_seconds": 60
+    }
+  ],
+  "metadata": {
+    "slots": [
+      {
+        "id": "01",
+        "type": "broll",
+        "description": "dark cloudy peak / expectation",
+        "start_seconds": 0,
+        "end_seconds": 7,
+        "queries": [
+          "Swiss Alps",
+          "dawn"
+        ],
+        "preferred_sources": [
+          "wikimedia"
+        ],
+        "target_hold_seconds": 7
+      },
+      {
+        "id": "02",
+        "type": "broll",
+        "description": "sunlight breaking into valley",
+        "start_seconds": 7,
+        "end_seconds": 14,
+        "queries": [
+          "Swiss Alps",
+          "sunrise"
+        ],
+        "preferred_sources": [
+          "wikimedia"
+        ],
+        "target_hold_seconds": 7
+      },
+      {
+        "id": "03",
+        "type": "broll",
+        "description": "rocky mountain face / fatigue",
+        "start_seconds": 14,
+        "end_seconds": 22,
+        "queries": [
+          "Swiss Alps",
+          "fatigue"
+        ],
+        "preferred_sources": [
+          "wikimedia"
+        ],
+        "target_hold_seconds": 8
+      },
+      {
+        "id": "04",
+        "type": "broll",
+        "description": "ridge / slow down",
+        "start_seconds": 22,
+        "end_seconds": 30,
+        "queries": [
+          "Swiss Alps",
+          "turning"
+        ],
+        "preferred_sources": [
+          "wikimedia"
+        ],
+        "target_hold_seconds": 8
+      },
+      {
+        "id": "05a",
+        "type": "broll",
+        "description": "alpine cows / attention",
+        "start_seconds": 30,
+        "end_seconds": 34,
+        "queries": [
+          "Swiss Alps",
+          "calm"
+        ],
+        "preferred_sources": [
+          "wikimedia"
+        ],
+        "target_hold_seconds": 4
+      },
+      {
+        "id": "05b",
+        "type": "broll",
+        "description": "quiet meadow",
+        "start_seconds": 34,
+        "end_seconds": 38,
+        "queries": [
+          "Swiss Alps",
+          "reveal"
+        ],
+        "preferred_sources": [
+          "wikimedia"
+        ],
+        "target_hold_seconds": 4
+      },
+      {
+        "id": "06a",
+        "type": "broll",
+        "description": "clouds / held breath",
+        "start_seconds": 38,
+        "end_seconds": 41,
+        "queries": [
+          "Swiss Alps",
+          "release"
+        ],
+        "preferred_sources": [
+          "wikimedia"
+        ],
+        "target_hold_seconds": 3
+      },
+      {
+        "id": "06b",
+        "type": "broll",
+        "description": "valley opening / release",
+        "start_seconds": 41,
+        "end_seconds": 46,
+        "queries": [
+          "Swiss Alps",
+          "home"
+        ],
+        "preferred_sources": [
+          "wikimedia"
+        ],
+        "target_hold_seconds": 5
+      },
+      {
+        "id": "07",
+        "type": "broll",
+        "description": "wide mountain landscape / perspective",
+        "start_seconds": 46,
+        "end_seconds": 53,
+        "queries": [
+          "Swiss Alps",
+          "home"
+        ],
+        "preferred_sources": [
+          "wikimedia"
+        ],
+        "target_hold_seconds": 7
+      },
+      {
+        "id": "08",
+        "type": "broll",
+        "description": "Zermatt at night / home",
+        "start_seconds": 53,
+        "end_seconds": 60,
+        "queries": [
+          "Swiss Alps",
+          "home"
+        ],
+        "preferred_sources": [
+          "wikimedia"
+        ],
+        "target_hold_seconds": 7
+      }
+    ],
+    "recording_to_narration": [
+      {
+        "id": "1",
+        "duration_seconds": 7,
+        "narration": "天还没亮，我就出发了。冷得有点后悔，却又期待着什么。",
+        "recording_ids": [
+          1
+        ],
+        "emotion": "dawn"
+      },
+      {
+        "id": "2",
+        "duration_seconds": 7,
+        "narration": "直到第一束光，把雪山染成金色。照片装不下那一刻。",
+        "recording_ids": [
+          2
+        ],
+        "emotion": "sunrise"
+      },
+      {
+        "id": "3",
+        "duration_seconds": 8,
+        "narration": "可碎石路越走越难，腿越来越酸。我第一次想，要不算了。",
+        "recording_ids": [
+          3,
+          6
+        ],
+        "emotion": "fatigue"
+      },
+      {
+        "id": "4",
+        "duration_seconds": 8,
+        "narration": "路上，一位走了三十年的老人说：别急着到山顶，慢慢走。",
+        "recording_ids": [
+          5
+        ],
+        "emotion": "turning"
+      },
+      {
+        "id": "5",
+        "duration_seconds": 8,
+        "narration": "我收起手机，听风，听牛铃。一块面包，也吃得格外满足。",
+        "recording_ids": [
+          4,
+          8,
+          9
+        ],
+        "emotion": "calm"
+      },
+      {
+        "id": "6",
+        "duration_seconds": 8,
+        "narration": "后来，云突然散了。山谷整个出现在眼前。我站了很久。",
+        "recording_ids": [
+          7,
+          10
+        ],
+        "emotion": "reveal"
+      },
+      {
+        "id": "7",
+        "duration_seconds": 7,
+        "narration": "原来，有些疲惫，不必急着战胜。走过这一段，就会不一样。",
+        "recording_ids": [
+          11,
+          12
+        ],
+        "emotion": "release"
+      },
+      {
+        "id": "8",
+        "duration_seconds": 7,
+        "narration": "下山时，小镇亮起了灯。今天找回的，不是高度，是自己的节奏。",
+        "recording_ids": [
+          13,
+          14,
+          15
+        ],
+        "emotion": "home"
+      }
+    ]
+  }
+}

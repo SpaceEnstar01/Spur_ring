@@ -1,0 +1,12 @@
+{
+  "args": {
+    "query": "Peter Santenello Appalachia coal miner 68 hours video"
+  },
+  "source_url": "web search",
+  "retrieved_at": "2026-10-30T08:09:30.269Z",
+  "backend": "connected web research",
+  "lookup_only": false,
+  "calls_used": 15,
+  "available": true,
+  "evidence_limit": "Transcript tool in this backend discovers transcript sources; it does NOT supply timed caption segments unless source content explicitly contains them. Read discovered sources to verify. Respect per-source word limits, <=25 verbatim words per source. No fabricated five-second/shot evidence."
+}

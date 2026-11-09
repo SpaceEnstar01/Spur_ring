@@ -36,12 +36,12 @@ export const zh = {
   },
   recordings: {
     title: '录音',
-    subtitle: '15 秒及以上的音频会保存在这里，用于转写和生成纪要。',
+    subtitle: '30 秒及以上的音频会保存在这里，用于转写和生成纪要。',
     localLongRecordings: '本地长录音',
     clearAllAudio: '清除所有音频',
     reading: '正在读取本地录音',
     emptyTitle: '还没有长录音',
-    emptyText: '连接戒指并同步后，15 秒及以上的音频会自动出现在这里。',
+    emptyText: '连接戒指并同步后，30 秒及以上的音频会自动出现在这里。',
     sampleReviewHint:
       '审核样例录音（SAMPLE）— 无需戒指即可查看。打开 SAMPLE 条目可播放、查看摘要与逐字稿。',
     recent: '最近录音',
@@ -55,6 +55,8 @@ export const zh = {
     pause: '暂停',
     transcriptTab: '文字转录',
     notesTab: '会议纪要',
+    polishedTranscript: '可读转写',
+    rawTranscript: '原始转写',
     askAboutNotes: '对此笔记提问',
     askAboutNotesHint: '提问会结合本条录音的转写与会议纪要作为上下文。',
     askPlaceholder: '针对这条纪要提问…',
@@ -99,7 +101,7 @@ export const zh = {
     completed: '已完成',
     failed: '处理失败，点击重试',
     emptyTitle: '还没有语音指令',
-    emptyText: '戒指同步后，小于 15 秒的录音会自动出现在这里。',
+    emptyText: '戒指同步后，小于 30 秒的录音会自动出现在这里。',
     sampleHint: 'SAMPLE 卡片便于无 Spur Ring 时审阅助手结果。',
     deleteTitle: '删除这张语音卡片？',
     deleteMessage: '对应的本地短录音和 AI 结果都会被删除。',
@@ -112,7 +114,18 @@ export const zh = {
       idea: '想法',
       report: '报告',
       action: '行动',
-      summary: '摘要'
+      summary: '摘要',
+      note: '笔记',
+      alarm: '时间闹钟'
+    },
+    alarm: {
+      badge: '闹钟',
+      taskTitle: '任务计时',
+      target: '目标：{label}（{time}）· 到点连震 {times} 次',
+      fired: '已到点震动',
+      failed: '震动失败',
+      missed: '已错过',
+      phoneHint: '手机计时；请保持戒指 BLE 已连接。'
     },
     skill: {
       title: '语音改写',
@@ -124,6 +137,15 @@ export const zh = {
       needInstruction: '没有可用的语音意图。',
       needContent: '当前卡片还没有可改写的结果。',
       micDenied: '需要麦克风权限才能口述。'
+    },
+    doc: {
+      title: '文档',
+      generatingPdf: 'PDF 正在生成',
+      generatingPpt: 'PPT 正在生成',
+      generatingBadge: '生成中',
+      cancel: '取消',
+      retry: '重试',
+      wait: '文档正在生成，请稍后再口述。'
     }
   },
   device: {
@@ -145,6 +167,18 @@ export const zh = {
     tools: '戒指工具',
     recordingDebug: '同步录音',
     recordingDebugHint: '将戒指录音同步到本机',
+    vibrationTest: '试振',
+    vibrationTestHint: '立刻连震 10 下（约每 0.85 秒一下，共约 8 秒）',
+    phoneTimerVibrate: '30 秒后震 5 次',
+    phoneTimerVibrateHint: '手机计时到点后发指令；倒计时中再点可取消',
+    phoneTimerCounting: '倒计时 {sec}s…（再点取消）',
+    phoneTimerArmed: '已用手机时钟预约：{sec} 秒后震 {times} 次（约 {time}）。请保持连接。',
+    phoneTimerFired: '到点已发送连震 5 次，请感受戒指。',
+    phoneTimerNeedConnected: '请先连接戒指再预约。',
+    oneMinuteAlarm: '设 1 分钟闹钟',
+    oneMinuteAlarmHint: '（旧）写戒指闹钟槽；当前先测手机计时方案',
+    vibrationTestOk: '已按间隔连发 10 次震动指令，请数一下是否大约 10 下。',
+    oneMinuteAlarmOk: '已设置闹钟，预计 {time} 到点震动。请保持戒指已连接并佩戴等待。',
     buttonDebug: '按键事件',
     buttonDebugHint: '单击 / 双击 / 长按 / 松开日志',
     nearby: '附近的 Spur Ring',
@@ -161,7 +195,24 @@ export const zh = {
     debugLogs: '活动日志',
     computerSection: '电脑',
     connectLaptop: 'Connect to laptop',
-    connectLaptopHint: '配对 Spur Buddy，调试电脑任务'
+    connectLaptopHint: '配对 Spur Buddy，调试电脑任务',
+    cloudOfficeSection: '云端文档',
+    cloudOffice: '做 PDF / PPT',
+    cloudOfficeHint: '发一句话，云端生成可打开的文件'
+  },
+  office: {
+    title: '云端文档',
+    subtitle: '不经过电脑。生成后在 Spur 内打开。',
+    promptLabel: '指令',
+    promptPlaceholder: '写一页纳斯达克上市流程总结 PDF',
+    promptRequired: '请先输入指令。',
+    makePdf: '生成 PDF',
+    makePptx: '生成 PPT',
+    lastResult: '最近结果',
+    copyHint: '长按下面链接可复制',
+    openLocal: '打开本机文件',
+    saved: '已保存到本机',
+    generating: '正在生成，一页大约半分钟；多页会更久'
   },
   laptop: {
     title: 'Connect to laptop',

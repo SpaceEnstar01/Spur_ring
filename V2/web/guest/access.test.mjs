@@ -1,0 +1,16 @@
+import test from 'node:test'
+import assert from 'node:assert/strict'
+import {mkdtempSync,readFileSync,rmSync,statSync} from 'node:fs'
+import {join} from 'node:path'
+import {tmpdir} from 'node:os'
+import {GuestAccess,SESSION_MS,sessionCookie,sessionFromCookie} from './access.mjs'
+function setup(t){const root=mkdtempSync(join(tmpdir(),'spur-guests-'));let now=Date.now();const a=new GuestAccess(root,{now:()=>now});t.after(()=>rmSync(root,{recursive:true,force:true}));return {a,root,advance:ms=>{now+=ms}}}
+test('invitation is one-use and raw secrets are absent from persistent storage',t=>{const {a,root}=setup(t);const {code,tenantId}=a.issue({label:'friend'});const s=a.redeem(code);assert.equal(s.tenantId,tenantId);assert.throws(()=>a.redeem(code),e=>e.status===401);const raw=readFileSync(join(root,'access.json'),'utf8');assert(!raw.includes(code));assert(!raw.includes(s.token));assert.equal(statSync(join(root,'access.json')).mode&0o777,0o600)})
+test('separate guests receive separate identities; forged sessions fail',t=>{const {a}=setup(t);const x=a.redeem(a.issue().code),y=a.redeem(a.issue().code);assert.notEqual(x.tenantId,y.tenantId);assert.equal(a.authenticate(x.token).tenantId,x.tenantId);assert.equal(a.authenticate(y.token).tenantId,y.tenantId);assert.equal(a.authenticate('a'.repeat(43)),null)})
+test('session lasts 30 days with absolute expiry rather than refresh-on-use',t=>{const {a,advance}=setup(t);const s=a.redeem(a.issue().code);advance(SESSION_MS-1);assert(a.authenticate(s.token));advance(1);assert.equal(a.authenticate(s.token),null)})
+test('revocation invalidates existing login and survives restart',t=>{const {a,root}=setup(t);const {code,tenantId}=a.issue();const s=a.redeem(code);a.revoke(tenantId);assert.equal(a.authenticate(s.token),null);assert.equal(new GuestAccess(root).authenticate(s.token),null)})
+test('expired and revoked invitations do not issue a session',t=>{const {a,advance}=setup(t);const x=a.issue({days:1});advance(86400000);assert.throws(()=>a.redeem(x.code),e=>e.status===401);const y=a.issue();a.revoke(y.tenantId);assert.throws(()=>a.redeem(y.code),e=>e.status===401)})
+test('logout invalidates only that session',t=>{const {a}=setup(t);const x=a.redeem(a.issue().code),y=a.redeem(a.issue().code);a.logout(x.token);assert.equal(a.authenticate(x.token),null);assert(a.authenticate(y.token))})
+test('cookie is host-bound, secure and rejects duplicate session cookies',()=>{const token='a'.repeat(43);const cookie=sessionCookie(token);assert.match(cookie,/^__Host-spur_guest=/);assert.match(cookie,/HttpOnly; Secure; SameSite=Lax/);assert.match(cookie,/Max-Age=2592000/);assert(!cookie.includes('Domain='));assert.equal(sessionFromCookie('other=x; __Host-spur_guest='+token),token);assert.equal(sessionFromCookie('__Host-spur_guest='+token+'; __Host-spur_guest='+token),'');assert.match(sessionCookie('',{clear:true}),/Max-Age=0/)})
+
+test('replacement invite restores the same identity without reviving a revoked guest',t=>{const {a}=setup(t);const first=a.issue();const s=a.redeem(first.code);a.logout(s.token);const replacement=a.issue({tenantId:first.tenantId});assert.equal(a.redeem(replacement.code).tenantId,first.tenantId);a.revoke(first.tenantId);assert.throws(()=>a.issue({tenantId:first.tenantId}),e=>e.status===404)})

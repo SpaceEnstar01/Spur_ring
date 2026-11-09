@@ -1,0 +1,4 @@
+{"at":"2026-11-06T14:27:02.786Z","id":"5488803e-b994-439a-b012-b71340263557","tool":"research_search","event":"call","platform":"youtube"}
+{"at":"2026-11-06T14:27:08.298Z","id":"5488803e-b994-439a-b012-b71340263557","tool":"research_search","event":"result","available":true,"platform":"youtube","provider":"agent-reach","backend":"yt-dlp","count":1,"source":"https://www.youtube.com/watch?v=ViA4-YWx8Y4","elapsedMs":5510}
+{"at":"2026-11-06T14:27:20.718Z","event":"call","id":"f75756bf-7780-483d-a60c-67b23415bdc1","tool":"save_document","args":{"filename":"adapter-report.md","content":"[806 bytes]"}}
+{"at":"2026-11-06T14:27:20.719Z","event":"result","id":"f75756bf-7780-483d-a60c-67b23415bdc1","tool":"save_document","available":true}

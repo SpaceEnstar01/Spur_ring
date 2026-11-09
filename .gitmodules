@@ -1,0 +1,15 @@
+[submodule "V2/agent/runtime/Agent-Reach"]
+	path = V2/agent/runtime/Agent-Reach
+	url = https://github.com/Panniantong/Agent-Reach.git
+[submodule "V2/agent/runtime/MediaCrawler"]
+	path = V2/agent/runtime/MediaCrawler
+	url = https://github.com/NanmiCoder/MediaCrawler.git
+[submodule "V2/agent/runtime/dsh-superagent-prototype"]
+	path = V2/agent/runtime/dsh-superagent-prototype
+	url = https://github.com/deepseek-ai/dsh-superagent-prototype.git
+[submodule "V2/agent/runtime/mcp-servers/playwright-mcp"]
+	path = V2/agent/runtime/mcp-servers/playwright-mcp
+	url = https://github.com/microsoft/playwright-mcp.git
+[submodule "V2/agent/runtime/nanoMuse"]
+	path = V2/agent/runtime/nanoMuse
+	url = https://github.com/nano-muse/nanoMuse.git

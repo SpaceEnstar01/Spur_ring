@@ -9,8 +9,11 @@ nvm use 22
 
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 HARNESS="$(cd "$ROOT/../deepseek-harness" && pwd)"
-PATCH="$ROOT/cordis.patch.yml"
+PLUGIN="$(cd "$ROOT/../../tools/sandbox/src" && pwd)/index.cjs"
+PATCH="$ROOT/cordis.patch.resolved.yml"
 ENV_FILE="$ROOT/.env"
+
+sed "s|__SPUR_OFFICE_SANDBOX__|$PLUGIN|g" "$ROOT/cordis.patch.yml" > "$PATCH"
 
 if [[ -f "$ENV_FILE" ]]; then
   set -a

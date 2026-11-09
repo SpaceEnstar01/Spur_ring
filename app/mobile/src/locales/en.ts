@@ -36,12 +36,12 @@ export const en = {
   },
   recordings: {
     title: 'Recordings',
-    subtitle: 'Audio of 15 seconds or longer is saved here for transcription and summaries.',
+    subtitle: 'Audio of 30 seconds or longer is saved here for transcription and summaries.',
     localLongRecordings: 'Local recordings',
     clearAllAudio: 'Clear all audio',
     reading: 'Loading local recordings',
     emptyTitle: 'No recordings yet',
-    emptyText: 'Recordings of 15 seconds or longer will appear here after syncing the ring.',
+    emptyText: 'Recordings of 30 seconds or longer will appear here after syncing the ring.',
     sampleReviewHint:
       'Sample recordings for App Review — no ring required. Open a SAMPLE item to play audio and view summary/transcript.',
     recent: 'Recent recordings',
@@ -55,6 +55,8 @@ export const en = {
     pause: 'Pause',
     transcriptTab: 'Transcript',
     notesTab: 'Meeting Notes',
+    polishedTranscript: 'Readable',
+    rawTranscript: 'Raw ASR',
     askAboutNotes: 'Ask about this note',
     askAboutNotesHint: 'Questions use this recording’s transcript and meeting notes as context.',
     askPlaceholder: 'Ask a question about these notes…',
@@ -99,7 +101,7 @@ export const en = {
     completed: 'Completed',
     failed: 'Processing failed · Retry',
     emptyTitle: 'No voice commands yet',
-    emptyText: 'Short recordings under 15 seconds appear here automatically after ring sync.',
+    emptyText: 'Short recordings under 30 seconds appear here automatically after ring sync.',
     sampleHint: 'SAMPLE cards are included so you can review assistant results without a Spur Ring.',
     deleteTitle: 'Delete this voice card?',
     deleteMessage: 'The local short OGG and its AI result will be deleted.',
@@ -112,7 +114,18 @@ export const en = {
       idea: 'Idea',
       report: 'Report',
       action: 'Action',
-      summary: 'Summary'
+      summary: 'Summary',
+      note: 'Note',
+      alarm: 'Time alarm'
+    },
+    alarm: {
+      badge: 'Alarm',
+      taskTitle: 'Task timer',
+      target: 'Target: {label} ({time}) · buzz {times}× on fire',
+      fired: 'Fired',
+      failed: 'Vibrate failed',
+      missed: 'Missed',
+      phoneHint: 'Phone clock; keep the ring BLE connected.'
     },
     skill: {
       title: 'Voice rewrite',
@@ -124,6 +137,15 @@ export const en = {
       needInstruction: 'No voice intent to apply.',
       needContent: 'This card has no result to rewrite yet.',
       micDenied: 'Microphone permission is required for dictation.'
+    },
+    doc: {
+      title: 'Document',
+      generatingPdf: 'PDF is generating',
+      generatingPpt: 'PPT is generating',
+      generatingBadge: 'Generating',
+      cancel: 'Cancel',
+      retry: 'Retry',
+      wait: 'A document is still generating. Try dictation after it finishes.'
     }
   },
   device: {
@@ -145,6 +167,18 @@ export const en = {
     tools: 'Ring tools',
     recordingDebug: 'Sync recordings',
     recordingDebugHint: 'Pull recordings from the ring to this iPhone',
+    vibrationTest: 'Test vibration',
+    vibrationTestHint: 'Buzz 10 times (~0.85s apart, ~8s total)',
+    phoneTimerVibrate: 'Buzz 5× after 30s',
+    phoneTimerVibrateHint: 'Phone clock fires the vibrate command; tap again to cancel',
+    phoneTimerCounting: 'Counting {sec}s… (tap to cancel)',
+    phoneTimerArmed: 'Phone timer armed: buzz {times}× in {sec}s (~{time}). Keep BLE connected.',
+    phoneTimerFired: 'Fired: sent 5 spaced vibration commands.',
+    phoneTimerNeedConnected: 'Connect the ring before scheduling.',
+    oneMinuteAlarm: 'Set 1-min alarm',
+    oneMinuteAlarmHint: '(Legacy) ring RTC alarm slot; prefer phone-timer test above',
+    vibrationTestOk: 'Queued 10 spaced vibration commands. Count whether you feel about 10 pulses.',
+    oneMinuteAlarmOk: 'Alarm set for {time}. Keep the ring connected and wait for the buzz.',
     buttonDebug: 'Button Events',
     buttonDebugHint: 'Tap / Double tap / Hold / Release logs',
     nearby: 'Nearby Spur Rings',
@@ -161,7 +195,24 @@ export const en = {
     debugLogs: 'Activity',
     computerSection: 'Computer',
     connectLaptop: 'Connect to laptop',
-    connectLaptopHint: 'Pair Spur Buddy and debug PC tasks'
+    connectLaptopHint: 'Pair Spur Buddy and debug PC tasks',
+    cloudOfficeSection: 'Cloud documents',
+    cloudOffice: 'Make PDF / PPT',
+    cloudOfficeHint: 'Send a prompt; open the file the cloud returns'
+  },
+  office: {
+    title: 'Cloud documents',
+    subtitle: 'Does not use your laptop. Opens inside Spur.',
+    promptLabel: 'Prompt',
+    promptPlaceholder: 'One-page summary of the NASDAQ listing process as a PDF',
+    promptRequired: 'Enter a prompt first.',
+    makePdf: 'Make PDF',
+    makePptx: 'Make PPT',
+    lastResult: 'Last result',
+    copyHint: 'Long-press the link to copy',
+    openLocal: 'Open on this phone',
+    saved: 'Saved on this phone',
+    generating: 'Generating. One page takes about 30 seconds; more pages take longer'
   },
   laptop: {
     title: 'Connect to laptop',

@@ -23,7 +23,8 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { captureVoiceIntent, rewriteCardResult } from '@/services/assistantSkillApi';
-import { updateAgentCardResult, type LocalAgentCard } from '@/services/localAgentCards';
+import { getLocalAgentCard, updateAgentCardResult, type LocalAgentCard } from '@/services/localAgentCards';
+import { inferOfficeKind, startOfficeJob } from '@/services/officeJob';
 import { colors } from '@/theme/colors';
 import { t } from '@/locales';
 
@@ -132,6 +133,7 @@ export function AgentSkillPanel({ card, onApplied }: Props) {
     if (phase === 'ready') {
       setIntentText('');
     }
+    if (card.office?.status === 'generating') return;
     startedAt.current = Date.now();
     try {
       await stopRecordingOnly();
@@ -212,8 +214,14 @@ export function AgentSkillPanel({ card, onApplied }: Props) {
       return;
     }
     const current = cardRef.current;
+    const officeKind = inferOfficeKind(instruction);
+    if (current.office?.status === 'generating') {
+      Alert.alert(t.agentFeed.skill.title, t.agentFeed.doc.wait);
+      return;
+    }
     const hasImage = Boolean(current.imageUrl);
     if (
+      !officeKind &&
       !hasImage &&
       !(current.output || '').trim() &&
       !(current.transcript || '').trim()
@@ -222,6 +230,16 @@ export function AgentSkillPanel({ card, onApplied }: Props) {
       return;
     }
     try {
+      if (officeKind) {
+        setPhase('rewriting');
+        const prompt = [instruction, current.output, current.transcript].filter(Boolean).join('\n\n');
+        await startOfficeJob(current, officeKind, prompt);
+        const latest = await getLocalAgentCard(current.id);
+        if (latest) onApplied(latest);
+        setIntentText('');
+        setPhase('idle');
+        return;
+      }
       setPhase('rewriting');
       const result = await rewriteCardResult({
         instruction,
@@ -249,6 +267,7 @@ export function AgentSkillPanel({ card, onApplied }: Props) {
   }
 
   function onOrbPress() {
+    if (card.office?.status === 'generating') return;
     if (phase === 'idle' || phase === 'ready') void beginListening();
     else if (phase === 'listening') void finishListening();
   }
@@ -288,7 +307,7 @@ export function AgentSkillPanel({ card, onApplied }: Props) {
           <Pressable
             style={[styles.orb, phase === 'listening' && styles.orbListening]}
             onPress={onOrbPress}
-            disabled={phase === 'recognizing' || phase === 'rewriting'}
+            disabled={phase === 'recognizing' || phase === 'rewriting' || card.office?.status === 'generating'}
           >
             {phase === 'recognizing' || phase === 'rewriting' ? (
               <ActivityIndicator color="#fff" />

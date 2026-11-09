@@ -1,0 +1,58 @@
+{
+  "args": {
+    "query": "\"Drew Binsky\" YouTube channel"
+  },
+  "source_url": "https://www.bing.com/search?format=rss&q=%22Drew%20Binsky%22%20YouTube%20channel",
+  "results": [
+    {
+      "title": "Link AND Import PDF as vector - Autodesk Community",
+      "url": "https://forums.autodesk.com/t5/revit-ideas/link-and-import-pdf-as-vector/idi-p/9163867",
+      "snippet": "While the current implementation of rasterised PDF imports is nice, a vector import is even more useful (and precise). I would also like to see linking PDFs into Revit and or changing the imported file location. That way, changes can be made to a PDF elsewhere, and the edits more easily adopted into..."
+    },
+    {
+      "title": "How to merge 2 or more pdf into a single pdf?",
+      "url": "https://forums.autodesk.com/t5/autocad-lt-forum/how-to-merge-2-or-more-pdf-into-a-single-pdf/td-p/7971924",
+      "snippet": "There are so many ways to merge two or more PDFs into a single PDF on the internet with a few clicks make use of a capable Softaken merge PDF Program to merge all PDF data into one portable document format."
+    },
+    {
+      "title": "Solved: Plotting Transparent Hatch - Autodesk Community",
+      "url": "https://forums.autodesk.com/t5/civil-3d-forum/plotting-transparent-hatch/td-p/8246916",
+      "snippet": "Solved: Hello, I am using Civil 3D 2018. I have a solid, transparent hatch that is supposed to print in color. When I select transparent in the plot"
+    },
+    {
+      "title": "Joining Rails from Separate Stairs - Autodesk Community",
+      "url": "https://forums.autodesk.com/t5/revit-architecture-forum/joining-rails-from-separate-stairs/td-p/6978493",
+      "snippet": "In order to be able to edit my stair stringers to relate to the framing at my landings, I have been adding the stair runs individually. I’m not sure this is the best approach, but I keep on learning. In the meantime, the question is: if Stair A is separate from Stair B (see below), is it possible to..."
+    },
+    {
+      "title": "Solved: Dashed Lines Appear Solid - Autodesk Community",
+      "url": "https://forums.autodesk.com/t5/autocad-forum/dashed-lines-appear-solid/td-p/7872591",
+      "snippet": "Hi, I am using AutoCAD 2018 and can not seem to figure out what is going wrong with my lines. I am no beginner but by no means an expert. All posts about this issue seem to be solved with line scaling with LTSCALE. This is not my issue. No matter what scale I set my line to it will either appea..."
+    },
+    {
+      "title": "PDF Import - Turn images into lines - Autodesk Community",
+      "url": "https://forums.autodesk.com/t5/autocad-electrical-forum/pdf-import-turn-images-into-lines/td-p/9270167",
+      "snippet": "I'm using PDF Import to import a manufacturer's PDF to get a connector. I want to show this in my cable assembly drawing, but it seems to only come in as an image. If i click the outside rectangle then I select the whole image/block. If I try to explode then the connector disappears. Any suggestions..."
+    },
+    {
+      "title": "Solved: How do I delete a phase in Revit - Autodesk Community",
+      "url": "https://forums.autodesk.com/t5/revit-architecture-forum/how-do-i-delete-a-phase-in-revit/td-p/13296949",
+      "snippet": "Why am I not able to delete a phase in revit? Nothing has been created in this phase."
+    },
+    {
+      "title": "Unprintable PDF's because of Flattening - Autodesk Community",
+      "url": "https://forums.autodesk.com/t5/autocad-forum/unprintable-pdf-s-because-of-flattening/td-p/6445113",
+      "snippet": "Pendean, Thanks for the response. When someone not in our network tries to print one of our pdfs on a printer of theirs the file starts the flattening process and either times out or just will not begin to print to a hard copy. I'm wondering if there are any settings that are on that shouldn't be (or vice-versa) when the pdf is being created from AutoCAD. Sample pdf attached."
+    },
+    {
+      "title": "Solved: xref PDF into a drawing. - Autodesk Community",
+      "url": "https://forums.autodesk.com/t5/autocad-forum/xref-pdf-into-a-drawing/td-p/7667718",
+      "snippet": "Hi @john.p.addy, The large PDF can pose some issues but you could \"Extract\" a single page to new PDF. Then you could attach it to your file or use PDFimport (if it is vector-based) to bring the geometry into your drawing. DO you have an samples that you can share? Please select the Accept as Solution button if my post solves your issue or answers your question."
+    },
+    {
+      "title": "Merging PDFs using iLogic - Autodesk Community",
+      "url": "https://forums.autodesk.com/t5/inventor-programming-forum/merging-pdfs-using-ilogic/td-p/6788354",
+      "snippet": "Using iLogic, I am cycling through a user defined-folder of idws to update their title blocks and borders, update a few iProperties from a user-defined Excel file, and printing a PDF of the whole drawing. What I would like to do is create a master PDF that I could append each created PDF print to...."
+    }
+  ]
+}

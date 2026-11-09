@@ -1,0 +1,47 @@
+{
+  "version": "1.0",
+  "scenes": [
+    {
+      "id": "0",
+      "type": "animation",
+      "description": "Personal AI Agent；现有Remotion组件动态呈现，不伪装成实拍",
+      "start_seconds": 0,
+      "end_seconds": 5
+    },
+    {
+      "id": "1",
+      "type": "animation",
+      "description": "不止于聊天；现有Remotion组件动态呈现，不伪装成实拍",
+      "start_seconds": 5,
+      "end_seconds": 10
+    },
+    {
+      "id": "2",
+      "type": "animation",
+      "description": "理解长期记忆；现有Remotion组件动态呈现，不伪装成实拍",
+      "start_seconds": 10,
+      "end_seconds": 15
+    },
+    {
+      "id": "3",
+      "type": "animation",
+      "description": "主动完成任务；现有Remotion组件动态呈现，不伪装成实拍",
+      "start_seconds": 15,
+      "end_seconds": 20
+    },
+    {
+      "id": "4",
+      "type": "animation",
+      "description": "Light Interaction；现有Remotion组件动态呈现，不伪装成实拍",
+      "start_seconds": 20,
+      "end_seconds": 25
+    },
+    {
+      "id": "5",
+      "type": "animation",
+      "description": "融入日常生活；现有Remotion组件动态呈现，不伪装成实拍",
+      "start_seconds": 25,
+      "end_seconds": 30
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "version": "1.0",
+  "cuts": [
+    {
+      "id": "0",
+      "source": "",
+      "in_seconds": 0,
+      "out_seconds": 5,
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.35,
+      "backgroundColor": "#0A1020"
+    },
+    {
+      "id": "1",
+      "source": "",
+      "in_seconds": 5,
+      "out_seconds": 10,
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.35,
+      "backgroundColor": "#0A1020"
+    },
+    {
+      "id": "2",
+      "source": "",
+      "in_seconds": 10,
+      "out_seconds": 15,
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.35,
+      "backgroundColor": "#0A1020"
+    },
+    {
+      "id": "3",
+      "source": "",
+      "in_seconds": 15,
+      "out_seconds": 20,
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.35,
+      "backgroundColor": "#0A1020"
+    },
+    {
+      "id": "4",
+      "source": "",
+      "in_seconds": 20,
+      "out_seconds": 25,
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.35,
+      "backgroundColor": "#0A1020"
+    },
+    {
+      "id": "5",
+      "source": "",
+      "in_seconds": 25,
+      "out_seconds": 30,
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.35,
+      "backgroundColor": "#0A1020"
+    }
+  ],
+  "render_runtime": "remotion",
+  "renderer_family": "explainer-data",
+  "composition_mode": "templated",
+  "audio": {
+    "narration": {
+      "src": "/Users/x/X/space/spur/V2/docs/OpenMontage独立视频验证-2026年11月09日/projects/spur-personal-agent-30s/assets/audio/narration.wav",
+      "volume": 1
+    }
+  },
+  "metadata": {
+    "paid_api_used": false,
+    "subtitle_alignment": "sentence-level using local TTS segment boundaries, no ASR",
+    "script_source": "user-provided opinion",
+    "render_props_path": "/Users/x/X/space/spur/V2/docs/OpenMontage独立视频验证-2026年11月09日/projects/spur-personal-agent-30s/artifacts/render_props.json"
+  }
+}

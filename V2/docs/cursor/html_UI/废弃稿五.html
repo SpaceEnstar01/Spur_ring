@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Spur highlight color comparison</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: #2a2a2a; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif; -webkit-font-smoothing: antialiased; }
+  .page { display: flex; flex-wrap: wrap; justify-content: center; gap: 28px; padding: 28px 16px 48px; }
+  .v { width: min(390px, 100%); }
+  .v h1 { margin: 0 0 10px; color: #fff; font-size: 18px; letter-spacing: -0.2px; }
+  .phone {
+    height: 844px;
+    background: var(--bg);
+    color: var(--ink);
+    border-radius: 28px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .screen { flex: 1; min-height: 0; overflow: auto; padding: 18px 16px 8px; }
+  .top { display: flex; justify-content: space-between; align-items: baseline; }
+  .mark { font-size: 22px; font-weight: 800; }
+  .date { font-size: 15px; font-weight: 800; color: var(--date); }
+  .hello { margin: 12px 0 0; font-size: 28px; line-height: 34px; font-weight: 800; letter-spacing: -0.6px; }
+  .item { margin-top: 18px; padding: 14px 0 16px; border-top: 4px solid var(--accent); }
+  .cool .item { border-top-color: #9a9a9a; }
+  .label {
+    display: inline-block;
+    margin: 0 0 10px;
+    padding: 3px 8px;
+    background: var(--ink);
+    color: var(--bg);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+  }
+  .sentence { margin: 0; font-size: 22px; line-height: 28px; font-weight: 800; }
+  .view { display: inline-block; margin-top: 8px; color: var(--primary); font-size: 16px; font-weight: 800; text-decoration: none; border-bottom: 3px solid var(--primary); }
+  .ask { margin: 0 0 12px; font-size: 22px; line-height: 28px; font-weight: 800; }
+  .actions { display: flex; gap: 10px; }
+  button { font: inherit; border: 0; cursor: default; }
+  .btn { min-height: 46px; padding: 0 16px; border-radius: 999px; font-size: 16px; font-weight: 800; }
+  .secondary { background: var(--accent); color: var(--on-accent); }
+  .primary { background: var(--primary); color: #fff; }
+  .row { display: flex; align-items: center; gap: 10px; min-height: 48px; border-bottom: 2px solid var(--ink); }
+  .box { width: 16px; height: 16px; border: 2.5px solid var(--ink); border-radius: 3px; flex: none; }
+  .name { flex: 1; font-size: 16px; font-weight: 750; }
+  .due { font-size: 14px; font-weight: 800; color: var(--date); }
+  .exec { background: var(--exec); color: var(--exec-ink); border-radius: 16px; padding: 14px; }
+  .exec .label { background: var(--accent); color: var(--on-accent); }
+  .exec h2 { margin: 0 0 10px; font-size: 20px; line-height: 26px; }
+  .stages { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .stage { font-size: 11px; font-weight: 800; color: var(--stage); padding-bottom: 6px; border-bottom: 3px solid var(--stage-line); }
+  .stage.on { color: var(--accent); border-bottom-color: var(--accent); }
+  .exec p { margin: 10px 0 0; font-size: 15px; font-weight: 700; }
+  .report { border: 3px solid var(--ink); border-radius: 16px; overflow: hidden; background: var(--bg); }
+  .cover { height: 108px; background: var(--accent); }
+  .report h2 { margin: 0; padding: 12px 12px 0; font-size: 22px; line-height: 28px; }
+  .report p { margin: 6px 0 0; padding: 0 12px 12px; font-size: 15px; font-weight: 700; }
+  .mail { background: var(--accent); color: var(--on-accent); padding: 14px; border-radius: 16px; }
+  .mail h2 { margin: 0; font-size: 20px; line-height: 26px; }
+  .mail p { margin: 6px 0 0; font-size: 15px; font-weight: 750; }
+  .capsule { display: inline-flex; background: var(--success); color: #fff; border-radius: 999px; padding: 8px 14px; font-size: 15px; font-weight: 800; }
+  .ticket { margin-top: 10px; background: var(--accent); color: var(--on-accent); border-radius: 12px; padding: 12px; }
+  .ticket b { display: block; font-size: 18px; }
+  .ok { margin: 10px 0 0; font-size: 18px; font-weight: 800; color: var(--success); }
+  .composer { padding: 8px 12px 12px; background: var(--bg); }
+  .field { display: flex; align-items: center; min-height: 48px; border: 2.5px solid var(--ink); border-radius: 999px; padding: 4px 6px 4px 14px; }
+  .field input { flex: 1; border: 0; outline: none; background: transparent; color: var(--ink); font: inherit; font-size: 15px; font-weight: 700; }
+  .field input::placeholder { color: var(--muted); }
+  .send { width: 36px; height: 36px; border-radius: 50%; background: var(--primary); color: #fff; font-weight: 800; }
+  .warm {
+    --bg: #fff6eb; --ink: #1a1208; --muted: #6b5344; --accent: #ffb703; --on-accent: #1a1208;
+    --primary: #e85d04; --date: #e85d04; --success: #0f9f4a;
+    --exec: #1a1208; --exec-ink: #fff6eb; --stage: #8a7564; --stage-line: #3a2c22;
+  }
+  .cool {
+    --bg: #f3f8ff; --ink: #071426; --muted: #3d5570; --accent: #2dd4bf; --on-accent: #042f2e;
+    --primary: #0b57d0; --date: #0b57d0; --success: #059669;
+    --exec: #071426; --exec-ink: #f3f8ff; --stage: #7d91a8; --stage-line: #1c3148;
+  }
+  .dark {
+    --bg: #121417; --ink: #f5f5f5; --muted: #c8c8c8; --accent: #ffe14a; --on-accent: #111;
+    --primary: #3b82f6; --date: #ff5a1f; --success: #22c55e;
+    --exec: #000; --exec-ink: #fff; --stage: #9a9a9a; --stage-line: #333;
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <section class="v warm">
+      <h1>A · Warm</h1>
+      <main class="phone">
+        <div class="screen">
+          <div class="top"><div class="mark">spur.</div><div class="date">Wed, Nov 4</div></div>
+          <p class="hello">Today</p>
+          <section class="item">
+            <p class="label">Lightweight notification</p>
+            <p class="sentence">你的旅行视频脚本已经准备好了。</p>
+            <a class="view" href="#a-report">View script · 10 min ago</a>
+          </section>
+          <section class="item">
+            <p class="label">Inline confirmation</p>
+            <p class="ask">今晚继续做巴黎那条视频吗？</p>
+            <div class="actions">
+              <button class="btn secondary" type="button">Tomorrow</button>
+              <button class="btn primary" type="button">Continue</button>
+            </div>
+          </section>
+          <section class="item">
+            <p class="label">Compact todo</p>
+            <div class="row"><span class="box"></span><span class="name">确认巴黎视频封面</span><span class="due">Today</span></div>
+            <div class="row"><span class="box"></span><span class="name">回复摄影师 Jack</span><span class="due">Tomorrow</span></div>
+            <div class="row"><span class="box"></span><span class="name">审阅圣托里尼脚本</span><span class="due">Friday</span></div>
+          </section>
+          <section class="item">
+            <div class="exec">
+              <p class="label">Execution stage</p>
+              <h2>正在研究旅行视频趋势</h2>
+              <div class="stages">
+                <div class="stage on">Searching</div>
+                <div class="stage">Analyzing</div>
+                <div class="stage">Drafting</div>
+                <div class="stage">Ready</div>
+              </div>
+              <p>正在搜索近期旅行视频和参考内容。</p>
+            </div>
+          </section>
+          <section class="item" id="a-report">
+            <p class="label">Research report</p>
+            <div class="report">
+              <div class="cover" aria-hidden="true"></div>
+              <h2>旅行，不止明信片。</h2>
+              <p>12 条参考视频。三个更个人的讲述方向。</p>
+            </div>
+          </section>
+          <section class="item">
+            <p class="label">Email reminder</p>
+            <div class="mail">
+              <h2>Jack 还没发来巴黎素材。</h2>
+              <p>Follow-up ready · Jack, Photographer</p>
+            </div>
+          </section>
+          <section class="item">
+            <p class="label">Approved</p>
+            <div class="capsule">Order placed</div>
+            <div class="ticket"><b>巴黎拍摄定金 · $240.00</b><span>Card ···· 7719</span></div>
+            <p class="ok">Approved</p>
+          </section>
+        </div>
+        <form class="composer" action="#" onsubmit="return false">
+          <label class="field"><input type="text" placeholder="Tell Spur what to do" aria-label="Tell Spur what to do" /><button class="send" type="submit" aria-label="Send">↑</button></label>
+        </form>
+      </main>
+    </section>
+
+    <section class="v cool">
+      <h1>B · Cool</h1>
+      <main class="phone">
+        <div class="screen">
+          <div class="top"><div class="mark">spur.</div><div class="date">Wed, Nov 4</div></div>
+          <p class="hello">Today</p>
+          <section class="item">
+            <p class="label">Lightweight notification</p>
+            <p class="sentence">你的旅行视频脚本已经准备好了。</p>
+            <a class="view" href="#b-report">View script · 10 min ago</a>
+          </section>
+          <section class="item">
+            <p class="label">Inline confirmation</p>
+            <p class="ask">今晚继续做巴黎那条视频吗？</p>
+            <div class="actions">
+              <button class="btn secondary" type="button">Tomorrow</button>
+              <button class="btn primary" type="button">Continue</button>
+            </div>
+          </section>
+          <section class="item">
+            <p class="label">Compact todo</p>
+            <div class="row"><span class="box"></span><span class="name">确认巴黎视频封面</span><span class="due">Today</span></div>
+            <div class="row"><span class="box"></span><span class="name">回复摄影师 Jack</span><span class="due">Tomorrow</span></div>
+            <div class="row"><span class="box"></span><span class="name">审阅圣托里尼脚本</span><span class="due">Friday</span></div>
+          </section>
+          <section class="item">
+            <div class="exec">
+              <p class="label">Execution stage</p>
+              <h2>正在研究旅行视频趋势</h2>
+              <div class="stages">
+                <div class="stage on">Searching</div>
+                <div class="stage">Analyzing</div>
+                <div class="stage">Drafting</div>
+                <div class="stage">Ready</div>
+              </div>
+              <p>正在搜索近期旅行视频和参考内容。</p>
+            </div>
+          </section>
+          <section class="item" id="b-report">
+            <p class="label">Research report</p>
+            <div class="report">
+              <div class="cover" aria-hidden="true"></div>
+              <h2>旅行，不止明信片。</h2>
+              <p>12 条参考视频。三个更个人的讲述方向。</p>
+            </div>
+          </section>
+          <section class="item">
+            <p class="label">Email reminder</p>
+            <div class="mail">
+              <h2>Jack 还没发来巴黎素材。</h2>
+              <p>Follow-up ready · Jack, Photographer</p>
+            </div>
+          </section>
+          <section class="item">
+            <p class="label">Approved</p>
+            <div class="capsule">Order placed</div>
+            <div class="ticket"><b>巴黎拍摄定金 · $240.00</b><span>Card ···· 7719</span></div>
+            <p class="ok">Approved</p>
+          </section>
+        </div>
+        <form class="composer" action="#" onsubmit="return false">
+          <label class="field"><input type="text" placeholder="Tell Spur what to do" aria-label="Tell Spur what to do" /><button class="send" type="submit" aria-label="Send">↑</button></label>
+        </form>
+      </main>
+    </section>
+
+    <section class="v dark">
+      <h1>C · Dark</h1>
+      <main class="phone">
+        <div class="screen">
+          <div class="top"><div class="mark">spur.</div><div class="date">Wed, Nov 4</div></div>
+          <p class="hello">Today</p>
+          <section class="item">
+            <p class="label">Lightweight notification</p>
+            <p class="sentence">你的旅行视频脚本已经准备好了。</p>
+            <a class="view" href="#c-report">View script · 10 min ago</a>
+          </section>
+          <section class="item">
+            <p class="label">Inline confirmation</p>
+            <p class="ask">今晚继续做巴黎那条视频吗？</p>
+            <div class="actions">
+              <button class="btn secondary" type="button">Tomorrow</button>
+              <button class="btn primary" type="button">Continue</button>
+            </div>
+          </section>
+          <section class="item">
+            <p class="label">Compact todo</p>
+            <div class="row"><span class="box"></span><span class="name">确认巴黎视频封面</span><span class="due">Today</span></div>
+            <div class="row"><span class="box"></span><span class="name">回复摄影师 Jack</span><span class="due">Tomorrow</span></div>
+            <div class="row"><span class="box"></span><span class="name">审阅圣托里尼脚本</span><span class="due">Friday</span></div>
+          </section>
+          <section class="item">
+            <div class="exec">
+              <p class="label">Execution stage</p>
+              <h2>正在研究旅行视频趋势</h2>
+              <div class="stages">
+                <div class="stage on">Searching</div>
+                <div class="stage">Analyzing</div>
+                <div class="stage">Drafting</div>
+                <div class="stage">Ready</div>
+              </div>
+              <p>正在搜索近期旅行视频和参考内容。</p>
+            </div>
+          </section>
+          <section class="item" id="c-report">
+            <p class="label">Research report</p>
+            <div class="report">
+              <div class="cover" aria-hidden="true"></div>
+              <h2>旅行，不止明信片。</h2>
+              <p>12 条参考视频。三个更个人的讲述方向。</p>
+            </div>
+          </section>
+          <section class="item">
+            <p class="label">Email reminder</p>
+            <div class="mail">
+              <h2>Jack 还没发来巴黎素材。</h2>
+              <p>Follow-up ready · Jack, Photographer</p>
+            </div>
+          </section>
+          <section class="item">
+            <p class="label">Approved</p>
+            <div class="capsule">Order placed</div>
+            <div class="ticket"><b>巴黎拍摄定金 · $240.00</b><span>Card ···· 7719</span></div>
+            <p class="ok">Approved</p>
+          </section>
+        </div>
+        <form class="composer" action="#" onsubmit="return false">
+          <label class="field"><input type="text" placeholder="Tell Spur what to do" aria-label="Tell Spur what to do" /><button class="send" type="submit" aria-label="Send">↑</button></label>
+        </form>
+      </main>
+    </section>
+  </div>
+</body>
+</html>

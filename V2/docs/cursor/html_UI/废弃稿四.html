@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Spur Agent Workspace 主界面重新设计稿</title>
+<style>
+  :root {
+    --ink: #141414;
+    --sub: #6f6f6f;
+    --line: #ececec;
+    --blush: #f6e4e1;
+    --blush-deep: #e7cfcb;
+    --gray-btn: #f1f1f1;
+    --card: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: #e9e9ec; color: var(--ink); }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  button, input { font: inherit; color: inherit; }
+  button { cursor: pointer; border: 0; background: none; }
+  .stage {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 28px 16px;
+  }
+  .phone {
+    width: min(390px, 100%);
+    height: min(844px, 100vh);
+    background: #fff;
+    border-radius: 32px;
+    box-shadow: 0 24px 60px rgba(0,0,0,.08);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .screen {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+    padding: 22px 18px 12px;
+  }
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 18px;
+  }
+  .mark { font-size: 20px; font-weight: 650; letter-spacing: -0.4px; }
+  .when { font-size: 15px; color: var(--sub); }
+  h1 { margin: 0 0 18px; font-size: 20px; font-weight: 650; letter-spacing: -0.3px; }
+  .card {
+    background: var(--card);
+    border-radius: 28px;
+    box-shadow: 0 1px 0 rgba(0,0,0,.04), 0 12px 32px rgba(20,20,20,.06);
+    margin: 0 0 16px;
+    overflow: hidden;
+  }
+  .hero {
+    height: 148px;
+    background: var(--blush);
+    display: grid;
+    place-items: center;
+    position: relative;
+  }
+  .hero.short { height: 112px; }
+  .body { padding: 20px 20px 18px; }
+  .title {
+    margin: 0;
+    font-size: 20px;
+    line-height: 26px;
+    font-weight: 650;
+    letter-spacing: -0.3px;
+  }
+  .sub {
+    margin: 8px 0 0;
+    font-size: 15px;
+    line-height: 21px;
+    color: var(--sub);
+  }
+  .rows { margin-top: 16px; }
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    min-height: 48px;
+    border-top: 1px solid var(--line);
+    font-size: 15px;
+  }
+  .row span:first-child { color: var(--sub); }
+  .row b { font-weight: 600; }
+  .actions { display: flex; gap: 10px; margin-top: 16px; }
+  .btn {
+    flex: 1;
+    min-height: 52px;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 650;
+  }
+  .deny { background: var(--gray-btn); color: var(--ink); }
+  .allow { background: #111; color: #fff; }
+  .solo { width: 100%; }
+  .todo { display: flex; align-items: flex-start; gap: 12px; min-height: 52px; padding: 14px 0; border-top: 1px solid var(--line); font-size: 15px; }
+  .todo:first-child { border-top: 0; }
+  .box {
+    width: 22px; height: 22px; border-radius: 7px;
+    border: 1.5px solid #111; flex: none; background: #fff;
+  }
+  .todo.done .box { background: #111; }
+  .todo.done .label { color: var(--sub); text-decoration: line-through; }
+  .label { flex: 1; text-align: left; }
+  .due { color: var(--sub); white-space: nowrap; }
+  .track { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 16px; }
+  .track i { display: block; height: 4px; border-radius: 99px; background: #ececec; }
+  .track i.on { background: #111; }
+  .names { margin: 10px 0 0; font-size: 15px; line-height: 21px; }
+  .names b { font-weight: 650; }
+  .names span { color: #b5b5b5; }
+  .note { margin: 12px 0 0; font-size: 15px; line-height: 21px; }
+  .feedback { margin: 0; font-size: 15px; line-height: 21px; }
+  .composer {
+    flex: none;
+    padding: 10px 14px 16px;
+    background: #fff;
+    border-top: 1px solid #f3f3f3;
+  }
+  .field {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 52px;
+    padding: 4px 6px 4px 16px;
+    border-radius: 999px;
+    background: #f6f6f6;
+  }
+  .field input {
+    flex: 1; border: 0; outline: none; background: transparent; font-size: 15px;
+  }
+  .send {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: #111; color: #fff; font-size: 18px;
+  }
+  @media (max-width: 430px) {
+    .stage { padding: 0; background: #fff; }
+    .phone { width: 100%; height: 100vh; border-radius: 0; box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <main class="phone">
+      <div class="screen">
+        <div class="top">
+          <div class="mark">spur.</div>
+          <div class="when">Wed, Nov 4</div>
+        </div>
+        <h1>Today</h1>
+
+        <article class="card" id="mail">
+          <div class="hero" aria-hidden="true">
+            <svg width="168" height="96" viewBox="0 0 168 96">
+              <rect x="18" y="22" width="132" height="62" rx="14" fill="#fff"/>
+              <path d="M28 34 L84 62 L140 34" fill="none" stroke="#141414" stroke-width="2.4" stroke-linejoin="round"/>
+              <path d="M28 74 L68 50" fill="none" stroke="#e7cfcb" stroke-width="2.4" stroke-linecap="round"/>
+              <path d="M140 74 L100 50" fill="none" stroke="#e7cfcb" stroke-width="2.4" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="body">
+            <p class="title">Spur wants to send a follow-up to Jack.</p>
+            <div class="rows">
+              <div class="row"><span>Recipient</span><b>Jack · Photographer</b></div>
+              <div class="row"><span>Action</span><b>Send email</b></div>
+            </div>
+            <div class="actions">
+              <button class="btn deny" type="button" data-choice="Not sent. The draft stays here.">Deny</button>
+              <button class="btn allow" type="button" data-choice="Allowed. This is not sent yet.">Allow</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="card" id="ask">
+          <div class="hero short" aria-hidden="true">
+            <svg width="160" height="72" viewBox="0 0 160 72">
+              <circle cx="118" cy="22" r="10" fill="#fff"/>
+              <path d="M18 58 C40 40 58 36 78 44 C96 28 118 30 146 50" fill="none" stroke="#141414" stroke-width="2.4" stroke-linecap="round"/>
+              <rect x="46" y="40" width="18" height="22" rx="3" fill="#fff"/>
+              <rect x="70" y="32" width="14" height="30" rx="3" fill="#fff"/>
+            </svg>
+          </div>
+          <div class="body">
+            <p class="title">Keep working on your Paris video tonight?</p>
+            <div class="actions">
+              <button class="btn deny" type="button" data-choice="Moved to tomorrow.">Tomorrow</button>
+              <button class="btn allow" type="button" data-choice="Continuing tonight.">Continue</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="hero short" aria-hidden="true">
+            <svg width="132" height="64" viewBox="0 0 132 64">
+              <rect x="28" y="8" width="76" height="12" rx="6" fill="#fff"/>
+              <rect x="28" y="26" width="76" height="12" rx="6" fill="#fff"/>
+              <rect x="28" y="44" width="52" height="12" rx="6" fill="#fff"/>
+            </svg>
+          </div>
+          <div class="body" id="todos">
+            <p class="title">A few things for you</p>
+            <div class="todo"><button class="box" type="button" aria-label="Confirm Paris video cover"></button><span class="label">Confirm Paris video cover</span><span class="due">Today</span></div>
+            <div class="todo"><button class="box" type="button" aria-label="Reply to photographer Jack"></button><span class="label">Reply to photographer Jack</span><span class="due">Tomorrow</span></div>
+            <div class="todo"><button class="box" type="button" aria-label="Review Santorini video script"></button><span class="label">Review Santorini video script</span><span class="due">Friday</span></div>
+          </div>
+        </article>
+
+        <article class="card" id="run">
+          <div class="hero short" aria-hidden="true">
+            <svg width="88" height="88" viewBox="0 0 88 88">
+              <circle cx="40" cy="40" r="18" fill="none" stroke="#141414" stroke-width="2.6"/>
+              <path d="M54 54 L70 70" stroke="#141414" stroke-width="2.6" stroke-linecap="round"/>
+              <circle cx="40" cy="40" r="6" fill="#fff"/>
+            </svg>
+          </div>
+          <div class="body">
+            <p class="title">Researching travel video trends</p>
+            <div class="track" id="stages"></div>
+            <p class="names" id="names"></p>
+            <p class="note" id="activity">Searching recent travel videos and reference content.</p>
+            <button class="btn allow solo" id="next" type="button" style="margin-top:16px">Next stage</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="hero" aria-hidden="true">
+            <svg width="220" height="110" viewBox="0 0 220 110">
+              <circle cx="46" cy="36" r="14" fill="#fff"/>
+              <path d="M0 78 L24 78 L24 58 L46 58 L46 48 L70 48 L70 62 L96 62 L96 40 L124 40 L124 58 L150 58 L150 46 L176 46 L176 64 L220 64 L220 110 L0 110 Z" fill="#fff"/>
+              <circle cx="108" cy="52" r="8" fill="#f6e4e1" stroke="#e7cfcb"/>
+            </svg>
+          </div>
+          <div class="body">
+            <p class="title">Travel beyond the postcard.</p>
+            <p class="sub">12 reference videos. Three directions for a more personal travel story.</p>
+            <div class="rows">
+              <div class="row"><span>Status</span><b>Completed</b></div>
+              <div class="row"><span>Project</span><b>Paris Travel</b></div>
+            </div>
+            <button class="btn allow solo" type="button" style="margin-top:16px">View report</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="hero short" aria-hidden="true">
+            <svg width="120" height="78" viewBox="0 0 120 78">
+              <rect x="28" y="8" width="64" height="62" rx="8" fill="#fff"/>
+              <path d="M40 24 H80 M40 36 H74 M40 48 H66" stroke="#141414" stroke-width="2.2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="body">
+            <p class="title">Your travel video script is ready.</p>
+            <p class="sub">10 min ago</p>
+            <button class="btn allow solo" type="button" style="margin-top:16px">View script</button>
+          </div>
+        </article>
+      </div>
+
+      <form class="composer" onsubmit="event.preventDefault()">
+        <label class="field">
+          <input type="text" placeholder="Tell Spur what to do" aria-label="Tell Spur what to do" />
+          <button class="send" type="submit" aria-label="Send">↑</button>
+        </label>
+      </form>
+    </main>
+  </div>
+<script>
+  const stages = ["Searching", "Analyzing", "Drafting", "Ready"];
+  const lines = [
+    "Searching recent travel videos and reference content.",
+    "Comparing hooks, pacing, and what travelers watch.",
+    "Drafting three directions for the Paris story.",
+    "Ready to review. Nothing has been published."
+  ];
+  let step = 0;
+  const stageBox = document.getElementById("stages");
+  const names = document.getElementById("names");
+  const activity = document.getElementById("activity");
+  const next = document.getElementById("next");
+  function paint() {
+    stageBox.innerHTML = stages.map((_, i) =>
+      `<i class="${i === step ? "on" : ""}"></i>`
+    ).join("");
+    names.innerHTML = stages.map((name, i) =>
+      i === step ? `<b>${name}</b>` : `<span>${name}</span>`
+    ).join(" · ");
+    activity.textContent = lines[step];
+    next.textContent = step === stages.length - 1 ? "Replay" : "Next stage";
+  }
+  next.addEventListener("click", () => {
+    step = step === stages.length - 1 ? 0 : step + 1;
+    paint();
+  });
+  paint();
+
+  document.querySelectorAll(".actions").forEach(group => {
+    group.addEventListener("click", (event) => {
+      const button = event.target.closest("button");
+      if (!button) return;
+      group.outerHTML = `<p class="feedback">${button.dataset.choice}</p>`;
+    });
+  });
+
+  document.getElementById("todos").addEventListener("click", (event) => {
+    const row = event.target.closest(".todo");
+    if (!row) return;
+    row.classList.toggle("done");
+  });
+</script>
+</body>
+</html>

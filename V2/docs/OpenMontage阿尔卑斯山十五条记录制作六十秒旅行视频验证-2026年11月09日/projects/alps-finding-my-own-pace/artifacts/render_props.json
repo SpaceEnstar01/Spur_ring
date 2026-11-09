@@ -1,0 +1,470 @@
+{
+  "version": "1.0",
+  "cuts": [
+    {
+      "id": "01",
+      "source": "01",
+      "in_seconds": 0,
+      "out_seconds": 7,
+      "reason": "dark cloudy peak / expectation",
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.25
+    },
+    {
+      "id": "02",
+      "source": "02",
+      "in_seconds": 0,
+      "out_seconds": 7,
+      "reason": "sunlight breaking into valley",
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.25
+    },
+    {
+      "id": "03",
+      "source": "03",
+      "in_seconds": 0,
+      "out_seconds": 8,
+      "reason": "rocky mountain face / fatigue",
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.25
+    },
+    {
+      "id": "04",
+      "source": "04",
+      "in_seconds": 0,
+      "out_seconds": 8,
+      "reason": "ridge / slow down",
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.25
+    },
+    {
+      "id": "05a",
+      "source": "05a",
+      "in_seconds": 0,
+      "out_seconds": 4,
+      "reason": "alpine cows / attention",
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.25
+    },
+    {
+      "id": "05b",
+      "source": "05b",
+      "in_seconds": 0,
+      "out_seconds": 4,
+      "reason": "quiet meadow",
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.25
+    },
+    {
+      "id": "06a",
+      "source": "06a",
+      "in_seconds": 0,
+      "out_seconds": 3,
+      "reason": "clouds / held breath",
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.25
+    },
+    {
+      "id": "06b",
+      "source": "06b",
+      "in_seconds": 0,
+      "out_seconds": 5,
+      "reason": "valley opening / release",
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.25
+    },
+    {
+      "id": "07",
+      "source": "07",
+      "in_seconds": 0,
+      "out_seconds": 7,
+      "reason": "wide mountain landscape / perspective",
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.25
+    },
+    {
+      "id": "08",
+      "source": "08",
+      "in_seconds": 0,
+      "out_seconds": 7,
+      "reason": "Zermatt at night / home",
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.25
+    }
+  ],
+  "renderer_family": "documentary-montage",
+  "render_runtime": "remotion",
+  "composition_mode": "templated",
+  "audio": {
+    "narration": {
+      "segments": [
+        {
+          "asset_id": "narration",
+          "start_seconds": 0,
+          "end_seconds": 60
+        }
+      ]
+    },
+    "music": {
+      "asset_id": "score",
+      "volume": 0.28,
+      "fade_in_seconds": 2,
+      "fade_out_seconds": 4
+    }
+  },
+  "end_tag": {
+    "offset_seconds": 55,
+    "notes": "Native CinematicRenderer title overlay, background is Zermatt night image animated as video."
+  },
+  "metadata": {
+    "render_props_path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/projects/alps-finding-my-own-pace/artifacts/render_props.json",
+    "subtitles": "clause-level proportional local TTS timing, no ASR",
+    "raw_records": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/原始记录.txt",
+    "story_path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/story.json",
+    "stock_reconstruction": true
+  },
+  "scenes": [
+    {
+      "id": "01",
+      "kind": "video",
+      "src": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/shots/01.mp4",
+      "startSeconds": 0,
+      "durationSeconds": 7,
+      "fadeInFrames": 15,
+      "fadeOutFrames": 8,
+      "filter": "contrast(1.035) saturate(0.92) brightness(0.98)"
+    },
+    {
+      "id": "02",
+      "kind": "video",
+      "src": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/shots/02.mp4",
+      "startSeconds": 7,
+      "durationSeconds": 7,
+      "fadeInFrames": 8,
+      "fadeOutFrames": 8,
+      "filter": "contrast(1.035) saturate(0.92) brightness(0.98)"
+    },
+    {
+      "id": "03",
+      "kind": "video",
+      "src": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/shots/03.mp4",
+      "startSeconds": 14,
+      "durationSeconds": 8,
+      "fadeInFrames": 8,
+      "fadeOutFrames": 8,
+      "filter": "contrast(1.035) saturate(0.92) brightness(0.98)"
+    },
+    {
+      "id": "04",
+      "kind": "video",
+      "src": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/shots/04.mp4",
+      "startSeconds": 22,
+      "durationSeconds": 8,
+      "fadeInFrames": 8,
+      "fadeOutFrames": 8,
+      "filter": "contrast(1.035) saturate(0.92) brightness(0.98)"
+    },
+    {
+      "id": "05a",
+      "kind": "video",
+      "src": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/shots/05a.mp4",
+      "startSeconds": 30,
+      "durationSeconds": 4,
+      "fadeInFrames": 8,
+      "fadeOutFrames": 8,
+      "filter": "contrast(1.035) saturate(0.92) brightness(0.98)"
+    },
+    {
+      "id": "05b",
+      "kind": "video",
+      "src": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/shots/05b.mp4",
+      "startSeconds": 34,
+      "durationSeconds": 4,
+      "fadeInFrames": 8,
+      "fadeOutFrames": 8,
+      "filter": "contrast(1.035) saturate(0.92) brightness(0.98)"
+    },
+    {
+      "id": "06a",
+      "kind": "video",
+      "src": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/shots/06a.mp4",
+      "startSeconds": 38,
+      "durationSeconds": 3,
+      "fadeInFrames": 8,
+      "fadeOutFrames": 8,
+      "filter": "contrast(1.035) saturate(0.92) brightness(0.98)"
+    },
+    {
+      "id": "06b",
+      "kind": "video",
+      "src": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/shots/06b.mp4",
+      "startSeconds": 41,
+      "durationSeconds": 5,
+      "fadeInFrames": 8,
+      "fadeOutFrames": 8,
+      "filter": "contrast(1.035) saturate(0.92) brightness(0.98)"
+    },
+    {
+      "id": "07",
+      "kind": "video",
+      "src": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/shots/07.mp4",
+      "startSeconds": 46,
+      "durationSeconds": 7,
+      "fadeInFrames": 8,
+      "fadeOutFrames": 8,
+      "filter": "contrast(1.035) saturate(0.92) brightness(0.98)"
+    },
+    {
+      "id": "08",
+      "kind": "video",
+      "src": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/shots/08.mp4",
+      "startSeconds": 53,
+      "durationSeconds": 7,
+      "fadeInFrames": 8,
+      "fadeOutFrames": 8,
+      "filter": "contrast(1.035) saturate(0.92) brightness(0.98)"
+    },
+    {
+      "id": "opening",
+      "kind": "title",
+      "startSeconds": 0.7,
+      "durationSeconds": 3.5,
+      "text": "慢下来\n才看见山",
+      "accent": "ALPS · A DAY IN EIGHT MOMENTS",
+      "backgroundSrc": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/shots/01.mp4",
+      "backgroundTrimBeforeSeconds": 0.7,
+      "variant": "overlay",
+      "intensity": 0.1
+    },
+    {
+      "id": "end-tag",
+      "kind": "title",
+      "startSeconds": 55,
+      "durationSeconds": 5,
+      "text": "找回自己的节奏",
+      "accent": "THE SUMMIT CAN WAIT",
+      "backgroundSrc": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/shots/08.mp4",
+      "backgroundTrimBeforeSeconds": 2,
+      "variant": "overlay",
+      "intensity": 0.08
+    }
+  ],
+  "soundtrack": {
+    "src": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/narration.wav",
+    "volume": 1,
+    "fadeInSeconds": 0.1,
+    "fadeOutSeconds": 0.6
+  },
+  "music": {
+    "src": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/music-original.wav",
+    "volume": 0.28,
+    "fadeInSeconds": 2,
+    "fadeOutSeconds": 4
+  },
+  "captions": {
+    "words": [
+      {
+        "word": "天还没亮",
+        "startMs": 250,
+        "endMs": 1316
+      },
+      {
+        "word": "我就出发了",
+        "startMs": 1316,
+        "endMs": 2649
+      },
+      {
+        "word": "冷得有点后悔",
+        "startMs": 2649,
+        "endMs": 4249
+      },
+      {
+        "word": "却又期待着什么",
+        "startMs": 4249,
+        "endMs": 6116
+      },
+      {
+        "word": "直到第一束光",
+        "startMs": 7250,
+        "endMs": 8841
+      },
+      {
+        "word": "把雪山染成金色",
+        "startMs": 8841,
+        "endMs": 10698
+      },
+      {
+        "word": "照片装不下那一刻",
+        "startMs": 10698,
+        "endMs": 12821
+      },
+      {
+        "word": "可碎石路越走越难",
+        "startMs": 14250,
+        "endMs": 16467
+      },
+      {
+        "word": "腿越来越酸",
+        "startMs": 16467,
+        "endMs": 17853
+      },
+      {
+        "word": "我第一次想",
+        "startMs": 17853,
+        "endMs": 19239
+      },
+      {
+        "word": "要不算了",
+        "startMs": 19239,
+        "endMs": 20348
+      },
+      {
+        "word": "路上",
+        "startMs": 22250,
+        "endMs": 22795
+      },
+      {
+        "word": "一位走了三十年的老人说",
+        "startMs": 22795,
+        "endMs": 25798
+      },
+      {
+        "word": "别急着到山顶",
+        "startMs": 25798,
+        "endMs": 27435
+      },
+      {
+        "word": "慢慢走",
+        "startMs": 27435,
+        "endMs": 28254
+      },
+      {
+        "word": "我收起手机",
+        "startMs": 30250,
+        "endMs": 31765
+      },
+      {
+        "word": "听风",
+        "startMs": 31765,
+        "endMs": 32372
+      },
+      {
+        "word": "听牛铃",
+        "startMs": 32372,
+        "endMs": 33281
+      },
+      {
+        "word": "一块面包",
+        "startMs": 33281,
+        "endMs": 34494
+      },
+      {
+        "word": "也吃得格外满足",
+        "startMs": 34494,
+        "endMs": 36616
+      },
+      {
+        "word": "后来",
+        "startMs": 38250,
+        "endMs": 38809
+      },
+      {
+        "word": "云突然散了",
+        "startMs": 38809,
+        "endMs": 40207
+      },
+      {
+        "word": "山谷整个出现在眼前",
+        "startMs": 40207,
+        "endMs": 42723
+      },
+      {
+        "word": "我站了很久",
+        "startMs": 42723,
+        "endMs": 44121
+      },
+      {
+        "word": "原来",
+        "startMs": 46250,
+        "endMs": 46820
+      },
+      {
+        "word": "有些疲惫",
+        "startMs": 46820,
+        "endMs": 47960
+      },
+      {
+        "word": "不必急着战胜",
+        "startMs": 47960,
+        "endMs": 49670
+      },
+      {
+        "word": "走过这一段",
+        "startMs": 49670,
+        "endMs": 51096
+      },
+      {
+        "word": "就会不一样",
+        "startMs": 51096,
+        "endMs": 52521
+      },
+      {
+        "word": "下山时",
+        "startMs": 53250,
+        "endMs": 54050
+      },
+      {
+        "word": "小镇亮起了灯",
+        "startMs": 54050,
+        "endMs": 55650
+      },
+      {
+        "word": "今天找回的",
+        "startMs": 55650,
+        "endMs": 56983
+      },
+      {
+        "word": "不是高度",
+        "startMs": 56983,
+        "endMs": 58050
+      },
+      {
+        "word": "是自己的节奏",
+        "startMs": 58050,
+        "endMs": 59650
+      }
+    ],
+    "wordsPerPage": 1,
+    "fontSize": 42,
+    "color": "#F9F6EF",
+    "highlightColor": "#F9F6EF",
+    "backgroundColor": "rgba(0,0,0,0.40)"
+  },
+  "captionProps": {
+    "wordsPerPage": 1,
+    "fontSize": 42,
+    "bottomOffset": 245,
+    "fontFamily": "PingFang SC, sans-serif",
+    "wordSeparator": "",
+    "boxStyle": {
+      "maxWidth": "86%",
+      "borderRadius": 8
+    },
+    "wordPop": {
+      "scale": 1
+    }
+  },
+  "titleFontSize": 64,
+  "titleWidth": 900,
+  "signalLineCount": 0
+}

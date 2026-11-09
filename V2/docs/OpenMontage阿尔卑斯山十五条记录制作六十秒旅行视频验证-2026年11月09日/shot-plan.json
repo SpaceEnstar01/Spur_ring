@@ -1,0 +1,105 @@
+{
+  "shots": [
+    {
+      "id": "01",
+      "source_id": "44585217",
+      "original_path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/stock/clips/wikimedia_44585217.webm",
+      "source_in_seconds": 0,
+      "duration": 7,
+      "path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/shots/01.mp4",
+      "reason": "dark cloudy peak / expectation",
+      "prepare_seconds": 1.3175451755523682
+    },
+    {
+      "id": "02",
+      "source_id": "44585056",
+      "original_path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/stock/clips/wikimedia_44585056.webm",
+      "source_in_seconds": 4,
+      "duration": 7,
+      "path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/shots/02.mp4",
+      "reason": "sunlight breaking into valley",
+      "prepare_seconds": 1.5089199542999268
+    },
+    {
+      "id": "03",
+      "source_id": "127709956",
+      "original_path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/stock/clips/wikimedia_127709956.webm",
+      "source_in_seconds": 39,
+      "duration": 8,
+      "path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/shots/03.mp4",
+      "reason": "rocky mountain face / fatigue",
+      "prepare_seconds": 2.7741849422454834
+    },
+    {
+      "id": "04",
+      "source_id": "127709956",
+      "original_path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/stock/clips/wikimedia_127709956.webm",
+      "source_in_seconds": 107,
+      "duration": 8,
+      "path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/shots/04.mp4",
+      "reason": "ridge / slow down",
+      "prepare_seconds": 3.0020718574523926
+    },
+    {
+      "id": "05a",
+      "source_id": "42572206",
+      "original_path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/stock/clips/wikimedia_42572206.webm",
+      "source_in_seconds": 3,
+      "duration": 4,
+      "path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/shots/05a.mp4",
+      "reason": "alpine cows / attention",
+      "prepare_seconds": 0.8372528553009033
+    },
+    {
+      "id": "05b",
+      "source_id": "127709956",
+      "original_path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/stock/clips/wikimedia_127709956.webm",
+      "source_in_seconds": 0,
+      "duration": 4,
+      "path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/shots/05b.mp4",
+      "reason": "quiet meadow",
+      "prepare_seconds": 1.264251947402954
+    },
+    {
+      "id": "06a",
+      "source_id": "44585217",
+      "original_path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/stock/clips/wikimedia_44585217.webm",
+      "source_in_seconds": 25,
+      "duration": 3,
+      "path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/shots/06a.mp4",
+      "reason": "clouds / held breath",
+      "prepare_seconds": 0.8882980346679688
+    },
+    {
+      "id": "06b",
+      "source_id": "127709956",
+      "original_path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/stock/clips/wikimedia_127709956.webm",
+      "source_in_seconds": 121,
+      "duration": 5,
+      "path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/shots/06b.mp4",
+      "reason": "valley opening / release",
+      "prepare_seconds": 1.7521378993988037
+    },
+    {
+      "id": "07",
+      "source_id": "127709956",
+      "original_path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/stock/clips/wikimedia_127709956.webm",
+      "source_in_seconds": 7,
+      "duration": 7,
+      "path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/shots/07.mp4",
+      "reason": "wide mountain landscape / perspective",
+      "prepare_seconds": 2.1527092456817627
+    },
+    {
+      "id": "08",
+      "source_id": "image",
+      "original_path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/night/clips/wikimedia_20091840.jpg",
+      "source_in_seconds": 0,
+      "duration": 7,
+      "path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/shots/08.mp4",
+      "reason": "Zermatt at night / home",
+      "prepare_seconds": 34.25951814651489
+    }
+  ],
+  "elapsed_seconds": 41.78869080543518
+}

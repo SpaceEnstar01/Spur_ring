@@ -1,0 +1,70 @@
+{
+  "version": "1.0",
+  "concept_options": [
+    {
+      "id": "0",
+      "title": "不止聊天",
+      "hook": "不止聊天",
+      "narrative_structure": "problem_solution",
+      "visual_approach": "本地科技风动态图文，不使用生成式实拍素材",
+      "target_duration_seconds": 30,
+      "why_this_works": "使用用户明确提供的观点；仅技术验证备选概念"
+    },
+    {
+      "id": "1",
+      "title": "记住与行动",
+      "hook": "记住与行动",
+      "narrative_structure": "problem_solution",
+      "visual_approach": "本地科技风动态图文，不使用生成式实拍素材",
+      "target_duration_seconds": 30,
+      "why_this_works": "使用用户明确提供的观点；仅技术验证备选概念"
+    },
+    {
+      "id": "2",
+      "title": "轻交互融入日常",
+      "hook": "轻交互融入日常",
+      "narrative_structure": "problem_solution",
+      "visual_approach": "本地科技风动态图文，不使用生成式实拍素材",
+      "target_duration_seconds": 30,
+      "why_this_works": "使用用户明确提供的观点；仅技术验证备选概念"
+    }
+  ],
+  "selected_concept": {
+    "concept_id": "0",
+    "rationale": "用户指定科技风、30秒、9:16；以原观点为主线"
+  },
+  "production_plan": {
+    "pipeline": "animated-explainer",
+    "render_runtime": "remotion",
+    "renderer_family": "explainer-data",
+    "composition_mode": "templated",
+    "stages": [
+      {
+        "stage": "compose",
+        "tools": [
+          {
+            "tool_name": "video_compose",
+            "role": "OpenMontage正式合成和检查",
+            "available": true
+          }
+        ],
+        "approach": "Remotion现有组件＋Mac本地中文TTS＋分句时间轴"
+      }
+    ]
+  },
+  "cost_estimate": {
+    "total_estimated_usd": 0,
+    "line_items": [
+      {
+        "tool": "video_compose",
+        "operation": "local render",
+        "estimated_usd": 0
+      }
+    ],
+    "budget_verdict": "within_budget"
+  },
+  "approval": {
+    "status": "approved",
+    "user_notes": "用户明确批准本地独立生成；现有API服务亦已获准复用，本次选择零API本地路线，不部署、不发布"
+  }
+}

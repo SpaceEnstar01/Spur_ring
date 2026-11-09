@@ -28,6 +28,23 @@ type VoiceRecordParamResult = {
   }
 }
 
+type VibrationResult = {
+  ok: boolean
+  type: number
+  times?: number
+  mode?: string
+  switchSkipped?: boolean
+  sentOk?: number
+}
+
+type OneMinuteAlarmResult = {
+  ok: boolean
+  alarmID: number
+  hour: number
+  minute: number
+  fireAt: number
+}
+
 type YanqiangVoiceNativeModule = {
   initSdk(): Promise<boolean>
   startScan(): Promise<boolean>
@@ -35,6 +52,8 @@ type YanqiangVoiceNativeModule = {
   connect(macAddress: string): Promise<boolean>
   disconnect(): Promise<boolean>
   setTouchEventReporting(enabled: boolean): Promise<{ enabled: boolean; result: number }>
+  voiceAgentDebugConfig(): Promise<{ enabled: boolean; siliconFlowApiKey: string; amapWebApiKey: string }>
+  openAMapTaxiURI(uri: string): Promise<void>
   queryVoiceRecordingSummary(): Promise<RecordingSummary>
   syncVoiceRecordings(): Promise<{ files: NativeFile[] }>
   getVoiceRecordParam(): Promise<VoiceRecordParamResult>
@@ -43,6 +62,8 @@ type YanqiangVoiceNativeModule = {
     volume: number,
     lightBrightness: number,
   ): Promise<VoiceRecordParamResult>
+  sendVibrationWithType(type: number, times?: number): Promise<VibrationResult>
+  setOneMinuteAlarm(): Promise<OneMinuteAlarmResult>
 }
 
 const native = NativeModules.YanqiangVoiceModule as YanqiangVoiceNativeModule | undefined
@@ -55,11 +76,18 @@ export const YanqiangVoiceNative = {
   connect: (macAddress: string) => requireNative().connect(macAddress),
   disconnect: () => requireNative().disconnect(),
   setTouchEventReporting: (enabled: boolean) => requireNative().setTouchEventReporting(enabled),
+  voiceAgentDebugConfig: () => requireNative().voiceAgentDebugConfig(),
+  openAMapTaxiURI: (uri: string) => requireNative().openAMapTaxiURI(uri),
   queryVoiceRecordingSummary: () => requireNative().queryVoiceRecordingSummary(),
   syncVoiceRecordings: () => requireNative().syncVoiceRecordings(),
   getVoiceRecordParam: () => requireNative().getVoiceRecordParam(),
   setVoiceRecordParam: (bitrate: number, volume: number, lightBrightness: number) =>
     requireNative().setVoiceRecordParam(bitrate, volume, lightBrightness),
+  /** Immediate ring vibration. type: 1 System … 3 Alarm … 6 Care. times: buzz count (default 1). */
+  sendVibrationWithType: (type: number, times: number = 1) =>
+    requireNative().sendVibrationWithType(type, times),
+  /** Debug helper: overwrite alarm slot 1 to fire in ~1 minute (wall clock). */
+  setOneMinuteAlarm: () => requireNative().setOneMinuteAlarm(),
 }
 
 export const YanqiangVoiceEvents = native ? new NativeEventEmitter(native as any) : undefined
@@ -82,4 +110,4 @@ function requireNative(): YanqiangVoiceNativeModule {
   return native
 }
 
-export type { NativeFile, RecordingSummary, VoiceRecordParamResult }
+export type { NativeFile, RecordingSummary, VoiceRecordParamResult, VibrationResult, OneMinuteAlarmResult }

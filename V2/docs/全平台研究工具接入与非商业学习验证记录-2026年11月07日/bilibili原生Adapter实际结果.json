@@ -1,0 +1,26 @@
+{
+  "ok": true,
+  "status": "partial",
+  "platform": "bilibili",
+  "provider": "mediacrawler",
+  "items": [
+    {
+      "title": "AI 时代下硬件设备选购指南：M5 Ultra、5090、DGX Spark 怎么选？",
+      "url": "https://www.bilibili.com/video/BV1u5t966Eea",
+      "text": "🚀 深度云创科技，一个专注开发 AI 智能体、AI 应用辅助科研、工作、学习的频道！\n\n🌐 精美导航站：https://nav.meding.site\n\n📖 智能体技术文档：https://ai.feishu.cn/wiki/DmxwwFCISiDsg8kmF5Pc48SCn0d",
+      "evidenceType": "native_search_result"
+    },
+    {
+      "title": "在深圳看了一圈 AI 硬件，真机会竟不是做产品",
+      "url": "https://www.bilibili.com/video/BV1i8aQ6xEUh",
+      "text": "在深圳看了一圈 AI 硬件，真机会竟不是做产品\n\n本期视频，是我和朗翰科技/ INNO100 创始人张文翰 Wayne，在深圳 INNO100 的一次线下对话。\n\nWayne 从 2017 年就开始做智能硬件出海相关业务，先是创办了朗翰科技，前两年又在深圳开了 1300 平的创新硬件旗舰店 INNO100，见过市面上最前沿、最好玩的一大批 AI 硬件。\n\n这次我带着我们勇士合伙人和很多小白关心的问题，来到 INNO100 向他请教：\n\nAI 硬件创业，到底有什么样的机会？\n\n他的回答，跟我一开始想的很不一",
+      "evidenceType": "native_search_result"
+    }
+  ],
+  "limits": {
+    "commentsAvailable": false,
+    "popularityRankingVerified": false,
+    "dateRangeVerified": false
+  },
+  "error": null
+}

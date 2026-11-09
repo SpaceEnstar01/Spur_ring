@@ -10,6 +10,21 @@
 agent/runtime/*.zip
 agent/runtime/.deepseek-harness.git.bak/
 
+# Videos, audio, and downloaded archives stay on this machine.
+*.zip
+*.mp4
+*.m4v
+*.webm
+*.mov
+*.mkv
+*.avi
+*.wav
+*.mp3
+*.m4a
+*.aac
+*.flac
+*.gif
+
 
 # Dependencies
 **/node_modules/
@@ -43,7 +58,9 @@ app/cloud/**/tmp/
 app/cloud/*.tar.gz
 **/.env
 **/.env.local
+app/mobile/native-sdk/ios/SpurVoiceAgentSecrets.h
 !**/.env.example
+agent/runtime/spur-profile/cordis.patch.resolved.yml
 
 # desktop / hardware: keep empty placeholders only (local content stays on disk)
 /desktop/**

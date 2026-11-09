@@ -1,0 +1,23 @@
+{
+  "target": "CPython 3.12 linux/amd64",
+  "source": "/Users/x/X/space/spur/V2/agent/runtime/Agent-Reach",
+  "sourceCommit": "47898829204ad27521d8a1719e3aeca3b8a3e0ca",
+  "files": [
+    "pip-25.0.1-py3-none-any.whl",
+    "brotli-1.2.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+    "certifi-2026.10.23-py3-none-any.whl",
+    "charset_normalizer-3.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "idna-3.20-py3-none-any.whl",
+    "loguru-0.7.3-py3-none-any.whl",
+    "mutagen-1.48.1-py3-none-any.whl",
+    "pycryptodomex-3.24.2-cp37-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+    "pyyaml-6.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+    "requests-2.34.2-py3-none-any.whl",
+    "urllib3-2.8.0-py3-none-any.whl",
+    "websockets-17.4-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+    "yt_dlp-2026.8.19-py3-none-any.whl",
+    "yt_dlp_ejs-0.8.0-py3-none-any.whl",
+    "agent_reach-1.6.1-py3-none-any.whl"
+  ],
+  "note": "PyPI wheels verified against release JSON; Agent-Reach wheel built from local source."
+}

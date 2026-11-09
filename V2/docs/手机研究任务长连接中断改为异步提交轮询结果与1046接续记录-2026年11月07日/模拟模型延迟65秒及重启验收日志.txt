@@ -1,0 +1,7 @@
+Spur Personal Agent: http://127.0.0.1:4273
+Harness: ready (24.22.1); model: deepseek-ai/DeepSeek-V4.1-Flash
+ASYNC_ACCEPTED_BEFORE_MODEL_FINISHED
+Spur Personal Agent: http://127.0.0.1:4273
+Harness: ready (24.22.1); model: deepseek-ai/DeepSeek-V4.1-Flash
+{"test":"async-delay-and-restart","delayMs":65000,"calls":2,"runId":"c5f931f8-6546-4e60-9cf8-c7281b2f4abb","elapsedMs":69138}
+ASYNC_DELAY_RESTART_PASS_SIMULATED_MODEL

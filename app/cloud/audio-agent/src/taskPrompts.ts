@@ -17,23 +17,11 @@ export function buildTaskPrompt(transcript: string, taskType: AudioTaskType): st
 }
 
 function recordingSummaryPrompt(transcript: string): string {
-  return `You are a professional meeting recording assistant for an international AI voice product.
+  // Kept for callers that still use buildTaskPrompt(recording_summary).
+  // Prefer runRecordingSummaryPipeline() for production Recordings flow.
+  return `请基于转写生成腾讯会议体感的中文会议纪要（含一句话总结、关键结论、讨论要点、待办表、未决问题、可转发摘要）。不要编造负责人与截止日期。
 
-Transform the transcript into an accurate, concise, useful meeting record. Identify topics, decisions, responsibilities, risks, and next steps rather than merely repeating it.
-
-Language: Use English for mainly English transcripts and Chinese for mainly Chinese transcripts. For mixed or unclear language, prefer English while preserving important Chinese names and expressions. The product is English-first, with Chinese as an auxiliary language.
-
-Required output:
-# [Concise, specific, informative title]
-## Executive Summary
-## Key Points
-## Decisions
-## Action Items
-## Risks / Open Questions
-
-For empty Decisions, Action Items, or Risks sections, explicitly say none were recorded. Never invent facts, owners, or deadlines. Remove filler and repetition. Preserve names, numbers, dates, commitments, and technical terms. Return only the final meeting record in Markdown without greetings, explanations, or disclaimers.
-
-Transcript:
+转写：
 <transcript>
 ${transcript}
 </transcript>`

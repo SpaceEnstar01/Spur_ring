@@ -1,0 +1,7 @@
+{
+  "args": {
+    "url": "https://www.mojeek.com/search?q=%22Kara+and+Nate%22+YouTube+travel"
+  },
+  "error": "URLError: <urlopen error _ssl.c:1112: The handshake operation timed out>",
+  "available": false
+}

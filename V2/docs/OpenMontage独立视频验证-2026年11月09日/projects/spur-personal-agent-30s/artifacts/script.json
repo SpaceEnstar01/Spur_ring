@@ -1,0 +1,52 @@
+{
+  "version": "1.0",
+  "title": "Personal Agent · 不止聊天",
+  "total_duration_seconds": 30,
+  "voice_performance": {
+    "performance_intent": "清楚、克制的中文科技叙述",
+    "pacing_profile": "conversational",
+    "energy_curve": "平稳开场，重点强调行动，温和收尾",
+    "pause_policy": "按语义分句，六段各五秒",
+    "provider_notes": {
+      "local": "macOS say Tingting，无云端请求"
+    }
+  },
+  "sections": [
+    {
+      "id": "0",
+      "text": "今天，我在研究，个人AI智能体。",
+      "start_seconds": 0,
+      "end_seconds": 5
+    },
+    {
+      "id": "1",
+      "text": "我认为，未来的人工智能，不应该只是聊天工具。",
+      "start_seconds": 5,
+      "end_seconds": 10
+    },
+    {
+      "id": "2",
+      "text": "它应该理解用户的长期记忆。",
+      "start_seconds": 10,
+      "end_seconds": 15
+    },
+    {
+      "id": "3",
+      "text": "并且，主动帮助用户，完成真正的任务。",
+      "start_seconds": 15,
+      "end_seconds": 20
+    },
+    {
+      "id": "4",
+      "text": "真正优秀的个人智能体，应该通过轻交互，",
+      "start_seconds": 20,
+      "end_seconds": 25
+    },
+    {
+      "id": "5",
+      "text": "自然地，融入我们的日常生活。",
+      "start_seconds": 25,
+      "end_seconds": 30
+    }
+  ]
+}

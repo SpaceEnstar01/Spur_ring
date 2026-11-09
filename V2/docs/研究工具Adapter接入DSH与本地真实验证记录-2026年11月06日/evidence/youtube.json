@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "status": "partial",
+  "platform": "youtube",
+  "provider": "agent-reach",
+  "preferredProvider": "agent-reach",
+  "backend": "yt-dlp",
+  "retrievedAt": "2026-11-06T14:24:33.210Z",
+  "elapsedMs": 10346,
+  "items": [
+    {
+      "title": "Meta Ray-Ban Smart Glasses Review - 6 Months Later",
+      "url": "https://www.youtube.com/watch?v=ViA4-YWx8Y4",
+      "author": "6 Months Later",
+      "publishedAt": null,
+      "text": "Have the Meta Ray-Ban Smart Glasses been worth the purchase 6 Months Later? Who are these glasses designed for, and what ...",
+      "metrics": {
+        "views": 3408867,
+        "durationSeconds": 694
+      },
+      "evidenceType": "search_metadata"
+    },
+    {
+      "title": "Wait... Smart Glasses are Suddenly Good?",
+      "url": "https://www.youtube.com/watch?v=7gtc1DW2Tgo",
+      "author": "Marques Brownlee",
+      "publishedAt": null,
+      "text": "Trying the Meta Rayban Display glasses Trying the Orion prototypes: https://youtu.be/G0eKzU_fV00 MKBHD Merch: http://shop.",
+      "metrics": {
+        "views": 8584498,
+        "durationSeconds": 691
+      },
+      "evidenceType": "search_metadata"
+    },
+    {
+      "title": "ROKID Glasses - These Smart Glasses Have EVERYTHING!",
+      "url": "https://www.youtube.com/watch?v=HQYmkAy94QQ",
+      "author": "TT Technology",
+      "publishedAt": null,
+      "text": "The Rokid Glasses pack a dual-eye display, 12MP camera, ChatGPT and Gemini AI, live translation and navigation into incredibly ...",
+      "metrics": {
+        "views": 28673,
+        "durationSeconds": 734
+      },
+      "evidenceType": "search_metadata"
+    }
+  ],
+  "limits": {
+    "complete": false,
+    "dateRangeVerified": false,
+    "popularityRankingVerified": false,
+    "commentsAvailable": false,
+    "note": "Search metadata or indexed text only; no verified recent ranking, full content or audience-comment analysis."
+  },
+  "error": null
+}

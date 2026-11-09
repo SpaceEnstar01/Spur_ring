@@ -1,0 +1,130 @@
+{
+  "version": "1.0",
+  "project_id": "spur-personal-agent-30s",
+  "pipeline_type": "animated-explainer",
+  "stage": "research",
+  "status": "completed",
+  "timestamp": "2026-11-09T02:59:41.900147+00:00",
+  "checkpoint_policy": "guided",
+  "human_approval_required": false,
+  "human_approved": true,
+  "artifacts": {
+    "research_brief": {
+      "version": "1.0",
+      "topic": "\u7528\u6237\u5173\u4e8ePersonal AI Agent\u7684\u4e2a\u4eba\u89c2\u70b9\uff1b\u4ec5\u505a\u672c\u5730\u5236\u4f5c\u80fd\u529b\u9a8c\u8bc1",
+      "research_date": "2026-11-09",
+      "landscape": {
+        "existing_content": [
+          {
+            "title": "\u7528\u6237\u539f\u59cb\u6587\u6848",
+            "source": "file:///Users/x/X/space/spur/V2/docs/OpenMontage%E7%8B%AC%E7%AB%8B%E8%A7%86%E9%A2%91%E9%AA%8C%E8%AF%81-2026%E5%B9%B411%E6%9C%8809%E6%97%A5/%E7%94%A8%E6%88%B7%E5%8E%9F%E5%A7%8B%E6%96%87%E6%A1%88.txt",
+            "angle": "\u7b2c\u4e00\u4eba\u79f0\u4ea7\u54c1\u89c2\u70b9",
+            "what_it_covers": "\u957f\u671f\u8bb0\u5fc6\u3001\u4e3b\u52a8\u6267\u884c\u4e0e\u8f7b\u4ea4\u4e92"
+          },
+          {
+            "title": "OpenMontage production contract",
+            "source": "file:///Users/x/X/space/spur/V2/agent/runtime/OpenMontage-main/AGENT_GUIDE.md",
+            "angle": "Local production architecture",
+            "what_it_covers": "Pipeline manifests and Python tools, not an end-to-end hosted API"
+          },
+          {
+            "title": "OpenMontage video composer",
+            "source": "file:///Users/x/X/space/spur/V2/agent/runtime/OpenMontage-main/tools/video/video_compose.py",
+            "angle": "Local renderer implementation",
+            "what_it_covers": "MP4 rendering through Remotion; not market research"
+          }
+        ],
+        "saturated_angles": [],
+        "underserved_gaps": [
+          "\u672c\u6b21\u4e0d\u505a\u5e02\u573a\u7814\u7a76\uff0c\u4e0d\u5ba3\u79f0\u89c2\u70b9\u5df2\u88ab\u5916\u90e8\u6570\u636e\u9a8c\u8bc1"
+        ]
+      },
+      "data_points": [
+        {
+          "claim": "\u539f\u59cb\u6587\u6848\u8868\u8fbe\u4e2a\u4eba\u89c2\u70b9\uff0c\u4e0d\u662f\u5bf9Spur\u73b0\u6709\u80fd\u529b\u7684\u5b8c\u6574\u58f0\u660e",
+          "source_url": "file:///Users/x/X/space/spur/V2/docs/OpenMontage%E7%8B%AC%E7%AB%8B%E8%A7%86%E9%A2%91%E9%AA%8C%E8%AF%81-2026%E5%B9%B411%E6%9C%8809%E6%97%A5/%E7%94%A8%E6%88%B7%E5%8E%9F%E5%A7%8B%E6%96%87%E6%A1%88.txt",
+          "credibility": "primary_source"
+        },
+        {
+          "claim": "\u5408\u6210\u5de5\u5177\u63d0\u4f9bRemotion\u6e32\u67d3\u5165\u53e3",
+          "source_url": "file:///Users/x/X/space/spur/V2/agent/runtime/OpenMontage-main/tools/video/video_compose.py",
+          "credibility": "primary_source"
+        },
+        {
+          "claim": "youtube_shorts\u8f93\u51fa\u4e3a1080\u00d71920",
+          "source_url": "file:///Users/x/X/space/spur/V2/agent/runtime/OpenMontage-main/lib/media_profiles.py",
+          "credibility": "primary_source"
+        }
+      ],
+      "audience_insights": {
+        "common_questions": [
+          "\u7b56\u5212\u5047\u8bbe\uff1a\u4e3a\u4ec0\u4e48\u4e0d\u53ea\u662f\u804a\u5929\uff1f",
+          "\u7b56\u5212\u5047\u8bbe\uff1a\u957f\u671f\u8bb0\u5fc6\u6709\u4ec0\u4e48\u7528\uff1f",
+          "\u7b56\u5212\u5047\u8bbe\uff1a\u8f7b\u4ea4\u4e92\u5982\u4f55\u878d\u5165\u65e5\u5e38\uff1f"
+        ],
+        "misconceptions": [],
+        "knowledge_level": "\u9762\u5411\u666e\u901a\u89c2\u4f17\uff1b\u672a\u505a\u7528\u6237\u8c03\u7814"
+      },
+      "angles_discovered": [
+        {
+          "name": "\u4e0d\u6b62\u804a\u5929",
+          "hook": "\u4e0d\u6b62\u804a\u5929",
+          "type": "narrative",
+          "why_now": "\u57fa\u4e8e\u7528\u6237\u5df2\u6388\u6743\u7684\u5f53\u524d\u6587\u6848\u5236\u4f5c\u9a8c\u8bc1"
+        },
+        {
+          "name": "\u8bb0\u4f4f\u4e0e\u884c\u52a8",
+          "hook": "\u8bb0\u4f4f\u4e0e\u884c\u52a8",
+          "type": "narrative",
+          "why_now": "\u57fa\u4e8e\u7528\u6237\u5df2\u6388\u6743\u7684\u5f53\u524d\u6587\u6848\u5236\u4f5c\u9a8c\u8bc1"
+        },
+        {
+          "name": "\u8f7b\u4ea4\u4e92\u878d\u5165\u65e5\u5e38",
+          "hook": "\u8f7b\u4ea4\u4e92\u878d\u5165\u65e5\u5e38",
+          "type": "narrative",
+          "why_now": "\u57fa\u4e8e\u7528\u6237\u5df2\u6388\u6743\u7684\u5f53\u524d\u6587\u6848\u5236\u4f5c\u9a8c\u8bc1"
+        }
+      ],
+      "sources": [
+        {
+          "url": "file:///Users/x/X/space/spur/V2/docs/OpenMontage%E7%8B%AC%E7%AB%8B%E8%A7%86%E9%A2%91%E9%AA%8C%E8%AF%81-2026%E5%B9%B411%E6%9C%8809%E6%97%A5/%E7%94%A8%E6%88%B7%E5%8E%9F%E5%A7%8B%E6%96%87%E6%A1%88.txt",
+          "title": "\u7528\u6237\u539f\u59cb\u6587\u6848.txt",
+          "used_for": "\u7528\u6237\u6765\u6e90\u6216\u672c\u5730\u5236\u4f5c\u6280\u672f\u4f9d\u636e\uff1b\u4e0d\u662f\u4e92\u8054\u7f51\u5e02\u573a\u7814\u7a76",
+          "reliability": "primary"
+        },
+        {
+          "url": "file:///Users/x/X/space/spur/V2/agent/runtime/OpenMontage-main/AGENT_GUIDE.md",
+          "title": "AGENT_GUIDE.md",
+          "used_for": "\u7528\u6237\u6765\u6e90\u6216\u672c\u5730\u5236\u4f5c\u6280\u672f\u4f9d\u636e\uff1b\u4e0d\u662f\u4e92\u8054\u7f51\u5e02\u573a\u7814\u7a76",
+          "reliability": "primary"
+        },
+        {
+          "url": "file:///Users/x/X/space/spur/V2/agent/runtime/OpenMontage-main/pipeline_defs/animated-explainer.yaml",
+          "title": "animated-explainer.yaml",
+          "used_for": "\u7528\u6237\u6765\u6e90\u6216\u672c\u5730\u5236\u4f5c\u6280\u672f\u4f9d\u636e\uff1b\u4e0d\u662f\u4e92\u8054\u7f51\u5e02\u573a\u7814\u7a76",
+          "reliability": "primary"
+        },
+        {
+          "url": "file:///Users/x/X/space/spur/V2/agent/runtime/OpenMontage-main/tools/video/video_compose.py",
+          "title": "video_compose.py",
+          "used_for": "\u7528\u6237\u6765\u6e90\u6216\u672c\u5730\u5236\u4f5c\u6280\u672f\u4f9d\u636e\uff1b\u4e0d\u662f\u4e92\u8054\u7f51\u5e02\u573a\u7814\u7a76",
+          "reliability": "primary"
+        },
+        {
+          "url": "file:///Users/x/X/space/spur/V2/agent/runtime/OpenMontage-main/lib/media_profiles.py",
+          "title": "media_profiles.py",
+          "used_for": "\u7528\u6237\u6765\u6e90\u6216\u672c\u5730\u5236\u4f5c\u6280\u672f\u4f9d\u636e\uff1b\u4e0d\u662f\u4e92\u8054\u7f51\u5e02\u573a\u7814\u7a76",
+          "reliability": "primary"
+        }
+      ],
+      "metadata": {
+        "external_research_performed": false,
+        "paid_api_used": false
+      }
+    }
+  },
+  "style_playbook": "flat-motion-graphics",
+  "metadata": {
+    "approval_source": "User explicitly approved dependency installation and standalone 30s 9:16 rendering; no cloud/publishing."
+  }
+}

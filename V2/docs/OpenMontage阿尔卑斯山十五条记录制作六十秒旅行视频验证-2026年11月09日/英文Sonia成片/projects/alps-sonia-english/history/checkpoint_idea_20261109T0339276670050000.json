@@ -1,0 +1,65 @@
+{
+  "version": "1.0",
+  "project_id": "alps-sonia-english",
+  "pipeline_type": "documentary-montage",
+  "stage": "idea",
+  "status": "completed",
+  "timestamp": "2026-11-09T03:39:27.667005+00:00",
+  "checkpoint_policy": "guided",
+  "human_approval_required": true,
+  "human_approved": true,
+  "artifacts": {
+    "brief": {
+      "version": "1.0",
+      "title": "Finding My Own Pace",
+      "hook": "\u51fa\u53d1\u65f6\u60f3\u8d76\u5230\u5c71\u9876\uff0c\u56de\u6765\u65f6\u60f3\u627e\u56de\u81ea\u5df1\u3002",
+      "key_points": [
+        "\u671f\u5f85\u51fa\u53d1",
+        "\u75b2\u60eb\u4e0e\u653e\u5f03\u5ff5\u5934",
+        "\u8001\u4eba\u7684\u63d0\u9192",
+        "\u4e91\u6563\u4e0e\u5b89\u9759",
+        "\u5f52\u9014\u627e\u56de\u8282\u594f"
+      ],
+      "tone": "reverent",
+      "style": "\u514b\u5236\u81ea\u7136\u7684\u7535\u5f71\u611f\u65c5\u884c\u53d9\u4e8b\uff0c\u7d20\u6750\u91cd\u6784\u800c\u975e\u4e2a\u4eba\u5b9e\u62cd",
+      "target_platform": "tiktok",
+      "target_duration_seconds": 60,
+      "reference_material": [
+        "/Users/x/X/space/spur/V2/docs/OpenMontage\u963f\u5c14\u5351\u65af\u5c71\u5341\u4e94\u6761\u8bb0\u5f55\u5236\u4f5c\u516d\u5341\u79d2\u65c5\u884c\u89c6\u9891\u9a8c\u8bc1-2026\u5e7411\u670809\u65e5/\u539f\u59cb\u8bb0\u5f55.txt"
+      ],
+      "core_message": "\u4ece\u60f3\u653e\u5f03\uff0c\u5230\u91cd\u65b0\u627e\u56de\u81ea\u5df1\u7684\u8282\u594f",
+      "metadata": {
+        "thematic_question": "\u5f53\u4e0d\u518d\u6025\u7740\u5230\u5c71\u9876\uff0c\u6211\u4eec\u80fd\u627e\u56de\u4ec0\u4e48\uff1f",
+        "shape": "before/after with emotional turn",
+        "render_runtime": "remotion",
+        "renderer_family": "documentary-montage",
+        "sources_allowed": [
+          "wikimedia"
+        ],
+        "generated_clips_allowed": false,
+        "music_plan": {
+          "source": "original_local",
+          "source_path": "/Users/x/X/space/spur/V2/docs/OpenMontage\u963f\u5c14\u5351\u65af\u5c71\u5341\u4e94\u6761\u8bb0\u5f55\u5236\u4f5c\u516d\u5341\u79d2\u65c5\u884c\u89c6\u9891\u9a8c\u8bc1-2026\u5e7411\u670809\u65e5/music-original.wav",
+          "description": "\u672c\u5730\u539f\u521b\u6c1b\u56f4\u94a2\u7434/\u6301\u7eed\u548c\u5f26\uff0c\u524d\u534a\u514b\u5236\uff0c\u540e\u534a\u8212\u5c55"
+        },
+        "narration": "en-GB-SoniaNeural, user approved sample 4",
+        "end_tag_plan": {
+          "text": "\u6162\u4e0b\u6765\uff0c\u627e\u56de\u81ea\u5df1\u7684\u8282\u594f\u3002",
+          "mode": "overlay",
+          "duration_seconds": 7,
+          "render_engine": "remotion",
+          "component": "CinematicRenderer title overlay"
+        },
+        "delegated_approval": true,
+        "source_records_simulated": true,
+        "runtime_options_considered": {
+          "remotion": "selected: native CinematicRenderer",
+          "hyperframes": "not used: no documentary parity on this pipeline"
+        }
+      }
+    }
+  },
+  "metadata": {
+    "approval": "User selected voice 4 Sonia for full English narration and subtitles; retain 60s picture and music."
+  }
+}

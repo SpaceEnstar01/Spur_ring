@@ -120,4 +120,20 @@ RCT_REMAP_METHOD(setVoiceRecordParam,
   }
 }
 
+RCT_REMAP_METHOD(sendVibrationWithType,
+                 sendVibrationWithType:(nonnull NSNumber *)type
+                 times:(nonnull NSNumber *)times
+                 resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+  RejectSimulator(reject, @"YANQIANG_VIBRATION_UNSUPPORTED");
+}
+
+RCT_REMAP_METHOD(setOneMinuteAlarm,
+                 setOneMinuteAlarmWithResolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+  RejectSimulator(reject, @"YANQIANG_ALARM_UNSUPPORTED");
+}
+
 @end

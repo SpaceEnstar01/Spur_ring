@@ -1,0 +1,27 @@
+{
+  "ok": true,
+  "status": "partial",
+  "platform": "douyin",
+  "provider": "mediacrawler",
+  "items": [
+    {
+      "title": "第一次用 AI 开发硬件，原来这么简单！\n#大模型 #Agent #硬件开发 #vibecoding  #DeepSeek @Qoder",
+      "url": "https://www.douyin.com/video/7700245591016044721",
+      "text": "第一次用 AI 开发硬件，原来这么简单！\n#大模型 #Agent #硬件开发 #vibecoding  #DeepSeek @Qoder",
+      "evidenceType": "native_search_result"
+    },
+    {
+      "title": "ESP32为什么现在才火？ 经典款、C3、S3 怎么选，这条讲清楚。\n#ESP32 #AI硬件 #大模型 #小智AI #抖音精选app知识充电站",
+      "url": "https://www.douyin.com/video/7697205426860903715",
+      "text": "ESP32为什么现在才火？ 经典款、C3、S3 怎么选，这条讲清楚。\n#ESP32 #AI硬件 #大模型 #小智AI #抖音精选app知识充电站",
+      "evidenceType": "native_search_result"
+    }
+  ],
+  "limits": {
+    "commentsAvailable": false,
+    "popularityRankingVerified": false,
+    "dateRangeVerified": false
+  },
+  "error": null,
+  "elapsedMs": 11000
+}

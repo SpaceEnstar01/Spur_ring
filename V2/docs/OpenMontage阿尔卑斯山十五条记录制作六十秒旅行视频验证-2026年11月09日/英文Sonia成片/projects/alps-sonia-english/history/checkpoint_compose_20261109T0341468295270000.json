@@ -1,0 +1,27 @@
+{
+  "version": "1.0",
+  "project_id": "alps-sonia-english",
+  "pipeline_type": "documentary-montage",
+  "stage": "compose",
+  "status": "completed",
+  "timestamp": "2026-11-09T03:41:46.829527+00:00",
+  "checkpoint_policy": "guided",
+  "human_approval_required": false,
+  "human_approved": true,
+  "artifacts": {
+    "render_report": {
+      "version": "1.0",
+      "outputs": [
+        {
+          "path": "/Users/x/X/space/spur/V2/docs/OpenMontage\u963f\u5c14\u5351\u65af\u5c71\u5341\u4e94\u6761\u8bb0\u5f55\u5236\u4f5c\u516d\u5341\u79d2\u65c5\u884c\u89c6\u9891\u9a8c\u8bc1-2026\u5e7411\u670809\u65e5/\u82f1\u6587Sonia\u6210\u7247/Alps-Vlog-60s-Sonia-British-English.mp4",
+          "format": "mp4",
+          "resolution": "1080x1920",
+          "duration_seconds": 60
+        }
+      ]
+    }
+  },
+  "metadata": {
+    "approval": "User selected voice 4 Sonia for full English narration and subtitles; retain 60s picture and music."
+  }
+}

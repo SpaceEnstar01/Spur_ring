@@ -1,0 +1,15 @@
+{
+  "command": [
+    "agent-reach",
+    "youtube",
+    "search",
+    "AI glasses review",
+    "--limit",
+    "3",
+    "--timeout",
+    "45"
+  ],
+  "seconds": 11.17,
+  "exitCode": 0,
+  "proxyConfigured": true
+}

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Spur 多种提醒形态对比</title>
+<style>
+  :root { --ink:#1b1b1b; --muted:#8a8a8a; --line:#ececec; --deny:#efefef; --black:#111; --green:#1f9d4e; --blue:#3165c8; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: #ececee; color: var(--ink); }
+  body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif; -webkit-font-smoothing: antialiased; }
+  .frame { min-height: 100vh; display: flex; justify-content: center; padding: 24px 12px; }
+  .phone { width: min(390px, 100%); height: min(844px, 100vh); background: #fff; border-radius: 28px; box-shadow: 0 16px 40px rgba(0,0,0,.08); display: flex; flex-direction: column; overflow: hidden; }
+  .screen { flex: 1; min-height: 0; overflow: auto; padding: 22px 22px 12px; }
+  .top { display: flex; justify-content: space-between; align-items: baseline; }
+  .mark { font-size: 22px; font-weight: 650; letter-spacing: -.4px; }
+  .date { font-size: 15px; color: var(--muted); }
+  h1 { margin: 16px 0 6px; font-size: 28px; line-height: 34px; font-weight: 650; letter-spacing: -.5px; }
+  .lead { margin: 0 0 8px; font-size: 15px; line-height: 22px; color: var(--muted); }
+  .piece { padding: 26px 0; border-top: 1px solid var(--line); }
+  .label { margin: 0 0 12px; font-size: 13px; letter-spacing: .2px; color: var(--muted); }
+  .line { margin: 0; font-size: 17px; line-height: 24px; font-weight: 650; }
+  a { color: var(--blue); font-size: 15px; font-weight: 550; text-decoration: none; }
+  .ask { margin: 0 0 14px; font-size: 20px; line-height: 26px; font-weight: 650; letter-spacing: -.3px; }
+  .actions { display: flex; gap: 10px; }
+  button { font: inherit; border: 0; cursor: default; }
+  .btn { min-height: 44px; padding: 0 18px; border-radius: 999px; font-size: 15px; font-weight: 650; }
+  .deny { background: var(--deny); color: var(--ink); }
+  .allow { background: var(--black); color: #fff; }
+  .row { display: flex; align-items: center; gap: 12px; min-height: 48px; border-bottom: 1px solid var(--line); }
+  .row:last-child { border-bottom: 0; }
+  .box { width: 16px; height: 16px; border: 1.5px solid var(--ink); border-radius: 3px; flex: none; }
+  .name { flex: 1; font-size: 15px; }
+  .due { font-size: 15px; color: var(--muted); }
+  .stages { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 8px 0 10px; }
+  .stage { font-size: 13px; color: #b0b0b0; padding-bottom: 7px; border-bottom: 2px solid #ececec; }
+  .stage.on { color: var(--ink); font-weight: 650; border-bottom-color: var(--ink); }
+  .note { margin: 0; font-size: 15px; line-height: 22px; color: #3d3d3d; }
+  .cover { height: 140px; border-radius: 16px; background: #f6e4e0; margin-bottom: 12px; position: relative; overflow: hidden; }
+  .title { margin: 0 0 6px; font-size: 22px; line-height: 28px; font-weight: 650; letter-spacing: -.3px; }
+  .mail { margin: 0; font-size: 17px; line-height: 24px; font-weight: 650; }
+  .meta { margin: 6px 0 0; font-size: 15px; color: var(--muted); }
+  .done { padding-top: 36px; }
+  .capsule { display: inline-flex; align-items: center; gap: 6px; background: var(--green); color: #fff; border-radius: 999px; padding: 8px 14px; font-size: 15px; font-weight: 650; margin-bottom: 14px; }
+  .ticket { background: #fff; border: 1.5px solid var(--ink); border-radius: 12px; padding: 14px 16px; margin: 0 0 12px; }
+  .ticket b { display: block; font-size: 17px; }
+  .ticket span { font-size: 15px; color: var(--muted); }
+  .approved { margin: 0; font-size: 15px; font-weight: 650; }
+  .composer { padding: 8px 14px 14px; border-top: 1px solid #f2f2f2; }
+  .field { display: flex; align-items: center; min-height: 48px; border: 1px solid #e6e6e6; border-radius: 999px; padding: 4px 6px 4px 16px; }
+  .field input { flex: 1; border: 0; outline: none; font: inherit; font-size: 15px; }
+  .send { width: 36px; height: 36px; border-radius: 50%; background: var(--black); color: #fff; cursor: pointer; }
+  @media (max-width: 430px) {
+    .frame { padding: 0; background: #fff; }
+    .phone { width: 100%; height: 100vh; border-radius: 0; box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+  <div class="frame">
+    <main class="phone">
+      <div class="screen">
+        <div class="top"><div class="mark">spur.</div><div class="date">Wed, Nov 4</div></div>
+        <h1>Reminders</h1>
+        <p class="lead">戒指里短短一句。每种只说一件事，中间留白，方便对比。</p>
+
+        <section class="piece">
+          <p class="label">轻量通知 · 一句话</p>
+          <p class="line">Your travel video script is ready.</p>
+          <p style="margin:8px 0 0"><a href="#script">View script · 10 min ago</a></p>
+        </section>
+
+        <section class="piece">
+          <p class="label">行内确认</p>
+          <p class="ask">Keep working on your Paris video tonight?</p>
+          <div class="actions">
+            <button class="btn deny" type="button">Tomorrow</button>
+            <button class="btn allow" type="button">Continue</button>
+          </div>
+        </section>
+
+        <section class="piece">
+          <p class="label">紧凑待办</p>
+          <div class="row"><span class="box"></span><span class="name">Confirm Paris video cover</span><span class="due">Today</span></div>
+          <div class="row"><span class="box"></span><span class="name">Reply to photographer Jack</span><span class="due">Tomorrow</span></div>
+          <div class="row"><span class="box"></span><span class="name">Review Santorini video script</span><span class="due">Friday</span></div>
+        </section>
+
+        <section class="piece">
+          <p class="label">执行阶段</p>
+          <p class="line">Researching travel video trends</p>
+          <div class="stages">
+            <div class="stage on">Searching</div>
+            <div class="stage">Analyzing</div>
+            <div class="stage">Drafting</div>
+            <div class="stage">Ready</div>
+          </div>
+          <p class="note">Searching recent travel videos and reference content.</p>
+        </section>
+
+        <section class="piece" id="script">
+          <p class="label">研究报告</p>
+          <div class="cover" aria-hidden="true">
+            <svg width="100%" height="140" viewBox="0 0 340 140" preserveAspectRatio="xMidYMid slice">
+              <rect width="340" height="140" fill="#f6e4e0"/>
+              <circle cx="64" cy="52" r="16" fill="#fff"/>
+              <path fill="#fff" d="M0 92 L28 92 L28 70 L56 70 L56 84 L90 84 L90 60 L130 60 L130 80 L170 80 L170 54 L214 54 L214 78 L258 78 L258 66 L340 66 L340 140 L0 140 Z"/>
+            </svg>
+          </div>
+          <h2 class="title">Travel beyond the postcard.</h2>
+          <p class="note">12 reference videos. Three directions for a more personal travel story.</p>
+        </section>
+
+        <section class="piece">
+          <p class="label">邮件提醒</p>
+          <p class="mail">Jack hasn’t sent the Paris footage.</p>
+          <p class="meta">To Jack · Photographer · Follow-up ready</p>
+        </section>
+
+        <section class="piece done">
+          <p class="label">批准之后</p>
+          <div class="capsule">✓ Order placed</div>
+          <div class="ticket">
+            <b>PARIS</b>
+            <span>Shoot deposit · $240.00 · Card ···· 7719</span>
+          </div>
+          <p class="approved">Approved</p>
+        </section>
+      </div>
+      <form class="composer" action="#" onsubmit="return false">
+        <label class="field">
+          <input type="text" placeholder="Tell Spur what to do" aria-label="Tell Spur what to do" />
+          <button class="send" type="submit" aria-label="Send">↑</button>
+        </label>
+      </form>
+    </main>
+  </div>
+</body>
+</html>

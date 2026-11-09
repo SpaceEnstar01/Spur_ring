@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Spur Agent Workspace 主界面设计稿</title>
+<style>
+  :root {
+    --ink: #1b1b1b;
+    --muted: #777777;
+    --line: #eeeeee;
+    --blue: #3165c8;
+    --bg: #ffffff;
+    --soft: #f6f7f8;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: #ececee; color: var(--ink); }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .stage {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 28px 16px 40px;
+  }
+  .phone {
+    width: min(390px, 100%);
+    height: min(844px, 100vh);
+    background: var(--bg);
+    border-radius: 28px;
+    box-shadow: 0 18px 50px rgba(0,0,0,.08);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .screen {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+    padding: 20px 22px 24px;
+  }
+  header.top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 22px;
+  }
+  .mark { font-size: 22px; font-weight: 650; letter-spacing: -0.4px; }
+  .mark span { color: var(--muted); font-weight: 500; }
+  .date { text-align: right; font-size: 12px; line-height: 17px; color: var(--muted); }
+  h1 {
+    margin: 0 0 4px;
+    font-size: 28px;
+    line-height: 34px;
+    letter-spacing: -0.6px;
+    font-weight: 650;
+  }
+  .lead { margin: 0 0 26px; color: var(--muted); font-size: 14px; line-height: 20px; }
+  .kicker {
+    margin: 0 0 8px;
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--muted);
+    letter-spacing: 0.1px;
+  }
+  .kicker b { color: var(--ink); font-weight: 600; }
+  .block { margin: 0; padding: 22px 0; border-top: 1px solid var(--line); }
+  .block:first-of-type { border-top: 0; padding-top: 0; }
+  .note {
+    margin: 0;
+    font-size: 17px;
+    line-height: 24px;
+    font-weight: 600;
+    letter-spacing: -0.2px;
+  }
+  .link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 6px;
+    color: var(--blue);
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+  }
+  .dot { width: 7px; height: 7px; border-radius: 99px; background: #7aa2ee; display: inline-block; }
+  .ask { margin: 0 0 6px; color: var(--muted); font-size: 13px; }
+  .question { margin: 0 0 14px; font-size: 20px; line-height: 26px; letter-spacing: -0.3px; font-weight: 650; }
+  .actions { display: flex; gap: 10px; }
+  button {
+    font: inherit;
+    cursor: pointer;
+    border: 0;
+    background: none;
+  }
+  .pill {
+    min-height: 44px;
+    padding: 0 18px;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .solid { background: #101010; color: #fff; }
+  .outline { background: #fff; color: var(--ink); border: 1px solid #dddddd; }
+  .feedback { margin: 0; color: #34785c; font-size: 14px; line-height: 21px; }
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 52px;
+    border-bottom: 1px solid var(--line);
+  }
+  .row:last-child { border-bottom: 0; }
+  .box {
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid #1b1b1b;
+    border-radius: 3px;
+    flex: none;
+    display: grid;
+    place-items: center;
+    background: #fff;
+  }
+  .row.done .box { background: #1b1b1b; }
+  .row.done .box::after { content: ""; width: 8px; height: 4px; border-left: 1.5px solid #fff; border-bottom: 1.5px solid #fff; transform: translateY(-1px) rotate(-45deg); }
+  .row.done .task { color: var(--muted); text-decoration: line-through; }
+  .task { flex: 1; min-width: 0; font-size: 15px; line-height: 21px; text-align: left; }
+  .when { color: var(--muted); font-size: 13px; flex: none; }
+  .exec-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 14px;
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: -0.3px;
+  }
+  .stages {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+  .stage-name { font-size: 12px; color: #b0b0b0; padding-bottom: 7px; border-bottom: 2px solid #ececec; white-space: nowrap; }
+  .stage-name.on { color: var(--ink); font-weight: 600; border-bottom-color: var(--blue); }
+  .activity { margin: 0; color: #626b79; font-size: 14px; line-height: 21px; }
+  .next { margin-top: 8px; color: var(--blue); font-size: 14px; font-weight: 600; padding: 8px 0; }
+  .cover {
+    height: 168px;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    background: linear-gradient(#f7b267 0%, #f4845f 28%, #e36a74 52%, #7eb6d9 53%, #4f8fbe 100%);
+  }
+  .sun { position: absolute; left: 28px; top: 46px; width: 28px; height: 28px; border-radius: 50%; background: #fff4d2; }
+  .sea { position: absolute; left: 0; right: 0; top: 88px; height: 18px; background: linear-gradient(#f6c7a1, transparent); opacity: .7; }
+  .town { position: absolute; left: 0; right: 0; bottom: 0; height: 62px; }
+  .meta {
+    margin: 12px 0 6px;
+    font-size: 11px;
+    letter-spacing: .8px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .report-title { margin: 0 0 6px; font-size: 26px; line-height: 31px; letter-spacing: -0.5px; font-weight: 680; }
+  .summary { margin: 0; color: #626b79; font-size: 14px; line-height: 21px; }
+  .composer {
+    flex: none;
+    padding: 8px 14px 14px;
+    background: #fff;
+    border-top: 1px solid #f2f2f2;
+  }
+  .field {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 52px;
+    padding: 6px 8px 6px 16px;
+    border: 1px solid #e6e6e6;
+    border-radius: 999px;
+    background: #fff;
+  }
+  .field input {
+    flex: 1;
+    border: 0;
+    outline: none;
+    font: inherit;
+    font-size: 15px;
+    color: var(--ink);
+    background: transparent;
+  }
+  .send {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: #101010; color: #fff; font-size: 16px;
+  }
+  .hint { margin: 6px 0 0; text-align: center; color: #b0b0b0; font-size: 11px; }
+  @media (max-width: 430px) {
+    .stage { padding: 0; background: #fff; }
+    .phone { width: 100%; height: 100vh; border-radius: 0; box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <main class="phone">
+      <div class="screen">
+        <header class="top">
+          <div class="mark">spur<span>.</span></div>
+          <div class="date">Wed, Nov 4<br />Agent Workspace</div>
+        </header>
+        <h1>Today</h1>
+        <p class="lead">今天 · 从戒指进来的事，按要处理的顺序排成一条队列。</p>
+
+        <section class="block">
+          <p class="kicker"><b>01</b>　轻量通知 · Minimal Notification</p>
+          <p class="note">Your travel video script is ready.</p>
+          <a class="link" href="#script"><span class="dot"></span> View script · 10 min ago</a>
+        </section>
+
+        <section class="block">
+          <p class="kicker"><b>02</b>　行内确认 · Inline Question</p>
+          <p class="ask">Spur wants to confirm something:</p>
+          <p class="question">Keep working on your Paris video tonight?</p>
+          <div class="actions" id="ask">
+            <button class="pill solid" type="button" data-choice="Continue tonight. I’ll stay on the Paris cut.">Continue</button>
+            <button class="pill outline" type="button" data-choice="Moved to tomorrow. Nothing was sent.">Tomorrow</button>
+          </div>
+        </section>
+
+        <section class="block">
+          <p class="kicker"><b>03</b>　紧凑待办 · Compact Checklist</p>
+          <div id="todos">
+            <div class="row"><button class="box" type="button" aria-label="Confirm Paris video cover"></button><span class="task">Confirm Paris video cover</span><span class="when">Today</span></div>
+            <div class="row"><button class="box" type="button" aria-label="Reply to photographer Jack"></button><span class="task">Reply to photographer Jack</span><span class="when">Tomorrow</span></div>
+            <div class="row"><button class="box" type="button" aria-label="Review Santorini video script"></button><span class="task">Review Santorini video script</span><span class="when">Friday</span></div>
+          </div>
+        </section>
+
+        <section class="block">
+          <p class="kicker"><b>04</b>　执行阶段 · Execution Status</p>
+          <h2 class="exec-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="#1b1b1b" stroke-width="1.8"/><path d="M16 16.5L20 20.5" stroke="#1b1b1b" stroke-width="1.8" stroke-linecap="round"/></svg>
+            Researching travel video trends
+          </h2>
+          <div class="stages" id="stages"></div>
+          <p class="activity" id="activity">Searching recent travel videos and reference content...</p>
+          <button class="next" id="next" type="button">Next stage →</button>
+        </section>
+
+        <section class="block" id="script">
+          <p class="kicker"><b>05</b>　研究报告 · Research Report</p>
+          <div class="cover" aria-hidden="true">
+            <div class="sun"></div>
+            <div class="sea"></div>
+            <svg class="town" viewBox="0 0 390 70" preserveAspectRatio="none">
+              <path fill="#f4efe6" d="M0 40 L28 40 L28 22 L52 22 L52 34 L78 34 L78 16 L110 16 L110 30 L140 30 L140 12 L168 12 L168 28 L200 28 L200 18 L236 18 L236 36 L270 36 L270 14 L310 14 L310 32 L346 32 L346 20 L390 20 L390 70 L0 70 Z"/>
+              <circle cx="92" cy="22" r="8" fill="#2f6f9a"/>
+              <circle cx="214" cy="24" r="7" fill="#3d7eab"/>
+              <rect x="40" y="28" width="8" height="12" fill="#e7d7c4"/>
+              <rect x="156" y="18" width="7" height="12" fill="#eadccb"/>
+            </svg>
+          </div>
+          <p class="meta">Content research · Completed</p>
+          <h2 class="report-title">Travel beyond the postcard.</h2>
+          <p class="summary">12 reference videos. Three directions for a more personal travel story. Open the report before choosing a script.</p>
+        </section>
+
+        <section class="block">
+          <p class="kicker"><b>06</b>　旅行视频研究 · Travel video research</p>
+          <h2 class="exec-title">正在研究旅行视频趋势</h2>
+          <div class="stages">
+            <div class="stage-name on">Searching</div>
+            <div class="stage-name">Analyzing</div>
+            <div class="stage-name">Drafting</div>
+            <div class="stage-name">Ready</div>
+          </div>
+          <p class="activity">正在搜索近期旅行视频和参考内容。项目是 Paris Travel。</p>
+        </section>
+
+        <section class="block">
+          <p class="kicker"><b>07</b>　邮件跟进 · Email follow-up</p>
+          <p class="ask">Spur wants to confirm something:</p>
+          <p class="question">给摄影师 Jack 发一封跟进，问巴黎素材何时能到？</p>
+          <p class="activity">Jack，巴黎拍摄的最新文件准备好了吗？有空时发我一下。</p>
+          <div class="actions">
+            <button class="pill outline" type="button">Deny</button>
+            <button class="pill solid" type="button">Allow</button>
+          </div>
+        </section>
+      </div>
+
+      <form class="composer" onsubmit="event.preventDefault()">
+        <label class="field">
+          <input type="text" placeholder="Tell Spur what to do" aria-label="Tell Spur what to do" />
+          <button class="send" type="submit" aria-label="Send">↑</button>
+        </label>
+        <p class="hint">对话入口 · Conversation · 没有 Home / Projects / Me</p>
+      </form>
+    </main>
+  </div>
+<script>
+  const stages = ["Searching", "Analyzing", "Drafting", "Ready"];
+  const lines = [
+    "Searching recent travel videos and reference content...",
+    "Comparing hooks, pacing, and what travelers actually watch.",
+    "Drafting three directions for the Paris story.",
+    "Ready to review. Nothing has been published."
+  ];
+  let step = 0;
+  const stageBox = document.getElementById("stages");
+  const activity = document.getElementById("activity");
+  const next = document.getElementById("next");
+  function paint() {
+    stageBox.innerHTML = stages.map((name, i) =>
+      `<div class="stage-name${i === step ? " on" : ""}">${name}</div>`
+    ).join("");
+    activity.textContent = lines[step];
+    next.textContent = step === stages.length - 1 ? "Replay →" : "Next stage →";
+  }
+  next.addEventListener("click", () => {
+    step = step === stages.length - 1 ? 0 : step + 1;
+    paint();
+  });
+  paint();
+
+  document.getElementById("ask").addEventListener("click", (event) => {
+    const button = event.target.closest("button");
+    if (!button) return;
+    event.currentTarget.outerHTML = `<p class="feedback">${button.dataset.choice}</p>`;
+  });
+
+  document.getElementById("todos").addEventListener("click", (event) => {
+    const row = event.target.closest(".row");
+    if (!row) return;
+    row.classList.toggle("done");
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+{
+  "version": "1.0",
+  "cuts": [
+    {
+      "id": "0",
+      "source": "",
+      "in_seconds": 0,
+      "out_seconds": 5,
+      "type": "hero_title",
+      "text": "Personal AI Agent",
+      "heroSubtitle": "今天，我在研究",
+      "accentColor": "#59E1E8",
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.35,
+      "backgroundColor": "#0A1020",
+      "color": "#F1F5FF"
+    },
+    {
+      "id": "1",
+      "source": "",
+      "in_seconds": 5,
+      "out_seconds": 10,
+      "type": "hero_title",
+      "text": "不止于聊天",
+      "heroSubtitle": "从回答问题，到理解你",
+      "accentColor": "#59E1E8",
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.35,
+      "backgroundColor": "#0A1020",
+      "color": "#F1F5FF"
+    },
+    {
+      "id": "2",
+      "source": "",
+      "in_seconds": 10,
+      "out_seconds": 15,
+      "type": "text_card",
+      "text": "理解用户的\n长期记忆",
+      "heroSubtitle": "让每一次想法，都有延续",
+      "accentColor": "#59E1E8",
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.35,
+      "backgroundColor": "#0A1020",
+      "color": "#F1F5FF",
+      "fontSize": 86
+    },
+    {
+      "id": "3",
+      "source": "",
+      "in_seconds": 15,
+      "out_seconds": 20,
+      "type": "comparison",
+      "text": "主动完成任务",
+      "heroSubtitle": "从意图，到真实行动",
+      "accentColor": "#59E1E8",
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.35,
+      "backgroundColor": "#0A1020",
+      "color": "#F1F5FF",
+      "title": "从意图，到行动",
+      "leftLabel": "过去",
+      "rightLabel": "未来",
+      "leftValue": "回答问题",
+      "rightValue": "完成任务"
+    },
+    {
+      "id": "4",
+      "source": "",
+      "in_seconds": 20,
+      "out_seconds": 25,
+      "type": "hero_title",
+      "text": "Light Interaction",
+      "heroSubtitle": "让复杂留在后台",
+      "accentColor": "#59E1E8",
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.35,
+      "backgroundColor": "#0A1020",
+      "color": "#F1F5FF"
+    },
+    {
+      "id": "5",
+      "source": "",
+      "in_seconds": 25,
+      "out_seconds": 30,
+      "type": "hero_title",
+      "text": "融入日常生活",
+      "heroSubtitle": "一句话，让想法开始发生",
+      "accentColor": "#59E1E8",
+      "transition_in": "fade",
+      "transition_out": "fade",
+      "transition_duration": 0.35,
+      "backgroundColor": "#0A1020",
+      "color": "#F1F5FF"
+    }
+  ],
+  "render_runtime": "remotion",
+  "renderer_family": "explainer-data",
+  "composition_mode": "templated",
+  "tailPaddingSeconds": 0,
+  "theme": "flat-motion-graphics",
+  "captions": [
+    {
+      "word": "今天，我在研究，个人AI智能体。",
+      "startMs": 200,
+      "endMs": 4750,
+      "pageBreakAfter": true
+    },
+    {
+      "word": "我认为，未来的人工智能，不应该只是聊天工具。",
+      "startMs": 5200,
+      "endMs": 9750,
+      "pageBreakAfter": true
+    },
+    {
+      "word": "它应该理解用户的长期记忆。",
+      "startMs": 10200,
+      "endMs": 14750,
+      "pageBreakAfter": true
+    },
+    {
+      "word": "并且，主动帮助用户，完成真正的任务。",
+      "startMs": 15200,
+      "endMs": 19750,
+      "pageBreakAfter": true
+    },
+    {
+      "word": "真正优秀的个人智能体，应该通过轻交互，",
+      "startMs": 20200,
+      "endMs": 24750,
+      "pageBreakAfter": true
+    },
+    {
+      "word": "自然地，融入我们的日常生活。",
+      "startMs": 25200,
+      "endMs": 29750,
+      "pageBreakAfter": true
+    }
+  ],
+  "captionProps": {
+    "fontSize": 34,
+    "bottomOffset": 290,
+    "wordsPerPage": 1,
+    "wordSeparator": "",
+    "fontFamily": "PingFang SC, sans-serif",
+    "boxStyle": {
+      "maxWidth": "86%",
+      "textAlign": "center"
+    }
+  },
+  "audio": {
+    "narration": {
+      "src": "/Users/x/X/space/spur/V2/docs/OpenMontage独立视频验证-2026年11月09日/projects/spur-personal-agent-30s/assets/audio/narration.wav",
+      "volume": 1
+    }
+  },
+  "metadata": {
+    "paid_api_used": false,
+    "subtitle_alignment": "sentence-level using local TTS segment boundaries, no ASR",
+    "script_source": "user-provided opinion"
+  }
+}

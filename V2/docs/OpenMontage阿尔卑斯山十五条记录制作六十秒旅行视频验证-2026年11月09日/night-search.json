@@ -1,0 +1,44 @@
+{
+  "success": true,
+  "data": {
+    "output_dir": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/night",
+    "clips_downloaded": 1,
+    "clips_reused": 0,
+    "total_clips": 1,
+    "per_source_counts": {
+      "wikimedia": 1
+    },
+    "queries_run": 1,
+    "resolved_sources": [
+      "wikimedia"
+    ],
+    "clips": [
+      {
+        "clip_id": "wikimedia_20091840",
+        "source": "wikimedia",
+        "source_id": "20091840",
+        "source_url": "https://commons.wikimedia.org/wiki/File:1_zermatt_night_2012.jpg",
+        "query": "Zermatt night",
+        "slot_id": "home",
+        "kind": "image",
+        "path": "/Users/x/X/space/spur/V2/docs/OpenMontage阿尔卑斯山十五条记录制作六十秒旅行视频验证-2026年11月09日/night/clips/wikimedia_20091840.jpg",
+        "thumbnail": "",
+        "duration": 0.0,
+        "width": 6798,
+        "height": 4794,
+        "creator": "chensiyuan",
+        "license": "CC BY-SA 4.0",
+        "source_tags": "1 zermatt night 2012 zermatt switzerland matterhorn night 2012 GFDL|Taken with Nikon D800|License migration redundant|CC-BY-SA-4.0,3.0,2.5,2.0,1.0|Self-published work|North-east side of Matterhorn from Zermatt|Night in Zermatt",
+        "skipped_existing": false
+      }
+    ],
+    "errors": []
+  },
+  "artifacts": [],
+  "error": null,
+  "cost_usd": 0.0,
+  "duration_seconds": 14.14,
+  "seed": null,
+  "model": null,
+  "from_cache": false
+}

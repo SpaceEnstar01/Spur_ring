@@ -1,0 +1,113 @@
+{
+  "version": "1.0",
+  "topic": "用户关于Personal AI Agent的个人观点；仅做本地制作能力验证",
+  "research_date": "2026-11-09",
+  "landscape": {
+    "existing_content": [
+      {
+        "title": "用户原始文案",
+        "source": "file:///Users/x/X/space/spur/V2/docs/OpenMontage%E7%8B%AC%E7%AB%8B%E8%A7%86%E9%A2%91%E9%AA%8C%E8%AF%81-2026%E5%B9%B411%E6%9C%8809%E6%97%A5/%E7%94%A8%E6%88%B7%E5%8E%9F%E5%A7%8B%E6%96%87%E6%A1%88.txt",
+        "angle": "第一人称产品观点",
+        "what_it_covers": "长期记忆、主动执行与轻交互"
+      },
+      {
+        "title": "OpenMontage production contract",
+        "source": "file:///Users/x/X/space/spur/V2/agent/runtime/OpenMontage-main/AGENT_GUIDE.md",
+        "angle": "Local production architecture",
+        "what_it_covers": "Pipeline manifests and Python tools, not an end-to-end hosted API"
+      },
+      {
+        "title": "OpenMontage video composer",
+        "source": "file:///Users/x/X/space/spur/V2/agent/runtime/OpenMontage-main/tools/video/video_compose.py",
+        "angle": "Local renderer implementation",
+        "what_it_covers": "MP4 rendering through Remotion; not market research"
+      }
+    ],
+    "saturated_angles": [],
+    "underserved_gaps": [
+      "本次不做市场研究，不宣称观点已被外部数据验证"
+    ]
+  },
+  "data_points": [
+    {
+      "claim": "原始文案表达个人观点，不是对Spur现有能力的完整声明",
+      "source_url": "file:///Users/x/X/space/spur/V2/docs/OpenMontage%E7%8B%AC%E7%AB%8B%E8%A7%86%E9%A2%91%E9%AA%8C%E8%AF%81-2026%E5%B9%B411%E6%9C%8809%E6%97%A5/%E7%94%A8%E6%88%B7%E5%8E%9F%E5%A7%8B%E6%96%87%E6%A1%88.txt",
+      "credibility": "primary_source"
+    },
+    {
+      "claim": "合成工具提供Remotion渲染入口",
+      "source_url": "file:///Users/x/X/space/spur/V2/agent/runtime/OpenMontage-main/tools/video/video_compose.py",
+      "credibility": "primary_source"
+    },
+    {
+      "claim": "youtube_shorts输出为1080×1920",
+      "source_url": "file:///Users/x/X/space/spur/V2/agent/runtime/OpenMontage-main/lib/media_profiles.py",
+      "credibility": "primary_source"
+    }
+  ],
+  "audience_insights": {
+    "common_questions": [
+      "策划假设：为什么不只是聊天？",
+      "策划假设：长期记忆有什么用？",
+      "策划假设：轻交互如何融入日常？"
+    ],
+    "misconceptions": [],
+    "knowledge_level": "面向普通观众；未做用户调研"
+  },
+  "angles_discovered": [
+    {
+      "name": "不止聊天",
+      "hook": "不止聊天",
+      "type": "narrative",
+      "why_now": "基于用户已授权的当前文案制作验证"
+    },
+    {
+      "name": "记住与行动",
+      "hook": "记住与行动",
+      "type": "narrative",
+      "why_now": "基于用户已授权的当前文案制作验证"
+    },
+    {
+      "name": "轻交互融入日常",
+      "hook": "轻交互融入日常",
+      "type": "narrative",
+      "why_now": "基于用户已授权的当前文案制作验证"
+    }
+  ],
+  "sources": [
+    {
+      "url": "file:///Users/x/X/space/spur/V2/docs/OpenMontage%E7%8B%AC%E7%AB%8B%E8%A7%86%E9%A2%91%E9%AA%8C%E8%AF%81-2026%E5%B9%B411%E6%9C%8809%E6%97%A5/%E7%94%A8%E6%88%B7%E5%8E%9F%E5%A7%8B%E6%96%87%E6%A1%88.txt",
+      "title": "用户原始文案.txt",
+      "used_for": "用户来源或本地制作技术依据；不是互联网市场研究",
+      "reliability": "primary"
+    },
+    {
+      "url": "file:///Users/x/X/space/spur/V2/agent/runtime/OpenMontage-main/AGENT_GUIDE.md",
+      "title": "AGENT_GUIDE.md",
+      "used_for": "用户来源或本地制作技术依据；不是互联网市场研究",
+      "reliability": "primary"
+    },
+    {
+      "url": "file:///Users/x/X/space/spur/V2/agent/runtime/OpenMontage-main/pipeline_defs/animated-explainer.yaml",
+      "title": "animated-explainer.yaml",
+      "used_for": "用户来源或本地制作技术依据；不是互联网市场研究",
+      "reliability": "primary"
+    },
+    {
+      "url": "file:///Users/x/X/space/spur/V2/agent/runtime/OpenMontage-main/tools/video/video_compose.py",
+      "title": "video_compose.py",
+      "used_for": "用户来源或本地制作技术依据；不是互联网市场研究",
+      "reliability": "primary"
+    },
+    {
+      "url": "file:///Users/x/X/space/spur/V2/agent/runtime/OpenMontage-main/lib/media_profiles.py",
+      "title": "media_profiles.py",
+      "used_for": "用户来源或本地制作技术依据；不是互联网市场研究",
+      "reliability": "primary"
+    }
+  ],
+  "metadata": {
+    "external_research_performed": false,
+    "paid_api_used": false
+  }
+}

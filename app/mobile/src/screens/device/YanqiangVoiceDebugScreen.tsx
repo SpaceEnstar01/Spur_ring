@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Alert, PermissionsAndroid, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import { Bluetooth, ChevronLeft, ChevronRight, Link2, Radio, Unlink } from 'lucide-react-native';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
@@ -24,6 +24,9 @@ import { t } from '@/locales';
 import type { RootStackParamList } from '@/types/navigation';
 import { formatRingDisplayName } from '@/utils/ringDisplayName';
 
+const PHONE_TIMER_DELAY_SEC = 30;
+const PHONE_TIMER_BUZZ_TIMES = 5;
+
 export function YanqiangVoiceDebugScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const cached = getRingUiSession();
@@ -34,6 +37,27 @@ export function YanqiangVoiceDebugScreen() {
   const [devices, setDevices] = useState<Record<string, ScanDevice>>(cached.devices);
   const [connectionState, setConnectionState] = useState<ConnectionState>(cached.connectionState);
   const [connectedMac, setConnectedMac] = useState<string | null>(cached.connectedMac);
+  const [vibrationBusy, setVibrationBusy] = useState(false);
+  const [alarmBusy, setAlarmBusy] = useState(false);
+  const [phoneTimerBusy, setPhoneTimerBusy] = useState(false);
+  const [phoneTimerRemainSec, setPhoneTimerRemainSec] = useState<number | null>(null);
+  const phoneTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const phoneCountdownRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const clearPhoneTimer = useCallback(() => {
+    if (phoneTimerRef.current) {
+      clearTimeout(phoneTimerRef.current);
+      phoneTimerRef.current = null;
+    }
+    if (phoneCountdownRef.current) {
+      clearInterval(phoneCountdownRef.current);
+      phoneCountdownRef.current = null;
+    }
+    setPhoneTimerRemainSec(null);
+    setPhoneTimerBusy(false);
+  }, []);
+
+  useEffect(() => () => clearPhoneTimer(), [clearPhoneTimer]);
 
   const pushLog = useCallback((text: string) => {
     console.log('[YanqiangVoiceDebug]', text);
@@ -230,6 +254,101 @@ export function YanqiangVoiceDebugScreen() {
     }
   }
 
+  async function testVibration() {
+    setVibrationBusy(true);
+    try {
+      // type 1 = SystemEvent；立刻连震 10 下
+      const result = await YanqiangVoiceNative.sendVibrationWithType(1, 10);
+      pushLog(`vibration: ok type=${result.type} times=${result.times ?? 10} mode=${result.mode ?? 'config'}`);
+      Alert.alert(t.device.vibrationTest, t.device.vibrationTestOk);
+    } catch (error) {
+      const message = errorMessage(error);
+      pushLog(`vibration: FAILED ${message}`);
+      Alert.alert(t.device.vibrationTest, message);
+    } finally {
+      setVibrationBusy(false);
+    }
+  }
+
+  async function schedulePhoneTimerVibrate() {
+    if (phoneTimerBusy) {
+      clearPhoneTimer();
+      pushLog('phone-timer: cancelled');
+      return;
+    }
+    if (connectionState !== 'connected') {
+      Alert.alert(t.device.phoneTimerVibrate, t.device.phoneTimerNeedConnected);
+      return;
+    }
+
+    clearPhoneTimer();
+    setPhoneTimerBusy(true);
+    setPhoneTimerRemainSec(PHONE_TIMER_DELAY_SEC);
+    const fireAt = new Date(Date.now() + PHONE_TIMER_DELAY_SEC * 1000);
+    const fireLabel = fireAt.toLocaleTimeString();
+    pushLog(
+      `phone-timer: armed ${PHONE_TIMER_DELAY_SEC}s → buzz x${PHONE_TIMER_BUZZ_TIMES} at ${fireLabel} (phone clock)`
+    );
+    Alert.alert(
+      t.device.phoneTimerVibrate,
+      t.device.phoneTimerArmed
+        .replace('{sec}', String(PHONE_TIMER_DELAY_SEC))
+        .replace('{times}', String(PHONE_TIMER_BUZZ_TIMES))
+        .replace('{time}', fireLabel)
+    );
+
+    phoneCountdownRef.current = setInterval(() => {
+      setPhoneTimerRemainSec((prev) => {
+        if (prev == null) return null;
+        if (prev <= 1) return 0;
+        return prev - 1;
+      });
+    }, 1000);
+
+    phoneTimerRef.current = setTimeout(() => {
+      void (async () => {
+        if (phoneCountdownRef.current) {
+          clearInterval(phoneCountdownRef.current);
+          phoneCountdownRef.current = null;
+        }
+        setPhoneTimerRemainSec(0);
+        pushLog(`phone-timer: fire — sending buzz x${PHONE_TIMER_BUZZ_TIMES}`);
+        try {
+          const result = await YanqiangVoiceNative.sendVibrationWithType(1, PHONE_TIMER_BUZZ_TIMES);
+          pushLog(
+            `phone-timer: vibration ok times=${result.times ?? PHONE_TIMER_BUZZ_TIMES} mode=${result.mode ?? 'sequential'}`
+          );
+          Alert.alert(t.device.phoneTimerVibrate, t.device.phoneTimerFired);
+        } catch (error) {
+          const message = errorMessage(error);
+          pushLog(`phone-timer: vibration FAILED ${message}`);
+          Alert.alert(t.device.phoneTimerVibrate, message);
+        } finally {
+          phoneTimerRef.current = null;
+          setPhoneTimerBusy(false);
+          setPhoneTimerRemainSec(null);
+        }
+      })();
+    }, PHONE_TIMER_DELAY_SEC * 1000);
+  }
+
+  async function setOneMinuteAlarm() {
+    setAlarmBusy(true);
+    try {
+      const result = await YanqiangVoiceNative.setOneMinuteAlarm();
+      const hh = String(result.hour).padStart(2, '0');
+      const mm = String(result.minute).padStart(2, '0');
+      pushLog(`alarm: slot=${result.alarmID} at ${hh}:${mm}`);
+      Alert.alert(t.device.oneMinuteAlarm, t.device.oneMinuteAlarmOk.replace('{time}', `${hh}:${mm}`));
+    } catch (error) {
+      const message = errorMessage(error);
+      pushLog(`alarm: FAILED ${message}`);
+      Alert.alert(t.device.oneMinuteAlarm, message);
+    } finally {
+      setAlarmBusy(false);
+    }
+  }
+
   const deviceList = Object.values(devices);
   const connectedDevice = connectedMac ? devices[connectedMac] : undefined;
   const connectedLabel = connectedMac
@@ -279,16 +398,7 @@ export function YanqiangVoiceDebugScreen() {
         </Text>
       </Pressable>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>{t.device.computerSection}</Text>
-        <Pressable style={styles.row} onPress={() => navigation.navigate('ConnectLaptop')}>
-          <View style={styles.flex}>
-            <Text style={styles.rowLabel}>{t.device.connectLaptop}</Text>
-            <Text style={styles.rowHint}>{t.device.connectLaptopHint}</Text>
-          </View>
-          <ChevronRight color={colors.textTertiary} size={18} />
-        </Pressable>
-      </View>
+      {/* Store 1.0: ConnectLaptop / CloudOffice entries removed. Restore: docs/appstore/store/2026-09-12-*.md */}
 
       {connectionState === 'connected' && connectedMac ? (
         <View style={styles.section}>
@@ -300,6 +410,42 @@ export function YanqiangVoiceDebugScreen() {
             <View style={styles.flex}>
               <Text style={styles.rowLabel}>{t.device.recordingDebug}</Text>
               <Text style={styles.rowHint}>{t.device.recordingDebugHint}</Text>
+            </View>
+            <ChevronRight color={colors.textTertiary} size={18} />
+          </Pressable>
+          <Pressable
+            style={[styles.row, vibrationBusy && styles.disabled]}
+            disabled={vibrationBusy}
+            onPress={() => void testVibration()}
+          >
+            <View style={styles.flex}>
+              <Text style={styles.rowLabel}>{t.device.vibrationTest}</Text>
+              <Text style={styles.rowHint}>{t.device.vibrationTestHint}</Text>
+            </View>
+            <ChevronRight color={colors.textTertiary} size={18} />
+          </Pressable>
+          <Pressable
+            style={[styles.row, phoneTimerBusy && styles.rowActive]}
+            onPress={() => void schedulePhoneTimerVibrate()}
+          >
+            <View style={styles.flex}>
+              <Text style={styles.rowLabel}>
+                {phoneTimerBusy && phoneTimerRemainSec != null
+                  ? t.device.phoneTimerCounting.replace('{sec}', String(phoneTimerRemainSec))
+                  : t.device.phoneTimerVibrate}
+              </Text>
+              <Text style={styles.rowHint}>{t.device.phoneTimerVibrateHint}</Text>
+            </View>
+            <ChevronRight color={colors.textTertiary} size={18} />
+          </Pressable>
+          <Pressable
+            style={[styles.row, alarmBusy && styles.disabled]}
+            disabled={alarmBusy}
+            onPress={() => void setOneMinuteAlarm()}
+          >
+            <View style={styles.flex}>
+              <Text style={styles.rowLabel}>{t.device.oneMinuteAlarm}</Text>
+              <Text style={styles.rowHint}>{t.device.oneMinuteAlarmHint}</Text>
             </View>
             <ChevronRight color={colors.textTertiary} size={18} />
           </Pressable>
@@ -318,6 +464,11 @@ export function YanqiangVoiceDebugScreen() {
       ) : (
         deviceList.map((device) => {
           const isCurrent = connectedMac === device.macAddress;
+          // iOS RingSDK may emit an automatic-reconnect "connecting" event before the user
+          // selects a scanned device. Do not let that stale/global state disable every row.
+          // A user-started attempt still disables its own row, while native iOS rejects duplicates.
+          const connectDisabled =
+            connectionState === 'connecting' && (Platform.OS !== 'ios' || isCurrent);
           const displayName = formatRingDisplayName(device.name, device.macAddress);
           return (
             <View key={device.macAddress} style={styles.deviceCard}>
@@ -334,8 +485,8 @@ export function YanqiangVoiceDebugScreen() {
                 </Pressable>
               ) : (
                 <Pressable
-                  style={[styles.connectButton, connectionState === 'connecting' && styles.disabled]}
-                  disabled={connectionState === 'connecting'}
+                  style={[styles.connectButton, connectDisabled && styles.disabled]}
+                  disabled={connectDisabled}
                   onPress={() => void connect(device)}
                 >
                   <Link2 color="#fff" size={15} />
@@ -520,6 +671,9 @@ const styles = StyleSheet.create({
     gap: 10,
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: colors.border
+  },
+  rowActive: {
+    backgroundColor: '#f0f7ff'
   },
   rowLabel: {
     color: colors.text,

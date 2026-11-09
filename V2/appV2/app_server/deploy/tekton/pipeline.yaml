@@ -1,0 +1,118 @@
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: spur-api-build
+  namespace: ci-dev
+spec:
+  description: Build Spur Java image only; no GitOps writes or public deployment.
+  params:
+    - name: repo_url
+      type: string
+      default: git@codeup.aliyun.com:6927c2cbab336f9c842c193a/my-app-server.git
+    - name: git_ref
+      type: string
+      default: main
+    - name: expected_revision
+      type: string
+    - name: image
+      type: string
+      description: Full ACR destination including a unique tag.
+    - name: build_tag
+      type: string
+    - name: tool_image
+      type: string
+      default: aed-acr-registry-vpc.cn-hangzhou.cr.aliyuncs.com/base/tekton-tools:20260521
+    - name: kaniko_image
+      type: string
+      default: aed-acr-registry-vpc.cn-hangzhou.cr.aliyuncs.com/base/kaniko-executor:v1.21.0-amd64-debug
+    - name: dockerhub_registry_map
+      type: string
+      default: ""
+  workspaces:
+    - name: source
+    - name: source_ssh_directory
+    - name: dockerconfig
+  results:
+    - name: revision
+      value: $(tasks.clone.results.revision)
+    - name: image
+      value: $(tasks.build-push.results.image)
+    - name: digest
+      value: $(tasks.build-push.results.digest)
+  tasks:
+    - name: clone
+      taskRef:
+        name: ack-common-codeup-clone
+      params:
+        - name: repo_url
+          value: $(params.repo_url)
+        - name: git_ref
+          value: $(params.git_ref)
+        - name: clone_depth
+          value: "1"
+        - name: source_subdir
+          value: source
+        - name: tool_image
+          value: $(params.tool_image)
+      workspaces:
+        - name: source
+          workspace: source
+        - name: ssh_directory
+          workspace: source_ssh_directory
+    - name: verify-revision
+      runAfter:
+        - clone
+      params:
+        - name: actual
+          value: $(tasks.clone.results.revision)
+        - name: expected
+          value: $(params.expected_revision)
+        - name: tool_image
+          value: $(params.tool_image)
+      taskSpec:
+        params:
+          - name: actual
+            type: string
+          - name: expected
+            type: string
+          - name: tool_image
+            type: string
+        steps:
+          - name: check
+            image: $(params.tool_image)
+            env:
+              - name: SPUR_ACTUAL_REVISION
+                value: $(params.actual)
+              - name: SPUR_EXPECTED_REVISION
+                value: $(params.expected)
+            script: |
+              #!/bin/sh
+              set -eu
+              test "$SPUR_ACTUAL_REVISION" = "$SPUR_EXPECTED_REVISION"
+    - name: build-push
+      runAfter:
+        - verify-revision
+      taskRef:
+        name: ack-common-image-build-push
+      params:
+        - name: source_subdir
+          value: source
+        - name: dockerfile
+          value: Dockerfile
+        - name: image
+          value: $(params.image)
+        - name: vcs_ref
+          value: $(tasks.clone.results.revision)
+        - name: version
+          value: $(params.build_tag)
+        - name: tool_image
+          value: $(params.tool_image)
+        - name: kaniko_image
+          value: $(params.kaniko_image)
+        - name: dockerhub_registry_map
+          value: $(params.dockerhub_registry_map)
+      workspaces:
+        - name: source
+          workspace: source
+        - name: dockerconfig
+          workspace: dockerconfig

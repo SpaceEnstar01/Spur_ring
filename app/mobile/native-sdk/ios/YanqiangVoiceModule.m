@@ -2,6 +2,17 @@
 
 #import <RingSDK/RingSDK.h>
 #import <AVFoundation/AVFoundation.h>
+#import <UIKit/UIKit.h>
+
+#if DEBUG && __has_include("SpurVoiceAgentSecrets.h")
+#import "SpurVoiceAgentSecrets.h"
+#endif
+#ifndef SPUR_SILICONFLOW_API_KEY
+#define SPUR_SILICONFLOW_API_KEY @""
+#endif
+#ifndef SPUR_AMAP_WEB_API_KEY
+#define SPUR_AMAP_WEB_API_KEY @""
+#endif
 
 #if __has_include(<YanqiangRingSDK/YanqiangRingSDK-Swift.h>)
 #import <YanqiangRingSDK/YanqiangRingSDK-Swift.h>
@@ -12,6 +23,8 @@
 static const NSInteger kVoiceFileFunction = 1;
 static const NSTimeInterval kRecordingSyncTimeoutSec = 180.0;
 static const NSTimeInterval kStaleSyncLockSec = 15.0;
+static const NSTimeInterval kConnectAfterScanDelaySec = 0.8;
+static const NSTimeInterval kConnectionTimeoutSec = 20.0;
 static NSString *const kRecordingDirName = @"voice-recordings";
 
 @interface YanqiangVoiceModule ()
@@ -21,6 +34,10 @@ static NSString *const kRecordingDirName = @"voice-recordings";
 @property (nonatomic, assign) BOOL hasListeners;
 @property (nonatomic, assign) BOOL bleConnected;
 @property (nonatomic, assign) BOOL authSucceeded;
+@property (nonatomic, assign) BOOL connectionInProgress;
+@property (nonatomic, assign) NSInteger connectionAttempt;
+@property (nonatomic, assign) NSTimeInterval connectionStartedAt;
+@property (nonatomic, assign) BOOL touchReportingEnabled;
 @property (nonatomic, assign) NSInteger currentWorkingState;
 @property (nonatomic, assign) BOOL syncInProgress;
 @property (nonatomic, assign) NSTimeInterval syncLastActivityAt;
@@ -36,6 +53,8 @@ static NSString *const kRecordingDirName = @"voice-recordings";
 @property (nonatomic, strong) NSMutableSet<NSNumber *> *convertingPackedTimes;
 @property (nonatomic, copy) NSString *activeMacAddress;
 @property (nonatomic, strong) dispatch_block_t pendingScanEnd;
+@property (nonatomic, strong) dispatch_block_t pendingConnectBlock;
+@property (nonatomic, strong) dispatch_block_t connectionTimeoutBlock;
 @property (nonatomic, strong) NSMutableDictionary<NSString *, CBPeripheral *> *knownPeripherals;
 @end
 
@@ -121,6 +140,21 @@ RCT_EXPORT_MODULE(YanqiangVoiceModule)
   [self.service setLogEnable:YES];
   [self.service setAutoReconnectionEnabled:YES];
   [self configureAudioCallbacks];
+
+  __weak typeof(self) touchSelf = self;
+  [self.service.touchReq listeningTouchEvent:^(NSMutableArray<BTTouchEventModel *> *touchList) {
+    dispatch_async(dispatch_get_main_queue(), ^{
+      __strong typeof(touchSelf) owner = touchSelf;
+      if (!owner || !owner.touchReportingEnabled || !owner.authSucceeded) return;
+      for (BTTouchEventModel *item in touchList) {
+        if (item.touchEvent != 0x0103) continue;
+        [owner emit:@"yanqiangSmartTouchEvent" body:@{
+          @"event": @(item.touchEvent),
+          @"timestamp": @((double)item.touchTime * 1000.0)
+        }];
+      }
+    });
+  }];
 
   __weak typeof(self) weakSelf = self;
   [self.service bleStatusUpdated:^(CBManagerState state) {
@@ -237,6 +271,36 @@ RCT_EXPORT_MODULE(YanqiangVoiceModule)
   }
 }
 
+- (NSTimeInterval)connectionElapsed
+{
+  if (self.connectionStartedAt <= 0) return 0;
+  return MAX(0, [NSDate date].timeIntervalSince1970 - self.connectionStartedAt);
+}
+
+- (void)logConnectionPhase:(NSString *)phase details:(NSString *)details
+{
+  NSLog(@"[YanqiangVoice][connect#%ld][+%.3fs] %@%@%@",
+        (long)self.connectionAttempt,
+        [self connectionElapsed],
+        phase ?: @"unknown",
+        details.length > 0 ? @" " : @"",
+        details ?: @"");
+}
+
+- (void)finishConnectionAttempt:(NSString *)phase
+{
+  [self logConnectionPhase:phase details:self.activeMacAddress ?: @""];
+  self.connectionInProgress = NO;
+  if (self.pendingConnectBlock) {
+    dispatch_block_cancel(self.pendingConnectBlock);
+    self.pendingConnectBlock = nil;
+  }
+  if (self.connectionTimeoutBlock) {
+    dispatch_block_cancel(self.connectionTimeoutBlock);
+    self.connectionTimeoutBlock = nil;
+  }
+}
+
 - (void)handleRingStatus:(BTDeviceStatus)status
 {
   // Align with DreameRing iOS: RingSDK performs auth internally after bindDevice.
@@ -248,6 +312,12 @@ RCT_EXPORT_MODULE(YanqiangVoiceModule)
         self.activeMacAddress ?: @"",
         self.bleConnected,
         self.authSucceeded);
+  [self logConnectionPhase:@"status"
+                   details:[NSString stringWithFormat:@"state=%ld label=%@ ble=%d auth=%d",
+                            (long)status,
+                            [self statusLabel:status],
+                            self.bleConnected,
+                            self.authSucceeded]];
 
   if (status == BTDeviceStatusConnected) {
     self.bleConnected = YES;
@@ -271,6 +341,7 @@ RCT_EXPORT_MODULE(YanqiangVoiceModule)
       @"label": [self statusLabel:status],
       @"macAddress": self.activeMacAddress ?: @""
     }];
+    [self finishConnectionAttempt:@"auth_success"];
     [self emitConnectedIfReady];
     return;
   }
@@ -290,6 +361,7 @@ RCT_EXPORT_MODULE(YanqiangVoiceModule)
 
   self.bleConnected = NO;
   self.authSucceeded = NO;
+  [self finishConnectionAttempt:@"terminal_status"];
   if (status == BTDeviceStatusDisconnected || status == BTDeviceStatusPairingRemoved || status == BTDeviceStatusOff) {
     [self emit:@"yanqiangVoiceConnectionChanged" body:@{
       @"status": @"disconnected",
@@ -699,19 +771,66 @@ RCT_REMAP_METHOD(connect,
     reject(@"YANQIANG_CONNECT_FAILED", @"Device address is empty", nil);
     return;
   }
+  if (self.connectionInProgress) {
+    [self logConnectionPhase:@"duplicate_rejected" details:macAddress];
+    reject(@"YANQIANG_CONNECT_IN_PROGRESS", @"A ring connection attempt is already running", nil);
+    return;
+  }
+
+  self.connectionAttempt += 1;
+  NSInteger attempt = self.connectionAttempt;
+  self.connectionInProgress = YES;
+  self.connectionStartedAt = [NSDate date].timeIntervalSince1970;
   self.activeMacAddress = macAddress;
   self.bleConnected = NO;
   self.authSucceeded = NO;
-  [self.service stopScan];
-  CBPeripheral *peripheral = self.knownPeripherals[macAddress];
-  if (peripheral != nil) {
-    NSLog(@"[YanqiangVoice] connect via peripheral uuid=%@", macAddress);
-    [self.service bindDeviceWithPeripheral:peripheral];
-  } else {
-    NSLog(@"[YanqiangVoice] connect via bindDevice mac=%@", macAddress);
-    [self.service bindDevice:macAddress];
+
+  if (self.pendingScanEnd) {
+    dispatch_block_cancel(self.pendingScanEnd);
+    self.pendingScanEnd = nil;
   }
-  [self.service setAutoReconnectionEnabled:YES];
+  [self.service stopScan];
+  [self emit:@"yanqiangVoiceScanEvent" body:@{ @"type": @"end" }];
+  [self logConnectionPhase:@"scan_stop_requested"
+                   details:[NSString stringWithFormat:@"mac=%@ waitMs=800", macAddress]];
+
+  CBPeripheral *peripheral = self.knownPeripherals[macAddress];
+  __weak typeof(self) weakSelf = self;
+  dispatch_block_t connectBlock = dispatch_block_create(0, ^{
+    __strong typeof(weakSelf) self = weakSelf;
+    if (!self || !self.connectionInProgress || self.connectionAttempt != attempt) return;
+    self.pendingConnectBlock = nil;
+    if (peripheral != nil) {
+      [self logConnectionPhase:@"bind_started" details:[NSString stringWithFormat:@"peripheral=%@", macAddress]];
+      [self.service bindDeviceWithPeripheral:peripheral];
+    } else {
+      [self logConnectionPhase:@"bind_started" details:[NSString stringWithFormat:@"address=%@", macAddress]];
+      [self.service bindDevice:macAddress];
+    }
+    [self.service setAutoReconnectionEnabled:YES];
+  });
+  self.pendingConnectBlock = connectBlock;
+  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kConnectAfterScanDelaySec * NSEC_PER_SEC)),
+                 dispatch_get_main_queue(),
+                 connectBlock);
+
+  dispatch_block_t timeoutBlock = dispatch_block_create(0, ^{
+    __strong typeof(weakSelf) self = weakSelf;
+    if (!self || !self.connectionInProgress || self.connectionAttempt != attempt) return;
+    self.connectionTimeoutBlock = nil;
+    [self finishConnectionAttempt:@"timeout"];
+    [self emit:@"yanqiangVoiceConnectionChanged" body:@{
+      @"status": @"error",
+      @"phase": @"timeout",
+      @"attempt": @(attempt),
+      @"message": @"Ring authentication timed out",
+      @"macAddress": macAddress
+    }];
+  });
+  self.connectionTimeoutBlock = timeoutBlock;
+  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kConnectionTimeoutSec * NSEC_PER_SEC)),
+                 dispatch_get_main_queue(),
+                 timeoutBlock);
   resolve(@YES);
 }
 
@@ -719,6 +838,7 @@ RCT_REMAP_METHOD(disconnect,
                  disconnectWithResolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
+  [self finishConnectionAttempt:@"manual_disconnect"];
   [self.service setAutoReconnectionEnabled:NO];
   self.bleConnected = NO;
   self.authSucceeded = NO;
@@ -737,7 +857,63 @@ RCT_REMAP_METHOD(setTouchEventReporting,
                  resolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
-  resolve(@{ @"enabled": @(enabled), @"result": @0 });
+  self.touchReportingEnabled = enabled;
+  resolve(@{ @"enabled": @(enabled), @"result": @(self.authSucceeded ? 1 : 0) });
+}
+
+RCT_REMAP_METHOD(voiceAgentDebugConfig,
+                 voiceAgentDebugConfigWithResolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+#if DEBUG
+  NSString *siliconKey = SPUR_SILICONFLOW_API_KEY;
+  NSString *amapKey = SPUR_AMAP_WEB_API_KEY;
+  resolve(@{ @"enabled": @(siliconKey.length > 0 && amapKey.length > 0), @"siliconFlowApiKey": siliconKey, @"amapWebApiKey": amapKey });
+#else
+  resolve(@{ @"enabled": @NO, @"siliconFlowApiKey": @"", @"amapWebApiKey": @"" });
+#endif
+}
+
+RCT_REMAP_METHOD(openAMapTaxiURI,
+                 openAMapTaxiURI:(NSString *)uri
+                 resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+#if DEBUG
+  if (uri.length == 0 || uri.length > 2048 || [uri rangeOfCharacterFromSet:NSCharacterSet.controlCharacterSet].location != NSNotFound) {
+    reject(@"AMAP_INVALID_URI", @"Invalid taxi URI", nil); return;
+  }
+  NSURLComponents *parts = [NSURLComponents componentsWithString:uri];
+  if (![parts.scheme.lowercaseString isEqualToString:@"amapuri"] ||
+      ![parts.host.lowercaseString isEqualToString:@"drive"] ||
+      ![parts.path isEqualToString:@"/takeTaxi"] ||
+      parts.user || parts.password || parts.port || parts.fragment) {
+    reject(@"AMAP_INVALID_URI", @"Invalid taxi URI", nil); return;
+  }
+  NSMutableDictionary<NSString *, NSString *> *values = [NSMutableDictionary dictionary];
+  for (NSURLQueryItem *item in parts.queryItems ?: @[]) {
+    if (values[item.name] != nil) { reject(@"AMAP_INVALID_URI", @"Duplicate taxi parameter", nil); return; }
+    values[item.name] = item.value ?: @"";
+  }
+  NSString *lon = values[@"dlon"];
+  NSString *lat = values[@"dlat"];
+  NSString *destination = values[@"dname"];
+  NSScanner *lonScanner = [NSScanner scannerWithString:lon ?: @""];
+  NSScanner *latScanner = [NSScanner scannerWithString:lat ?: @""];
+  double lonValue = 0, latValue = 0;
+  if (!lon.length || !lat.length || !destination.length ||
+      ![lonScanner scanDouble:&lonValue] || !lonScanner.isAtEnd ||
+      ![latScanner scanDouble:&latValue] || !latScanner.isAtEnd ||
+      lonValue < -180 || lonValue > 180 || latValue < -90 || latValue > 90 || !parts.URL) {
+    reject(@"AMAP_INVALID_URI", @"Taxi destination is missing or invalid", nil); return;
+  }
+  [[UIApplication sharedApplication] openURL:parts.URL options:@{} completionHandler:^(BOOL success) {
+    if (success) resolve(nil);
+    else reject(@"AMAP_OPEN_FAILED", @"AMap could not open the taxi page", nil);
+  }];
+#else
+  reject(@"AMAP_DEBUG_ONLY", @"Debug-only feature", nil);
+#endif
 }
 
 RCT_REMAP_METHOD(queryVoiceRecordingSummary,
@@ -783,7 +959,9 @@ RCT_REMAP_METHOD(syncVoiceRecordings,
     NSTimeInterval inactive = [NSDate date].timeIntervalSince1970 - self.syncLastActivityAt;
     if (self.syncLastActivityAt > 0 && inactive >= kStaleSyncLockSec) {
       NSLog(@"[YanqiangVoice] recovering stale sync lock inactive=%.0fs", inactive);
-      self.syncInProgress = NO;
+      [self failSyncWithCode:@"YANQIANG_SYNC_STALLED"
+                     message:@"Ring transfer stopped making progress; retrying"
+                  generation:self.syncGeneration];
     } else {
       reject(@"YANQIANG_RECORDING_SYNC_BUSY",
              [NSString stringWithFormat:@"Voice recording sync is already running (inactive %.0fms)", inactive * 1000.0],
@@ -934,6 +1112,262 @@ RCT_REMAP_METHOD(setVoiceRecordParam,
   }];
   if (!started) {
     reject(@"YANQIANG_SET_RECORD_PARAM_FAILED", @"Failed to send setRecordParams", nil);
+  }
+}
+
+#pragma mark - Vibration / Alarm (debug)
+
+RCT_REMAP_METHOD(sendVibrationWithType,
+                 sendVibrationWithType:(nonnull NSNumber *)type
+                 times:(nonnull NSNumber *)times
+                 resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+  [self configureIfNeeded];
+  if (!self.authSucceeded) {
+    reject(@"YANQIANG_VIBRATION_FAILED", @"Ring is not authenticated (vendorReady required)", nil);
+    return;
+  }
+
+  NSInteger rawType = type.integerValue;
+  if (rawType < BTVibrationTypeSystemEvent || rawType > BTVibrationTypeCareReminder) {
+    reject(@"YANQIANG_VIBRATION_FAILED", @"Invalid vibration type (expect 1-6)", nil);
+    return;
+  }
+
+  NSInteger buzzCount = times.integerValue;
+  if (buzzCount < 1) buzzCount = 1;
+  if (buzzCount > 20) buzzCount = 20;
+
+  BTVibrationType vibrationType = (BTVibrationType)rawType;
+  // Mode index is 0x01-0x05; map CareReminder(6) onto mode 5.
+  UInt8 modeIndex = (UInt8)MIN(MAX(rawType, 1), 5);
+
+  // One clear pulse per command. Firmware mode "times" often caps (~4), so multi-buzz
+  // uses sequential sends with a wide gap instead of relying on mode.times.
+  BTVibrationConfigModel *mode = [[BTVibrationConfigModel alloc] init];
+  mode.index = modeIndex;
+  mode.times = 1;
+  mode.duration = 4;   // 400ms per buzz — easier to feel as one tick
+  mode.interval = 6;   // 600ms (used if firmware chains internally)
+  mode.frequency = 200;
+  mode.volume = 100;
+
+  // Gap between sequential commands: must exceed duration so pulses don't merge.
+  const NSTimeInterval kSequentialGapSec = 0.85;
+
+  BTVibrationSwitch *sw = [[BTVibrationSwitch alloc] initWithType:vibrationType isOn:YES];
+  __weak typeof(self) weakSelf = self;
+  NSInteger capturedCount = buzzCount;
+
+  void (^fireOnce)(void) = ^{
+    __strong typeof(weakSelf) self = weakSelf;
+    if (!self) return;
+    BOOL sent = [self.service.vibrationReq sendVibrationWithType:vibrationType
+                                                     completion:^(BOOL success) {
+      dispatch_async(dispatch_get_main_queue(), ^{
+        if (!success) {
+          reject(@"YANQIANG_VIBRATION_FAILED", @"sendVibrationWithType ACK failed", nil);
+          return;
+        }
+        NSLog(@"[YanqiangVoice] vibration ok type=%ld times=1", (long)rawType);
+        resolve(@{ @"ok": @YES, @"type": @(rawType), @"times": @1, @"mode": @"single" });
+      });
+    }];
+    if (!sent) {
+      reject(@"YANQIANG_VIBRATION_FAILED", @"Failed to send vibration request", nil);
+    }
+  };
+
+  void (^fireSequentialBurst)(void) = ^{
+    __strong typeof(weakSelf) self = weakSelf;
+    if (!self) return;
+    NSLog(@"[YanqiangVoice] sequential burst x%ld gap=%.2fs", (long)capturedCount, kSequentialGapSec);
+    __block NSInteger sentOk = 0;
+    __block NSInteger done = 0;
+    for (NSInteger i = 0; i < capturedCount; i++) {
+      NSTimeInterval delay = i * kSequentialGapSec;
+      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)),
+                     dispatch_get_main_queue(), ^{
+        __strong typeof(weakSelf) inner = weakSelf;
+        if (!inner) return;
+        BOOL started = [inner.service.vibrationReq sendVibrationWithType:vibrationType
+                                                             completion:^(BOOL success) {
+          dispatch_async(dispatch_get_main_queue(), ^{
+            if (success) sentOk += 1;
+            done += 1;
+            if (done < capturedCount) return;
+            if (sentOk == 0) {
+              reject(@"YANQIANG_VIBRATION_FAILED", @"All sequential vibration sends failed", nil);
+              return;
+            }
+            resolve(@{
+              @"ok": @YES,
+              @"type": @(rawType),
+              @"times": @(capturedCount),
+              @"mode": @"sequential",
+              @"gapMs": @((NSInteger)(kSequentialGapSec * 1000)),
+              @"sentOk": @(sentOk)
+            });
+          });
+        }];
+        if (!started) {
+          done += 1;
+          if (done >= capturedCount) {
+            if (sentOk == 0) {
+              reject(@"YANQIANG_VIBRATION_FAILED", @"Failed to queue sequential vibrations", nil);
+            } else {
+              resolve(@{
+                @"ok": @YES,
+                @"type": @(rawType),
+                @"times": @(capturedCount),
+                @"mode": @"sequential",
+                @"gapMs": @((NSInteger)(kSequentialGapSec * 1000)),
+                @"sentOk": @(sentOk)
+              });
+            }
+          }
+        }
+      });
+    }
+  };
+
+  void (^afterMode)(void) = ^{
+    if (capturedCount <= 1) {
+      fireOnce();
+    } else {
+      // Do not trust firmware mode.times for multi-buzz (often feels like ~4).
+      fireSequentialBurst();
+    }
+  };
+
+  void (^afterSwitch)(void) = ^{
+    __strong typeof(weakSelf) self = weakSelf;
+    if (!self) return;
+    BOOL modeSent = [self.service.vibrationConfigReq setVibrationModeConfiguration:mode
+                                                                        completion:^(BOOL modeOk) {
+      dispatch_async(dispatch_get_main_queue(), ^{
+        if (!modeOk) {
+          NSLog(@"[YanqiangVoice] vibration mode ACK failed — continue with default pulse");
+        } else {
+          NSLog(@"[YanqiangVoice] vibration mode set index=%u single-pulse duration=%u interval=%u",
+                modeIndex, mode.duration, mode.interval);
+        }
+        afterMode();
+      });
+    }];
+    if (!modeSent) {
+      afterMode();
+    }
+  };
+
+  BOOL switchSent = [self.service.vibrationReq sendVibrationSwitchSettings:@[sw]
+                                                               completion:^(BOOL switchOk) {
+    if (!switchOk) {
+      NSLog(@"[YanqiangVoice] vibration switch ACK failed type=%ld — still trying", (long)rawType);
+    }
+    afterSwitch();
+  }];
+  if (!switchSent) {
+    afterSwitch();
+  }
+}
+
+RCT_REMAP_METHOD(setOneMinuteAlarm,
+                 setOneMinuteAlarmWithResolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+  [self configureIfNeeded];
+  if (!self.authSucceeded) {
+    reject(@"YANQIANG_ALARM_FAILED", @"Ring is not authenticated (vendorReady required)", nil);
+    return;
+  }
+
+  NSDate *fireAt = [[NSDate date] dateByAddingTimeInterval:60];
+  NSCalendar *calendar = [NSCalendar currentCalendar];
+  NSDateComponents *parts = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute)
+                                        fromDate:fireAt];
+  UInt8 hour = (UInt8)parts.hour;
+  UInt8 minute = (UInt8)parts.minute;
+
+  BTAlarm *alarm = [[BTAlarm alloc] init];
+  alarm.alarmID = 1;
+  alarm.duration = 1; // ring duration (minutes)
+  alarm.repeatDays = 0;
+  alarm.isRepeatDays = NO;
+  alarm.hour = hour;
+  alarm.minute = minute;
+  alarm.isOn = YES;
+  alarm.name = @"Spur 1min";
+  // Overwrite slot 1 so repeated debug taps stay reliable.
+  alarm.type = BTAlarmTypeModify;
+
+  NSData *timestamp = [BTAlarm getZeroTimeIntervalDataByDate:[NSDate date]];
+  if (timestamp.length == 0) {
+    timestamp = [SNBleTimeUtils getZeroTimeIntervalDataByDate:[NSDate date]];
+  }
+
+  BTVibrationSwitch *alarmSwitch =
+      [[BTVibrationSwitch alloc] initWithType:BTVibrationTypeAlarm isOn:YES];
+  __weak typeof(self) weakSelf = self;
+
+  void (^resolveOk)(void) = ^{
+    NSLog(@"[YanqiangVoice] one-minute alarm set id=1 at %02u:%02u", hour, minute);
+    resolve(@{
+      @"ok": @YES,
+      @"alarmID": @1,
+      @"hour": @(hour),
+      @"minute": @(minute),
+      @"fireAt": @((NSInteger)[fireAt timeIntervalSince1970])
+    });
+  };
+
+  void (^tryAdd)(void) = ^{
+    __strong typeof(weakSelf) self = weakSelf;
+    if (!self) return;
+    alarm.type = BTAlarmTypeAdd;
+    [self.service.vibrationReq setAlarm:alarm
+                              timestamp:timestamp
+                             completion:^(BOOL success, NSError * _Nullable error) {
+      dispatch_async(dispatch_get_main_queue(), ^{
+        if (!success) {
+          NSString *msg = error.localizedDescription ?: @"setAlarm Add failed after Modify failed";
+          reject(@"YANQIANG_ALARM_FAILED", msg, error);
+          return;
+        }
+        resolveOk();
+      });
+    }];
+  };
+
+  void (^doSetAlarm)(void) = ^{
+    __strong typeof(weakSelf) self = weakSelf;
+    if (!self) return;
+    alarm.type = BTAlarmTypeModify;
+    [self.service.vibrationReq setAlarm:alarm
+                              timestamp:timestamp
+                             completion:^(BOOL success, NSError * _Nullable error) {
+      dispatch_async(dispatch_get_main_queue(), ^{
+        if (success) {
+          resolveOk();
+          return;
+        }
+        NSLog(@"[YanqiangVoice] Modify alarm failed (%@) — retry Add",
+              error.localizedDescription ?: @"unknown");
+        tryAdd();
+      });
+    }];
+  };
+
+  BOOL switchSent = [self.service.vibrationReq sendVibrationSwitchSettings:@[alarmSwitch]
+                                                               completion:^(BOOL switchOk) {
+    if (!switchOk) {
+      NSLog(@"[YanqiangVoice] alarm vibration switch ACK failed — still setting alarm");
+    }
+    doSetAlarm();
+  }];
+  if (!switchSent) {
+    doSetAlarm();
   }
 }
 

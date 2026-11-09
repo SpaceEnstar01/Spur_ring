@@ -1,0 +1,10 @@
+{
+  "native_compose_seconds": 138.21592903137207,
+  "wall_seconds_first_asset_creation_to_final": 687.6061496734619,
+  "scope_note": "Measured from first stock file creation; includes iterative development, search/download, selection, preparing, rendering and finalization. Not stable production SLA.",
+  "external_billed_generation_successes": 0,
+  "siliconflow_attempts": 2,
+  "siliconflow_result": "TLS failure; no successful response or returned usage; account invoice not checked",
+  "codex_and_local_compute_cost": "not calculated",
+  "asset_resolution_note": "Output is 1080x1920. Source includes 4K, 1080p and 1280x720 landscape footage; portrait crop upscales lower-resolution sources. Last 7s derive from a high-resolution night photograph."
+}

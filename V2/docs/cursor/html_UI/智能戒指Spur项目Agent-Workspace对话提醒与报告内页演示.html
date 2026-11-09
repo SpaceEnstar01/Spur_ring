@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Spur Agent Workspace — reminders and report</title>
+<style>
+  :root {
+    --ink: #141d32;
+    --text: #111827;
+    --muted: #858992;
+    --soft: #777b83;
+    --line: #e6e8ed;
+    --blue: #3165c8;
+    --wash: #f6f7f9;
+    --paper: #fff;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body {
+    background: #eceef2;
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .stage {
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px 16px;
+  }
+  .phone {
+    width: min(390px, 100%);
+    height: min(844px, calc(100vh - 48px));
+    min-height: 640px;
+    background: var(--paper);
+    border-radius: 28px;
+    box-shadow: 0 18px 50px rgba(24, 34, 53, .12);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+  .view { display: none; flex: 1; min-height: 0; flex-direction: column; }
+  .view.on { display: flex; }
+  .toolbar {
+    height: 53px;
+    padding: 0 16px 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: none;
+  }
+  .brand {
+    margin: 0;
+    font-size: 30px;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: -1.6px;
+    color: #111;
+  }
+  .brand i { color: #2563eb; font-style: normal; }
+  .back {
+    border: 0;
+    background: none;
+    padding: 8px 8px 8px 0;
+    font: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--blue);
+    cursor: pointer;
+  }
+  #view-report .toolbar,
+  #view-email .toolbar {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+  }
+  #view-report .brand,
+  #view-email .brand { justify-self: center; }
+    width: 36px;
+    height: 36px;
+    border: 0;
+    background: none;
+    color: #111;
+    display: grid;
+    place-items: center;
+  }
+  .scroll { flex: 1; overflow: auto; padding: 4px 20px 18px; }
+  .hello { margin: 6px 0 18px; }
+  .hello h2 {
+    margin: 0;
+    font-size: 27px;
+    line-height: 34px;
+    letter-spacing: -0.8px;
+    color: var(--ink);
+  }
+  .hello p { margin: 5px 0 0; font-size: 12px; line-height: 18px; color: var(--muted); }
+  .thread { display: flex; flex-direction: column; gap: 14px; }
+  .who { margin: 0 0 6px 2px; font-size: 11px; color: var(--soft); }
+  .bubble {
+    background: var(--wash);
+    border-radius: 18px 18px 18px 6px;
+    padding: 12px 14px;
+    font-size: 15px;
+    line-height: 1.45;
+  }
+  .mine {
+    align-self: flex-end;
+    max-width: 86%;
+    background: #111;
+    color: #fff;
+    border-radius: 18px 18px 6px 18px;
+  }
+  .linkish, .textbtn {
+    border: 0;
+    background: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+  }
+  .linkish {
+    display: inline-flex;
+    margin-top: 8px;
+    color: var(--blue);
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .actions { display: flex; gap: 8px; margin-top: 12px; }
+  .pill {
+    min-height: 40px;
+    padding: 0 16px;
+    border-radius: 999px;
+    border: 0;
+    font: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .solid { background: #101010; color: #fff; }
+  .outline { background: #fff; color: var(--ink); border: 1px solid #ddd; }
+  .feedback { margin: 10px 0 0; color: #34785c; font-size: 14px; }
+  .composer {
+    flex: none;
+    margin: 0 16px 12px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    border: 1px solid var(--line);
+    border-radius: 28px;
+    padding: 5px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(24, 34, 53, .06);
+  }
+  .composer input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    outline: none;
+    background: transparent;
+    font: 13px/1.3 -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+    color: var(--text);
+    padding: 10px 4px;
+  }
+  .composer input::placeholder { color: #9599a1; }
+  .send {
+    border: 0;
+    background: none;
+    color: #111;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 650;
+    padding: 8px 10px;
+    cursor: pointer;
+  }
+  .send:disabled { color: #c5c8ce; cursor: default; }
+  .detail-kicker {
+    margin: 8px 0 6px;
+    font-size: 11px;
+    letter-spacing: .08em;
+    color: var(--muted);
+  }
+  .detail-title {
+    margin: 0 0 8px;
+    font-size: 28px;
+    line-height: 33px;
+    letter-spacing: -0.6px;
+    color: var(--ink);
+  }
+  .lead { margin: 0 0 16px; color: #626b79; font-size: 15px; line-height: 1.45; }
+  .cover {
+    height: 168px;
+    border-radius: 16px;
+    margin-bottom: 16px;
+    background: linear-gradient(#f7b267 0%, #f4845f 28%, #e36a74 52%, #7eb6d9 53%, #4f8fbe 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .cover span {
+    position: absolute;
+    left: 14px;
+    bottom: 12px;
+    color: #fff;
+    font-size: 12px;
+    text-shadow: 0 1px 2px rgba(0,0,0,.25);
+  }
+  .section { padding: 14px 0; border-top: 1px solid #eee; }
+  .section h3 { margin: 0 0 6px; font-size: 13px; letter-spacing: .04em; color: #3d4450; }
+  .section p, .section li { margin: 0; font-size: 15px; line-height: 1.5; color: #2a3140; }
+  .section ul { margin: 0; padding-left: 18px; }
+  .section li + li { margin-top: 8px; }
+  .stage-row { display: grid; grid-template-columns: 92px 1fr; gap: 10px; padding: 8px 0; }
+  .stage-row b { font-size: 13px; }
+  .stage-row.on b { color: var(--blue); }
+  .stage-row span { color: #626b79; font-size: 14px; line-height: 1.4; }
+  .draft {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+  }
+  .meta { margin: 0 0 14px; color: var(--muted); font-size: 13px; }
+  .note { margin: 12px 0 0; color: var(--soft); font-size: 12px; line-height: 1.4; }
+  .replies { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+  .card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 14px 14px 12px;
+  }
+  .card h3 {
+    margin: 0 0 6px;
+    font-size: 17px;
+    line-height: 22px;
+    letter-spacing: -0.3px;
+    color: var(--ink);
+  }
+  .card p { margin: 0; color: #626b79; font-size: 14px; line-height: 1.45; }
+  .card .pill { margin-top: 12px; }
+  .strip { padding: 2px 2px 0; }
+  .stages-mini {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+  .stages-mini span {
+    font-size: 11px;
+    color: #b0b0b0;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #ececec;
+    white-space: nowrap;
+  }
+  .stages-mini span.on { color: var(--ink); font-weight: 650; border-bottom-color: var(--blue); }
+  .activity { margin: 8px 0 0; font-size: 14px; line-height: 1.4; color: #626b79; }
+  .checks { display: flex; flex-direction: column; gap: 2px; margin-top: 8px; }
+  .check {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 40px;
+    font-size: 15px;
+  }
+  .check input { width: 16px; height: 16px; accent-color: #111; }
+  .quote {
+    margin: 0;
+    padding-left: 12px;
+    border-left: 2px solid #d7dbe2;
+    font-size: 15px;
+    line-height: 1.45;
+  }
+  #priority-form .pill { margin-top: 10px; }
+  @media (max-width: 460px) {
+    .stage { padding: 0; background: #fff; }
+    .phone {
+      width: 100%;
+      height: 100vh;
+      height: 100dvh;
+      min-height: 0;
+      border-radius: 0;
+      box-shadow: none;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <main class="phone">
+      <section class="view on" id="view-chat">
+        <header class="toolbar">
+          <h1 class="brand">spur<i>.</i></h1>
+          <button class="bell" type="button" aria-label="Reminders">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M6 16.5V10a6 6 0 1 1 12 0v6.5l1.2 1.5H4.8L6 16.5Z" stroke="#111" stroke-width="1.6" stroke-linejoin="round"/>
+              <path d="M10 19a2 2 0 0 0 4 0" stroke="#111" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </header>
+        <div class="scroll" id="chat-scroll">
+          <div class="hello">
+            <h2 id="greeting">Good evening.</h2>
+            <p id="dateline"></p>
+          </div>
+          <div class="thread" id="chat-thread">
+            <div>
+              <p class="who">Spur</p>
+              <div class="bubble">Nothing noisy. A script is ready, and one decision is waiting.</div>
+            </div>
+            <div>
+              <p class="who">Spur</p>
+              <div class="bubble">
+                Your travel video script is ready.
+                <button class="linkish" type="button" data-open="report" data-from="script">View script</button>
+              </div>
+            </div>
+            <div>
+              <p class="who">Spur</p>
+              <div class="strip">
+                <div class="stages-mini" aria-label="Researching travel video trends">
+                  <span>Searching</span>
+                  <span>Analyzing</span>
+                  <span>Drafting</span>
+                  <span class="on">Ready</span>
+                </div>
+                <p class="activity">Research complete. Three directions are ready to review.</p>
+                <button class="linkish" type="button" data-open="report" data-from="script">Open report</button>
+              </div>
+            </div>
+            <div>
+              <p class="who">Spur</p>
+              <div class="bubble" id="tonight">
+                Keep working on your Paris video tonight?
+                <div class="actions" id="tonight-actions">
+                  <button class="pill solid" type="button" id="continue">Continue</button>
+                  <button class="pill outline" type="button" id="tomorrow">Tomorrow</button>
+                </div>
+              </div>
+            </div>
+            <div>
+              <p class="who">Spur</p>
+              <article class="card">
+                <h3>Travel beyond the postcard</h3>
+                <p>12 reference videos. Three directions for a more personal travel story.</p>
+                <button class="pill solid" type="button" data-open="report" data-from="script">Open report</button>
+              </article>
+            </div>
+            <div>
+              <p class="who">Spur</p>
+              <div class="bubble">Your research summary is ready. Saved to Paris Travel · 2:34 PM</div>
+            </div>
+            <div>
+              <p class="who">Spur</p>
+              <form id="priority-form">
+                <div>Which of these should I prioritize?</div>
+                <div class="checks">
+                  <label class="check"><input type="checkbox" value="Confirm Paris video cover" /> Confirm Paris video cover</label>
+                  <label class="check"><input type="checkbox" value="Reply to photographer Jack" /> Reply to photographer Jack</label>
+                  <label class="check"><input type="checkbox" value="Review Santorini video script" /> Review Santorini video script</label>
+                </div>
+                <button class="pill solid" type="submit">Confirm</button>
+              </form>
+            </div>
+            <div>
+              <p class="who">Spur</p>
+              <blockquote class="quote">
+                “For the next Paris video, I want to focus more on how locals actually live.”
+                <small>Today · 11:42 AM · 00:38</small>
+              </blockquote>
+            </div>
+            <div>
+              <p class="who">Spur</p>
+              <div class="bubble">
+                Follow-up with Jack is ready for you to decide.
+                <button class="linkish" type="button" data-open="email">Read draft</button>
+              </div>
+            </div>
+            <div>
+              <p class="who">Spur</p>
+              <div class="bubble">
+                Your travel research is ready. Shall we turn the strongest direction into a script outline?
+                <button class="linkish" type="button" data-open="report" data-from="script">Open report</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <form class="composer" id="chat-form">
+          <input id="chat-input" type="text" placeholder="Ask Spur or update a project..." aria-label="Ask Spur or update a project" />
+          <button class="send" type="submit" disabled>Send</button>
+        </form>
+      </section>
+
+      <section class="view" id="view-report">
+        <header class="toolbar">
+          <button class="back" type="button" data-back>Back</button>
+          <h1 class="brand">spur<i>.</i></h1>
+          <span style="width:36px"></span>
+        </header>
+        <div class="scroll" id="report-scroll">
+          <p class="detail-kicker">CONTENT RESEARCH · READY</p>
+          <h2 class="detail-title">Travel beyond the postcard</h2>
+          <p class="lead" id="report-lead">12 reference videos. Three directions for a more personal travel story.</p>
+          <div class="cover" aria-hidden="true"><span>Santorini coastline · travel research cover</span></div>
+
+          <section class="section">
+            <h3>问题与目标 · Problem and goal</h3>
+            <p>Move the Paris travel video past a landmark checklist. Choose one direction before developing the script.</p>
+          </section>
+          <section class="section">
+            <h3>范围与对象 · Scope</h3>
+            <p>Paris Travel. Twelve reference videos. Neighbourhood routines, a transparent daily budget, and one clear constraint. This is sample content, not a completed cloud task.</p>
+          </section>
+          <section class="section">
+            <h3>可用证据 · Evidence</h3>
+            <p>12 references · 3 directions · Script recommendations. The research stages below are the preview that produced them.</p>
+          </section>
+          <section class="section">
+            <h3>报告正文</h3>
+            <ul>
+              <li><b>01 · The real cost of a day.</b> Follow an honest daily budget: transport, food and the small costs most videos leave out.</li>
+              <li><b>02 · Where locals actually go.</b> Build the story around neighbourhood routines rather than landmark checklists.</li>
+              <li><b>03 · A 24-hour city challenge.</b> Choose a clear constraint and let small discoveries carry the narrative.</li>
+            </ul>
+            <p style="margin-top:10px">Choose one direction before developing the script.</p>
+          </section>
+          <section class="section" id="script-block">
+            <h3>Script</h3>
+            <p>OPENING · Everyone visits the Eiffel Tower. Today, we follow the people who call Paris home.</p>
+            <p style="margin-top:8px">Start at a neighbourhood bakery, follow a local market route, and close with the real cost of a day in the city.</p>
+          </section>
+          <section class="section">
+            <h3>Researching travel video trends · Paris Travel</h3>
+            <div class="stage-row"><b>Searching</b><span>Searching recent travel videos and reference content…</span></div>
+            <div class="stage-row"><b>Analyzing</b><span>Comparing topic popularity, story structures and audience responses…</span></div>
+            <div class="stage-row"><b>Drafting</b><span>Preparing three actionable content directions…</span></div>
+            <div class="stage-row on"><b>Ready</b><span>Research complete. Three directions are ready to review.</span></div>
+          </section>
+          <div class="replies" id="report-replies"></div>
+        </div>
+        <form class="composer" id="report-form">
+          <input id="report-input" type="text" placeholder="Change this report…" aria-label="Change this report" />
+          <button class="send" type="submit" disabled>Send</button>
+        </form>
+      </section>
+
+      <section class="view" id="view-email">
+        <header class="toolbar">
+          <button class="back" type="button" data-back>Back</button>
+          <h1 class="brand">spur<i>.</i></h1>
+          <span style="width:36px"></span>
+        </header>
+        <div class="scroll" id="email-scroll">
+          <p class="detail-kicker">EMAIL DRAFT</p>
+          <h2 class="detail-title">Follow-up with Jack</h2>
+          <p class="meta">Recipient · Jack · Photographer</p>
+          <p class="draft" id="email-body">Hi Jack, just following up on the footage from our Paris shoot. Could you share the latest files when you have a moment?</p>
+          <p class="note">This draft has no subject in the source. Approving it does not send the email.</p>
+          <div class="actions">
+            <button class="pill solid" type="button" id="approve">Approve</button>
+          </div>
+          <p class="feedback" id="approve-note" hidden>Approved — demo only, no email sent.</p>
+          <div class="replies" id="email-replies"></div>
+        </div>
+        <form class="composer" id="email-form">
+          <input id="email-input" type="text" placeholder="Change this draft…" aria-label="Change this draft" />
+          <button class="send" type="submit" disabled>Send</button>
+        </form>
+      </section>
+    </main>
+  </div>
+<script>
+  const now = new Date();
+  const hour = now.getHours();
+  document.getElementById("greeting").textContent =
+    hour < 12 ? "Good morning." : hour < 18 ? "Good afternoon." : "Good evening.";
+  document.getElementById("dateline").textContent =
+    now.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" }) +
+    " · Agent Workspace";
+
+  const views = {
+    chat: document.getElementById("view-chat"),
+    report: document.getElementById("view-report"),
+    email: document.getElementById("view-email")
+  };
+  function show(name) {
+    Object.keys(views).forEach(key => views[key].classList.toggle("on", key === name));
+  }
+  document.querySelectorAll("[data-open]").forEach(button => {
+    button.addEventListener("click", () => {
+      if (button.dataset.open === "email") show("email");
+      else openReport(button.dataset.from || "script");
+    });
+  });
+  document.querySelectorAll("[data-back]").forEach(button => {
+    button.addEventListener("click", () => show("chat"));
+  });
+
+  const lead = document.getElementById("report-lead");
+  function openReport(from) {
+    lead.textContent = from === "continue"
+      ? "I'll keep working on your Paris video tonight. The research is already ready to review."
+      : "Your travel video script from yesterday is ready. The research underneath it is ready too.";
+    show("report");
+    document.getElementById("report-scroll").scrollTop = 0;
+  }
+  document.getElementById("continue").addEventListener("click", () => openReport("continue"));
+  document.getElementById("tomorrow").addEventListener("click", () => {
+    document.getElementById("tonight-actions").outerHTML =
+      '<p class="feedback">Moved to tomorrow. Nothing was sent.</p>';
+  });
+  document.getElementById("priority-form").addEventListener("submit", event => {
+    event.preventDefault();
+    const picked = [...event.currentTarget.querySelectorAll("input:checked")].map(item => item.value);
+    const note = document.createElement("p");
+    note.className = "feedback";
+    note.textContent = picked.length
+      ? "I'll prioritize " + picked.join(", ") + "."
+      : "Nothing selected. I'll leave the order as it is.";
+    event.currentTarget.replaceWith(note);
+  });
+
+  function wire(formId, inputId, threadId, scrollId, reply) {
+    const form = document.getElementById(formId);
+    const input = document.getElementById(inputId);
+    const thread = document.getElementById(threadId);
+    const scroll = document.getElementById(scrollId);
+    const send = form.querySelector(".send");
+    input.addEventListener("input", () => { send.disabled = !input.value.trim(); });
+    form.addEventListener("submit", event => {
+      event.preventDefault();
+      const text = input.value.trim();
+      if (!text) return;
+      const mine = document.createElement("div");
+      mine.className = "bubble mine";
+      mine.textContent = text;
+      const answer = document.createElement("div");
+      answer.innerHTML = '<p class="who">Spur</p>';
+      const bubble = document.createElement("div");
+      bubble.className = "bubble";
+      bubble.textContent = reply(text);
+      answer.appendChild(bubble);
+      thread.appendChild(mine);
+      thread.appendChild(answer);
+      input.value = "";
+      send.disabled = true;
+      scroll.scrollTop = scroll.scrollHeight;
+    });
+  }
+  wire("chat-form", "chat-input", "chat-thread", "chat-scroll", () =>
+    "Got it. I'll keep that with today's reminders.");
+  wire("report-form", "report-input", "report-replies", "report-scroll", text =>
+    "I'll revise this report: " + text + ". Nothing has been published.");
+  wire("email-form", "email-input", "email-replies", "email-scroll", text =>
+    "I'll revise this draft: " + text + ". Still not sent.");
+  document.getElementById("approve").addEventListener("click", () => {
+    document.getElementById("approve-note").hidden = false;
+  });
+</script>
+</body>
+</html>

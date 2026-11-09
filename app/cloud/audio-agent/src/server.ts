@@ -15,6 +15,7 @@ import { rewriteResultFromIntent } from './resultRewrite.js'
 import { transcribeWithSaucBigmodel } from './stt/saucBigmodel.js'
 import { isAssistantSkill, refineWithSkill } from './skillRefine.js'
 import { DEFAULT_AUDIO_TASK_TYPE, isAudioTaskType } from './taskPrompts.js'
+import { runRecordingSummaryPipeline } from './meetingNotesPipeline.js'
 import { createReportPage } from './report.js'
 import { createPdfReport } from './pdfReport.js'
 import { runIntelligentProcessor } from './intelligentProcessor.js'
@@ -667,24 +668,38 @@ async function handleAudioTask(request: Request): Promise<Response> {
     })
     await writeFile(transcriptPath, transcript)
 
-    const wantsImage =
-      taskType === 'agent_image' ||
-      (taskType === 'agent_command' &&
-        (await transcriptWantsImage(transcript, config)))
-    const agent = wantsImage
-      ? await generateAndStoreImage({ config, id, transcript })
-      : await runParentAgent(transcript, config, taskType)
+    let polishedTranscript: string | undefined
+    let agent: { output: string; exitCode: number; imageUrl?: string }
+
+    if (taskType === 'recording_summary') {
+      const pipeline = await runRecordingSummaryPipeline(transcript, config)
+      polishedTranscript = pipeline.polishedTranscript
+      agent = { output: pipeline.meetingNotes, exitCode: 0 }
+      await writeFile(
+        join(transcriptsDir, `${id}.polished.txt`),
+        polishedTranscript,
+      )
+    } else {
+      const wantsImage =
+        taskType === 'agent_image' ||
+        (taskType === 'agent_command' &&
+          (await transcriptWantsImage(transcript, config)))
+      agent = wantsImage
+        ? await generateAndStoreImage({ config, id, transcript })
+        : await runParentAgent(transcript, config, taskType)
+    }
+
     const report = await createReportPage({
       config,
       id,
-      transcript,
+      transcript: polishedTranscript || transcript,
       agentOutput: agent.output,
       imageUrl: agent.imageUrl,
     })
     const email = await sendAgentResultEmail({
       config,
       id,
-      transcript,
+      transcript: polishedTranscript || transcript,
       agentOutput: agent.output,
       agentExitCode: agent.exitCode,
       transcriptPath,
@@ -696,6 +711,7 @@ async function handleAudioTask(request: Request): Promise<Response> {
       id,
       taskType,
       transcript,
+      polishedTranscript,
       transcriptPath,
       agent,
       report,

@@ -1,0 +1,19 @@
+{
+  "name": "audio-agent",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bun run src/server.ts",
+    "test:asr-url": "bun run scripts/test-volcengine-asr-url.ts",
+    "test:stt-file": "bun run scripts/test-stt-file.ts",
+    "test:email": "bun run scripts/test-email.ts",
+    "test": "bun test tests"
+  },
+  "dependencies": {
+    "ws": "^8.21.3"
+  },
+  "devDependencies": {
+    "@types/ws": "^8.18.1"
+  }
+}

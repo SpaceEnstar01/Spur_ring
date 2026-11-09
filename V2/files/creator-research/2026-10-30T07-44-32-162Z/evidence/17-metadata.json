@@ -1,0 +1,7 @@
+{
+  "args": {
+    "url": "https://www.youtube.com/results?search_query=kara+and+nate+travel"
+  },
+  "error": "ValueError: Invalid YouTube video ID",
+  "available": false
+}

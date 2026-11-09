@@ -13,6 +13,7 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AppScreen } from '@/components/AppScreen';
 import { ChatComposer } from '@/components/ChatComposer';
 import { LoadingState } from '@/components/LoadingState';
+import { MeetingNotesRichText } from '@/components/MeetingNotesRichText';
 import { PageHeader } from '@/components/PageHeader';
 import { recordingApi } from '@/services/api/recordingService';
 import { getRecordingAnalysis, type LocalRecordingAnalysis } from '@/services/localRecordingAnalysis';
@@ -23,6 +24,7 @@ import type { RootStackParamList } from '@/types/navigation';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'RecordingSummary'>;
 type ResultTab = 'transcript' | 'notes';
+type TranscriptMode = 'polished' | 'raw';
 
 type NoteChatMessage = {
   id: string;
@@ -33,6 +35,7 @@ type NoteChatMessage = {
 export function LocalRecordingResultScreen({ route }: Props) {
   const [record, setRecord] = useState<LocalRecordingAnalysis | null | undefined>(undefined);
   const [tab, setTab] = useState<ResultTab>('notes');
+  const [transcriptMode, setTranscriptMode] = useState<TranscriptMode>('polished');
   const [messages, setMessages] = useState<NoteChatMessage[]>([]);
   const [asking, setAsking] = useState(false);
   const scrollRef = useRef<ScrollView>(null);
@@ -54,7 +57,7 @@ export function LocalRecordingResultScreen({ route }: Props) {
 
     try {
       const replies = await recordingApi.askAssistant(question, {
-        transcript: record.transcript,
+        transcript: record.polishedTranscript || record.transcript,
         meetingNotes: record.meetingNotes
       });
       const answer = replies.find((item) => item.role === 'assistant')?.text;
@@ -122,9 +125,32 @@ export function LocalRecordingResultScreen({ route }: Props) {
 
             {tab === 'transcript' ? (
               <ScrollView style={styles.flex} contentContainerStyle={styles.scrollContent}>
+                {record.rawTranscript && record.polishedTranscript ? (
+                  <View style={styles.subTabs}>
+                    <TabButton
+                      active={transcriptMode === 'polished'}
+                      label={t.recordings.polishedTranscript}
+                      onPress={() => setTranscriptMode('polished')}
+                    />
+                    <TabButton
+                      active={transcriptMode === 'raw'}
+                      label={t.recordings.rawTranscript}
+                      onPress={() => setTranscriptMode('raw')}
+                    />
+                  </View>
+                ) : null}
                 <View style={styles.resultCard}>
-                  <Text style={styles.sectionTitle}>{t.recordings.transcriptTab}</Text>
-                  <Text style={styles.resultText}>{record.transcript || t.recordings.resultUnavailable}</Text>
+                  <Text style={styles.sectionTitle}>
+                    {transcriptMode === 'raw'
+                      ? t.recordings.rawTranscript
+                      : t.recordings.polishedTranscript}
+                  </Text>
+                  <Text style={styles.resultText}>
+                    {(transcriptMode === 'raw'
+                      ? record.rawTranscript || record.transcript
+                      : record.polishedTranscript || record.transcript) ||
+                      t.recordings.resultUnavailable}
+                  </Text>
                 </View>
               </ScrollView>
             ) : (
@@ -137,9 +163,11 @@ export function LocalRecordingResultScreen({ route }: Props) {
                 >
                   <View style={styles.resultCard}>
                     <Text style={styles.sectionTitle}>{t.recordings.notesTab}</Text>
-                    <Text style={styles.resultText}>
-                      {stripMarkdown(record.meetingNotes || '') || t.recordings.resultUnavailable}
-                    </Text>
+                    {record.meetingNotes?.trim() ? (
+                      <MeetingNotesRichText markdown={record.meetingNotes} />
+                    ) : (
+                      <Text style={styles.resultText}>{t.recordings.resultUnavailable}</Text>
+                    )}
                   </View>
 
                   <View style={styles.askCard}>
@@ -211,6 +239,7 @@ const styles = StyleSheet.create({
   title: { color: colors.text, fontSize: 23, fontWeight: '800' },
   meta: { color: colors.textSecondary, fontSize: 12, marginTop: 8 },
   tabs: { flexDirection: 'row', padding: 4, marginTop: 16, borderRadius: 14, backgroundColor: '#f3f3f3', borderWidth: 1, borderColor: colors.border },
+  subTabs: { flexDirection: 'row', padding: 4, marginTop: 14, borderRadius: 14, backgroundColor: '#f3f3f3', borderWidth: 1, borderColor: colors.border },
   tab: { flex: 1, minHeight: 42, alignItems: 'center', justifyContent: 'center', borderRadius: 11 },
   tabActive: { backgroundColor: colors.text },
   tabText: { color: colors.textSecondary, fontSize: 13, fontWeight: '800' },

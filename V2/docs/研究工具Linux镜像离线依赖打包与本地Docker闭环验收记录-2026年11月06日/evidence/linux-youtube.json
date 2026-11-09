@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "status": "partial",
+  "platform": "youtube",
+  "provider": "agent-reach",
+  "preferredProvider": "agent-reach",
+  "backend": "yt-dlp",
+  "retrievedAt": "2026-11-06T15:46:48.688Z",
+  "elapsedMs": 18803,
+  "items": [
+    {
+      "title": "Wait... Smart Glasses are Suddenly Good?",
+      "url": "https://www.youtube.com/watch?v=7gtc1DW2Tgo",
+      "author": "Marques Brownlee",
+      "publishedAt": null,
+      "text": "Trying the Meta Rayban Display glasses Trying the Orion prototypes: https://youtu.be/G0eKzU_fV00 MKBHD Merch: http://shop.",
+      "metrics": {
+        "views": 8584695,
+        "durationSeconds": 691
+      },
+      "evidenceType": "search_metadata"
+    },
+    {
+      "title": "ROKID Glasses - These Smart Glasses Have EVERYTHING!",
+      "url": "https://www.youtube.com/watch?v=HQYmkAy94QQ",
+      "author": "TT Technology",
+      "publishedAt": null,
+      "text": "The Rokid Glasses pack a dual-eye display, 12MP camera, ChatGPT and Gemini AI, live translation and navigation into incredibly ...",
+      "metrics": {
+        "views": 28775,
+        "durationSeconds": 734
+      },
+      "evidenceType": "search_metadata"
+    }
+  ],
+  "limits": {
+    "complete": false,
+    "dateRangeVerified": false,
+    "popularityRankingVerified": false,
+    "commentsAvailable": false,
+    "note": "Search metadata or indexed text only; no verified recent ranking, full content or audience-comment analysis."
+  },
+  "error": null
+}

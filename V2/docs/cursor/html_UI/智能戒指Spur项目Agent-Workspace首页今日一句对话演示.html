@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Spur Agent Workspace 首页今日一句</title>
+<style>
+  :root {
+    --ink: #1b1b1b;
+    --heading: #141d32;
+    --muted: #858992;
+    --line: #eeeeee;
+    --blue: #3165c8;
+    --bg: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: #ececee; color: var(--ink); }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .stage {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 28px 16px 40px;
+  }
+  .phone {
+    width: min(390px, 100%);
+    height: min(844px, 100vh);
+    background: var(--bg);
+    border-radius: 28px;
+    box-shadow: 0 18px 50px rgba(0,0,0,.08);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .screen {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+    padding: 8px 20px 24px;
+  }
+  .toolbar {
+    height: 53px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .mark {
+    margin: 0;
+    font-size: 30px;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: -1.6px;
+    color: #111;
+  }
+  .mark i { color: #2563eb; font-style: normal; }
+  .ring {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #777c72;
+    font-size: 10px;
+  }
+  .ring svg { display: block; }
+  .online {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #4a9b6b;
+  }
+  .greeting { margin: 8px 0 22px; }
+  .greeting h2 {
+    margin: 0;
+    font-size: 27px;
+    line-height: 36px;
+    font-weight: 700;
+    letter-spacing: -0.8px;
+    color: var(--heading);
+  }
+  .greeting p {
+    margin: 5px 0 0;
+    font-size: 12px;
+    line-height: 19px;
+    color: var(--muted);
+  }
+  .say {
+    display: block;
+    width: 100%;
+    margin: 0 0 8px;
+    padding: 0;
+    border: 0;
+    background: none;
+    text-align: left;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+  }
+  .say:focus-visible { outline: 2px solid var(--blue); outline-offset: 4px; }
+  .who {
+    margin: 0 0 4px;
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--muted);
+  }
+  .line {
+    margin: 0;
+    font-size: 17px;
+    line-height: 24px;
+    font-weight: 600;
+    letter-spacing: -0.2px;
+  }
+  .more { margin-top: 14px; }
+  .more p {
+    margin: 0;
+    padding: 11px 0;
+    border-top: 1px solid var(--line);
+    font-size: 15px;
+    line-height: 21px;
+    font-weight: 500;
+  }
+  .more small {
+    display: block;
+    margin-bottom: 2px;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .block { margin: 0; padding: 22px 0; border-top: 1px solid var(--line); }
+  .kicker {
+    margin: 0 0 8px;
+    font-size: 12px;
+    line-height: 16px;
+    color: #777;
+  }
+  .kicker b { color: var(--ink); font-weight: 600; }
+  .note {
+    margin: 0;
+    font-size: 17px;
+    line-height: 24px;
+    font-weight: 600;
+    letter-spacing: -0.2px;
+  }
+  .link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 6px;
+    color: var(--blue);
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+  }
+  .dot { width: 7px; height: 7px; border-radius: 99px; background: #7aa2ee; display: inline-block; }
+  .ask { margin: 0 0 6px; color: #777; font-size: 13px; }
+  .question { margin: 0 0 14px; font-size: 20px; line-height: 26px; letter-spacing: -0.3px; font-weight: 650; }
+  .actions { display: flex; gap: 10px; }
+  .pill {
+    min-height: 44px;
+    padding: 0 18px;
+    border-radius: 999px;
+    border: 0;
+    font: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .solid { background: #101010; color: #fff; }
+  .outline { background: #fff; color: var(--ink); border: 1px solid #dddddd; }
+  .feedback { margin: 0; color: #34785c; font-size: 14px; line-height: 21px; }
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 52px;
+    border-bottom: 1px solid var(--line);
+  }
+  .row:last-child { border-bottom: 0; }
+  .box {
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid #1b1b1b;
+    border-radius: 3px;
+    flex: none;
+    background: #fff;
+    padding: 0;
+    cursor: pointer;
+  }
+  .row.done .box { background: #1b1b1b; position: relative; }
+  .row.done .box::after {
+    content: "";
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    width: 8px;
+    height: 4px;
+    border-left: 1.5px solid #fff;
+    border-bottom: 1.5px solid #fff;
+    transform: rotate(-45deg);
+  }
+  .row.done .task { color: #777; text-decoration: line-through; }
+  .task { flex: 1; min-width: 0; font-size: 15px; line-height: 21px; }
+  .when { color: #777; font-size: 13px; flex: none; }
+  .exec-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 14px;
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: -0.3px;
+  }
+  .stages {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+  .stage-name {
+    font-size: 12px;
+    color: #b0b0b0;
+    padding-bottom: 7px;
+    border-bottom: 2px solid #ececec;
+    white-space: nowrap;
+  }
+  .stage-name.on { color: var(--ink); font-weight: 600; border-bottom-color: var(--blue); }
+  .activity { margin: 0; color: #626b79; font-size: 14px; line-height: 21px; }
+  .next {
+    margin-top: 8px;
+    padding: 8px 0;
+    border: 0;
+    background: none;
+    color: var(--blue);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .cover {
+    height: 168px;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    background: linear-gradient(#f7b267 0%, #f4845f 28%, #e36a74 52%, #7eb6d9 53%, #4f8fbe 100%);
+  }
+  .sun { position: absolute; left: 28px; top: 46px; width: 28px; height: 28px; border-radius: 50%; background: #fff4d2; }
+  .sea { position: absolute; left: 0; right: 0; top: 88px; height: 18px; background: linear-gradient(#f6c7a1, transparent); opacity: .7; }
+  .town { position: absolute; left: 0; right: 0; bottom: 0; height: 62px; }
+  .meta {
+    margin: 12px 0 6px;
+    font-size: 11px;
+    letter-spacing: .8px;
+    color: #777;
+    text-transform: uppercase;
+  }
+  .report-title { margin: 0 0 6px; font-size: 26px; line-height: 31px; letter-spacing: -0.5px; font-weight: 680; }
+  .summary { margin: 0; color: #626b79; font-size: 14px; line-height: 21px; }
+  .composer {
+    flex: none;
+    margin: 0 16px 12px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #e6e8ed;
+    border-radius: 28px;
+    padding: 5px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(24, 34, 53, 0.06);
+  }
+  .mic {
+    width: 36px;
+    height: 36px;
+    border: 0;
+    background: transparent;
+    color: #777b83;
+    display: grid;
+    place-items: center;
+  }
+  .composer input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    outline: none;
+    font: 12px/1.3 -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", sans-serif;
+    color: #111827;
+    padding: 10px 4px;
+    background: transparent;
+  }
+  .composer input::placeholder { color: #9599a1; }
+  @media (max-width: 430px) {
+    .stage { padding: 0; background: #fff; }
+    .phone { width: 100%; height: 100vh; height: 100dvh; border-radius: 0; box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <main class="phone">
+      <div class="screen">
+        <header class="toolbar">
+          <h1 class="mark">spur<i>.</i></h1>
+          <div class="ring" aria-label="戒指已连接">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="7.2" stroke="#777C72" stroke-width="1.6"/>
+              <circle cx="12" cy="12" r="3.1" stroke="#777C72" stroke-width="1.6"/>
+            </svg>
+            <span class="online"></span>
+            <span>已连接</span>
+          </div>
+        </header>
+
+        <section class="greeting">
+          <h2 id="greeting">Good evening.</h2>
+          <p id="dateline"></p>
+        </section>
+
+        <button class="say" id="today" type="button" aria-expanded="false" aria-controls="today-more">
+          <p class="who">Spur</p>
+          <p class="line" id="today-line">三点有个巴黎剪辑核对，这一小时我先给你空着。另外两件，你点这里我再说。</p>
+          <div class="more" id="today-more" hidden>
+            <p><small>3:00 PM · 会议</small>巴黎剪辑核对。这一小时先空着。</p>
+            <p><small>今天 · 待办</small>旅行视频研究可以看了，不必赶在三点前。</p>
+            <p><small>今天 · 邮件</small>给 Jack 写一句，问巴黎素材什么时候能到。</p>
+          </div>
+        </button>
+
+        <section class="block">
+          <p class="kicker"><b>01</b>　轻量通知 · Minimal Notification</p>
+          <p class="note">Your travel video script is ready.</p>
+          <a class="link" href="#script"><span class="dot"></span> View script · 10 min ago</a>
+        </section>
+
+        <section class="block">
+          <p class="kicker"><b>02</b>　行内确认 · Inline Question</p>
+          <p class="ask">Spur wants to confirm something:</p>
+          <p class="question">Keep working on your Paris video tonight?</p>
+          <div class="actions" id="ask">
+            <button class="pill solid" type="button" data-choice="Continue tonight. I’ll stay on the Paris cut.">Continue</button>
+            <button class="pill outline" type="button" data-choice="Moved to tomorrow. Nothing was sent.">Tomorrow</button>
+          </div>
+        </section>
+
+        <section class="block">
+          <p class="kicker"><b>03</b>　紧凑待办 · Compact Checklist</p>
+          <div id="todos">
+            <div class="row"><button class="box" type="button" aria-label="Confirm Paris video cover"></button><span class="task">Confirm Paris video cover</span><span class="when">Today</span></div>
+            <div class="row"><button class="box" type="button" aria-label="Reply to photographer Jack"></button><span class="task">Reply to photographer Jack</span><span class="when">Tomorrow</span></div>
+            <div class="row"><button class="box" type="button" aria-label="Review Santorini video script"></button><span class="task">Review Santorini video script</span><span class="when">Friday</span></div>
+          </div>
+        </section>
+
+        <section class="block">
+          <p class="kicker"><b>04</b>　执行阶段 · Execution Status</p>
+          <h2 class="exec-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="#1b1b1b" stroke-width="1.8"/><path d="M16 16.5L20 20.5" stroke="#1b1b1b" stroke-width="1.8" stroke-linecap="round"/></svg>
+            Researching travel video trends
+          </h2>
+          <div class="stages" id="stages"></div>
+          <p class="activity" id="activity"></p>
+          <button class="next" id="next" type="button">Next stage →</button>
+        </section>
+
+        <section class="block" id="script">
+          <p class="kicker"><b>05</b>　研究报告 · Research Report</p>
+          <div class="cover" aria-hidden="true">
+            <div class="sun"></div>
+            <div class="sea"></div>
+            <svg class="town" viewBox="0 0 390 70" preserveAspectRatio="none">
+              <path fill="#f4efe6" d="M0 40 L28 40 L28 22 L52 22 L52 34 L78 34 L78 16 L110 16 L110 30 L140 30 L140 12 L168 12 L168 28 L200 28 L200 18 L236 18 L236 36 L270 36 L270 14 L310 14 L310 32 L346 32 L346 20 L390 20 L390 70 L0 70 Z"/>
+            </svg>
+          </div>
+          <p class="meta">Content research · Completed</p>
+          <h2 class="report-title">Travel beyond the postcard.</h2>
+          <p class="summary">12 reference videos. Three directions for a more personal travel story. Open the report before choosing a script.</p>
+        </section>
+      </div>
+
+      <form class="composer" id="composer">
+        <button class="mic" type="button" aria-label="Record an idea">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="9" y="3" width="6" height="11" rx="3" stroke="#777B83" stroke-width="1.6"/>
+            <path d="M6.5 11.5a5.5 5.5 0 0 0 11 0M12 17v3" stroke="#777B83" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <input id="input" type="text" placeholder="Ask Spur or update a project..." aria-label="Ask Spur or update a project" />
+      </form>
+    </main>
+  </div>
+<script>
+  const now = new Date();
+  const hour = now.getHours();
+  document.getElementById("greeting").textContent =
+    hour < 12 ? "Good morning." : hour < 18 ? "Good afternoon." : "Good evening.";
+  document.getElementById("dateline").textContent =
+    now.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" }) +
+    " · Agent Workspace";
+
+  const today = document.getElementById("today");
+  const more = document.getElementById("today-more");
+  const line = document.getElementById("today-line");
+  const closed = "三点有个巴黎剪辑核对，这一小时我先给你空着。另外两件，你点这里我再说。";
+  const opened = "三点有个巴黎剪辑核对，这一小时我先给你空着。";
+  today.addEventListener("click", () => {
+    const open = today.getAttribute("aria-expanded") === "true";
+    today.setAttribute("aria-expanded", open ? "false" : "true");
+    more.hidden = open;
+    line.textContent = open ? closed : opened;
+  });
+
+  const stages = ["Searching", "Analyzing", "Drafting", "Ready"];
+  const lines = [
+    "Searching recent travel videos and reference content...",
+    "Comparing hooks, pacing, and what travelers actually watch.",
+    "Drafting three directions for the Paris story.",
+    "Ready to review. Nothing has been published."
+  ];
+  let step = 0;
+  const stageBox = document.getElementById("stages");
+  const activity = document.getElementById("activity");
+  const next = document.getElementById("next");
+  function paint() {
+    stageBox.innerHTML = stages.map((name, i) =>
+      `<div class="stage-name${i === step ? " on" : ""}">${name}</div>`
+    ).join("");
+    activity.textContent = lines[step];
+    next.textContent = step === stages.length - 1 ? "Replay →" : "Next stage →";
+  }
+  next.addEventListener("click", () => {
+    step = step === stages.length - 1 ? 0 : step + 1;
+    paint();
+  });
+  paint();
+
+  document.getElementById("ask").addEventListener("click", (event) => {
+    const button = event.target.closest("button");
+    if (!button) return;
+    event.currentTarget.outerHTML = `<p class="feedback">${button.dataset.choice}</p>`;
+  });
+  document.getElementById("todos").addEventListener("click", (event) => {
+    const row = event.target.closest(".row");
+    if (!row) return;
+    row.classList.toggle("done");
+  });
+  document.getElementById("composer").addEventListener("submit", (event) => {
+    event.preventDefault();
+  });
+</script>
+</body>
+</html>

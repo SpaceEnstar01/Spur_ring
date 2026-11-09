@@ -1,0 +1,25 @@
+{
+  "version": "1.0",
+  "project_id": "spur-personal-agent-30s",
+  "pipeline_type": "animated-explainer",
+  "stage": "compose",
+  "status": "completed",
+  "timestamp": "2026-11-09T03:02:11.038233+00:00",
+  "checkpoint_policy": "guided",
+  "human_approval_required": false,
+  "human_approved": false,
+  "artifacts": {
+    "render_report": {
+      "version": "1.0",
+      "outputs": [
+        {
+          "path": "/Users/x/X/space/spur/V2/docs/OpenMontage\u72ec\u7acb\u89c6\u9891\u9a8c\u8bc1-2026\u5e7411\u670809\u65e5/Spur-Personal-Agent-30s-9x16.mp4",
+          "format": "mp4",
+          "resolution": "1080x1920",
+          "duration_seconds": 30.0
+        }
+      ]
+    }
+  },
+  "style_playbook": "flat-motion-graphics"
+}

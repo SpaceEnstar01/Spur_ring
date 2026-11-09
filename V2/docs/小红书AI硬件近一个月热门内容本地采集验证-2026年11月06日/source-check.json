@@ -1,0 +1,16 @@
+{
+  "method": "get_note_by_keyword",
+  "parameters": [
+    "self",
+    "keyword",
+    "search_id",
+    "page",
+    "page_size",
+    "sort",
+    "note_type"
+  ],
+  "hasDateFilter": false,
+  "source": "media_platform/xhs/client.py",
+  "license": "NON-COMMERCIAL LEARNING LICENSE 1.1",
+  "freshBrowserOnly": true
+}

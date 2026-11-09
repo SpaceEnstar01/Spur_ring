@@ -13,7 +13,12 @@ export type LocalRecordingAnalysis = {
   size: number;
   modifiedAt: number;
   status: RecordingProcessStatus;
+  /** Display transcript: polished when available, else raw ASR */
   transcript?: string;
+  /** Raw ASR transcript */
+  rawTranscript?: string;
+  /** LLM polished full-text transcript */
+  polishedTranscript?: string;
   meetingNotes?: string;
   remoteId?: string;
   error?: string;
@@ -42,9 +47,13 @@ export async function processLocalRecording(file: LocalAudioFile): Promise<Local
 
   try {
     const result = await processAudioWithAi({ uri: file.uri, name: file.name, taskType: 'recording_summary' });
+    const polished = result.polishedTranscript?.trim();
+    const raw = result.transcript;
     const completed: LocalRecordingAnalysis = {
       ...fromFile(file, 'completed'),
-      transcript: result.transcript,
+      rawTranscript: raw,
+      polishedTranscript: polished || undefined,
+      transcript: polished || raw,
       meetingNotes: result.agent.output,
       remoteId: result.id
     };

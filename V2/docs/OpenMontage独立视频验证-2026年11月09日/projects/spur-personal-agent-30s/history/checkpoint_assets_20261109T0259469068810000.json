@@ -1,0 +1,29 @@
+{
+  "version": "1.0",
+  "project_id": "spur-personal-agent-30s",
+  "pipeline_type": "animated-explainer",
+  "stage": "assets",
+  "status": "completed",
+  "timestamp": "2026-11-09T02:59:46.906881+00:00",
+  "checkpoint_policy": "guided",
+  "human_approval_required": true,
+  "human_approved": true,
+  "artifacts": {
+    "asset_manifest": {
+      "version": "1.0",
+      "assets": [
+        {
+          "id": "narration",
+          "type": "narration",
+          "path": "/Users/x/X/space/spur/V2/docs/OpenMontage\u72ec\u7acb\u89c6\u9891\u9a8c\u8bc1-2026\u5e7411\u670809\u65e5/projects/spur-personal-agent-30s/assets/audio/narration.wav",
+          "source_tool": "macOS say Tingting + FFmpeg; explicit local alternative",
+          "scene_id": "all"
+        }
+      ]
+    }
+  },
+  "style_playbook": "flat-motion-graphics",
+  "metadata": {
+    "approval_source": "User explicitly approved dependency installation and standalone 30s 9:16 rendering; no cloud/publishing."
+  }
+}

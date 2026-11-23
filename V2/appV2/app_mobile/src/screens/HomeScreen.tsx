@@ -1,3 +1,5 @@
+import { paper } from '../creatorSpace/ui';
+import { CreatorSpace } from '../creatorSpace/CreatorSpace';
 import { useMailNotificationStore } from '../services/mailNotifications';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
@@ -104,10 +106,40 @@ export function HomeScreen({ navigation }: Props) {
     notes: cards.filter(card => !card.uri).length,
     recordings: cards.filter(card => !!card.uri).length,
   };
-  const visibleCards = cards.filter(card =>
-    filter === 'all' ? true : filter === 'notes' ? !card.uri : !!card.uri,
-  );
+  const visibleCards = cards.filter(card => !!card.uri);
   const online = ['connected', 'recording', 'syncing'].includes(status);
+  const sidebar = (
+    <Sidebar
+      visible={sidebarOpen}
+      onClose={() => setSidebarOpen(false)}
+      filter={filter}
+      counts={counts}
+      onFilter={setFilter}
+      onNavigate={destination => navigation.navigate(destination)}
+      deviceLabel={connectionLabels[status]}
+      online={online}
+    />
+  );
+  if (filter === 'notes') {
+    return (
+      <>
+        <SafeAreaView
+          style={[styles.root, { backgroundColor: paper }]}
+          edges={['top', 'bottom']}
+        >
+          <CreatorSpace
+            menu={() => setSidebarOpen(true)}
+            device={() => navigation.navigate('Device')}
+            deviceLabel={connectionLabels[status]}
+            open={(detail, parent) =>
+              navigation.navigate('CreatorDetail', { detail, parent })
+            }
+          />
+        </SafeAreaView>
+        {sidebar}
+      </>
+    );
+  }
   return (
     <LinearGradient
       colors={
@@ -370,33 +402,15 @@ export function HomeScreen({ navigation }: Props) {
                       <View style={styles.emptyIcon}>
                         <Icon name="note" size={42} color="#90998A" />
                       </View>
-                      <Text style={styles.emptyTitle}>
-                        {filter === 'notes'
-                          ? '写下你的第一个想法'
-                          : filter === 'recordings'
-                          ? '收藏每一个有声瞬间'
-                          : '让灵感有处安放'}
-                      </Text>
+                      <Text style={styles.emptyTitle}>收藏每一个有声瞬间</Text>
                       <Text style={styles.emptyText}>
-                        {filter === 'notes'
-                          ? '用文字留住闪过的念头，\n把零散灵感慢慢积累成篇。'
-                          : filter === 'recordings'
-                          ? '连接戒指同步录音，或用手机开始录制。\n录音和转写内容都会在这里汇集。'
-                          : '连接戒指同步录音，或记下第一个想法。\n所有记录都会在这里汇集。'}
+                        连接戒指同步录音，或用手机开始录制。录音和转写内容都会在这里汇集。
                       </Text>
                       <Pressable
                         style={styles.connectLink}
-                        onPress={() =>
-                          navigation.navigate(
-                            filter === 'notes' ? 'Note' : 'Device',
-                          )
-                        }
+                        onPress={() => navigation.navigate('Device')}
                       >
-                        <Text style={styles.linkText}>
-                          {filter === 'notes'
-                            ? '新建一篇笔记 ↗'
-                            : '连接我的录音戒指 ↗'}
-                        </Text>
+                        <Text style={styles.linkText}>连接我的录音戒指 ↗</Text>
                       </Pressable>
                     </View>
                   )}
@@ -429,16 +443,7 @@ export function HomeScreen({ navigation }: Props) {
           )}
         </KeyboardAvoidingView>
       </SafeAreaView>
-      <Sidebar
-        visible={sidebarOpen}
-        onClose={() => setSidebarOpen(false)}
-        filter={filter}
-        counts={counts}
-        onFilter={setFilter}
-        onNavigate={destination => navigation.navigate(destination)}
-        deviceLabel={connectionLabels[status]}
-        online={online}
-      />
+      {sidebar}
     </LinearGradient>
   );
 }

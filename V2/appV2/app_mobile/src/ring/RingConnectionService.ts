@@ -19,6 +19,7 @@ class RingConnectionService {
   private scanGeneration = 0;
   private authenticated = false;
   private foreground = false;
+  private resumeDevice?: RingDevice;
   private autoSyncTimer?: ReturnType<typeof setTimeout>;
   private autoSyncPending = false;
   private recordingObserved = false;
@@ -119,6 +120,18 @@ class RingConnectionService {
         if (!this.foreground) this.clearAutoSyncTimer();
         else if (!wasForeground && this.authenticated && !this.syncing)
           this.requestAutomaticSync();
+        else if (
+          Platform.OS === 'ios' &&
+          !wasForeground &&
+          this.foreground &&
+          this.resumeDevice &&
+          !this.pending &&
+          ['disconnected', 'failed'].includes(useRingStore.getState().status)
+        ) {
+          this.connect(this.resumeDevice).catch(error =>
+            useRingStore.getState().setError(error.message),
+          );
+        }
       }),
       events.addListener('yanqiangVoiceScanEvent', event => {
         if (event.type === 'device' && event.macAddress) {
@@ -148,6 +161,7 @@ class RingConnectionService {
           store.setStatus('connected');
           const device = store.selectedDevice;
           if (device) {
+            this.resumeDevice = device;
             AsyncStorage.setItem(LAST_DEVICE, JSON.stringify(device)).catch(
               () => {},
             );
@@ -157,6 +171,18 @@ class RingConnectionService {
         } else if (event.status === 'connecting') {
           if (!this.authenticated) store.setStatus('authenticating');
         } else {
+          if (
+            [
+              'AuthBound',
+              'AuthRefused',
+              'AuthIllegal',
+              'BoundOtherCharging',
+              'BoundOtherNotCharging',
+              'PairingRemoved',
+            ].includes(event.label)
+          ) {
+            this.resumeDevice = undefined;
+          }
           this.resetAutomaticSync();
           store.setStatus(event.status === 'error' ? 'failed' : 'disconnected');
           const error = new Error(event.message || '戒指已断开连接，请重试。');
@@ -219,6 +245,11 @@ class RingConnectionService {
           );
       }),
       events.addListener('yanqiangVoiceError', event => {
+        if (event.code === 'YANQIANG_RECORDING_CONVERSION') {
+          useRingStore.getState().setSyncError(event.message || '录音转换失败');
+          return;
+        }
+        if (event.code === 'YANQIANG_BLUETOOTH_OFF') this.resetAutomaticSync();
         const error = new Error(event.message || '戒指通信异常');
         useRingStore.getState().setError(error.message);
         useRingStore.getState().setStatus('failed');
@@ -280,6 +311,7 @@ class RingConnectionService {
     if (this.pending) {
       throw new Error('正在连接，请稍候。');
     }
+    if (this.resumeDevice?.id !== device.id) this.resumeDevice = undefined;
     this.resetAutomaticSync();
     useRingStore.getState().selectDevice(device);
     useRingStore.getState().setError(null);
@@ -318,6 +350,7 @@ class RingConnectionService {
   }
 
   async disconnect() {
+    this.resumeDevice = undefined;
     this.resetAutomaticSync();
     this.settle(new Error('已取消连接'));
     await vendorModule().disconnect();
@@ -334,6 +367,7 @@ class RingConnectionService {
     const raw = await AsyncStorage.getItem(LAST_DEVICE);
     if (raw && useRingStore.getState().status === 'idle') {
       const device: RingDevice = JSON.parse(raw);
+      this.resumeDevice = device;
       await this.connect(device);
     }
   }

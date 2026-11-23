@@ -180,7 +180,9 @@ export function Sidebar(props: Props) {
                       >
                         {filterLabels[filter]}
                       </Text>
-                      <Text style={styles.count}>{props.counts[filter]}</Text>
+                      {filter !== 'notes' && (
+                        <Text style={styles.count}>{props.counts[filter]}</Text>
+                      )}
                       {props.filter === filter && (
                         <View style={styles.selectionDot} />
                       )}

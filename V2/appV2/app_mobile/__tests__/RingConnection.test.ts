@@ -330,3 +330,34 @@ describe('foreground automatic recording sync', () => {
     expect(vendorModule().syncVoiceRecordings).toHaveBeenCalledTimes(2);
   });
 });
+
+test('audio conversion errors leave an authenticated ring connected', async () => {
+  await connected();
+  emit('yanqiangVoiceError', {
+    code: 'YANQIANG_RECORDING_CONVERSION',
+    message: '转码失败',
+  });
+  expect(useRingStore.getState().status).toBe('connected');
+  expect(useRingStore.getState().syncError).toBe('转码失败');
+});
+
+test('foreground return reconnects after link loss but respects manual disconnect', async () => {
+  await connected();
+  changeAppState('background');
+  emit('yanqiangVoiceConnectionChanged', {
+    status: 'disconnected',
+    macAddress: 'AA:AUTO',
+  });
+  changeAppState('active');
+  await flush();
+  expect(vendorModule().connect).toHaveBeenCalledTimes(2);
+  emit('yanqiangVoiceConnectionChanged', {
+    status: 'connected',
+    macAddress: 'AA:AUTO',
+  });
+  await ringConnectionService.disconnect();
+  changeAppState('background');
+  changeAppState('active');
+  await flush();
+  expect(vendorModule().connect).toHaveBeenCalledTimes(2);
+});

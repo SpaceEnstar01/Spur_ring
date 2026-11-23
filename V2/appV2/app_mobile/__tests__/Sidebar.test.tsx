@@ -163,7 +163,13 @@ test('home filtering deduplicates recording notes and shows the right content', 
   expect(sidebar().props.visible).toBe(true);
   await act(() => sidebar().props.onFilter('notes'));
   let tree = JSON.stringify(renderer.toJSON());
-  expect(tree).toContain('文字测试');
+  expect(tree).toContain('今日简报');
+  expect(tree).not.toContain('文字测试');
+  await act(() => button('看爆款清单').props.onPress());
+  expect(JSON.stringify(renderer.toJSON())).toContain('高于均值');
+  await act(() => button('创作').props.onPress());
+  await act(() => button('脚本中').props.onPress());
+  expect(JSON.stringify(renderer.toJSON())).toContain('新结尾等你采用');
   expect(tree).not.toContain('手机录音测试');
   await act(() => sidebar().props.onFilter('recordings'));
   tree = JSON.stringify(renderer.toJSON());
@@ -238,7 +244,7 @@ test('home long press deletes an ordinary note only after confirmation', async (
       />,
     );
   });
-  await act(() => renderer.root.findByType(Sidebar).props.onFilter('notes'));
+  await act(() => button('Earlier recordings').props.onPress());
   await act(() => button('查看 文字灵感').props.onLongPress());
   expect(useNotesStore.getState().notes).toHaveLength(1);
   const actions = (Alert.alert as jest.Mock).mock.calls.at(-1)[2];

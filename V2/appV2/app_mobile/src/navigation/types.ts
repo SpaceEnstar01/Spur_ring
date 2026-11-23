@@ -1,7 +1,9 @@
+import type { Detail } from '../creatorSpace/content';
 import type { RingDevice } from '../ring/types';
 
 export type RootStackParamList = {
   Home: undefined;
+  CreatorDetail: { detail: Detail; parent?: string };
   ConnectApps: undefined;
   AgentMailbox: { messageId?: string } | undefined;
   PairingGuide: undefined;

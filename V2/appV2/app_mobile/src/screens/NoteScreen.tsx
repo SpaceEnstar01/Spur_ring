@@ -198,7 +198,7 @@ export function NoteScreen({ navigation, route }: Props) {
             <Icon name="back" size={23} color="#45513E" />
           </Pressable>
           <Text style={styles.headerTitle}>
-            {file ? '录音详情' : '创作空间'}
+            {file ? '录音详情' : note ? '编辑笔记' : '新建笔记'}
           </Text>
           <Pressable
             accessibilityRole="button"
@@ -229,9 +229,7 @@ export function NoteScreen({ navigation, route }: Props) {
             contentContainerStyle={styles.content}
           >
             <View style={styles.metaRow}>
-              <Text style={styles.eyebrow}>
-                {file ? 'VOICE NOTE' : 'CREATIVE SPACE'}
-              </Text>
+              <Text style={styles.eyebrow}>{file ? 'VOICE NOTE' : 'NOTE'}</Text>
               <Text style={styles.date}>{date}</Text>
             </View>
             <TextInput

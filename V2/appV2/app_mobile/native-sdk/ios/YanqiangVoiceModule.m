@@ -39,6 +39,8 @@ static NSString *const kRecordingDirName = @"voice-recordings";
 @property (nonatomic, strong) NSMutableSet<NSString *> *processedOpusPaths;
 @property (nonatomic, strong) NSMutableSet<NSNumber *> *convertingPackedTimes;
 @property (nonatomic, copy) NSString *activeMacAddress;
+// A saved CoreBluetooth identifier may need fresh discovery after a cold launch.
+@property (nonatomic, copy) NSUUID *pendingPeripheralID;
 @property (nonatomic, strong) dispatch_block_t pendingScanEnd;
 @property (nonatomic, strong) NSMutableDictionary<NSString *, CBPeripheral *> *knownPeripherals;
 @end
@@ -144,7 +146,6 @@ RCT_EXPORT_METHOD(stopRecordingPlayback) { [self.recordingPlayer stop]; self.rec
   self.configured = YES;
   [self.service setUniqueAppIDKey:[self stableAppIdentifier]];
   [self.service setLogEnable:YES];
-  [self.service setAutoReconnectionEnabled:YES];
   [self configureAudioCallbacks];
 
   __weak typeof(self) touchSelf = self;
@@ -178,7 +179,19 @@ RCT_EXPORT_METHOD(stopRecordingPlayback) { [self.recordingPlayer stop]; self.rec
     __strong typeof(weakSelf) self = weakSelf;
     if (!self) return;
     for (Ring *ring in rings) {
-      NSString *address = ring.macAddress.length > 0 ? ring.macAddress : ring.uuidString;
+      CBPeripheral *peripheral = ring.peripheral;
+      NSString *uuid = peripheral.identifier.UUIDString ?: ring.uuidString;
+      if (peripheral && uuid.length) self.knownPeripherals[uuid] = peripheral;
+      if (self.pendingPeripheralID && (peripheral || ring.macAddress.length) &&
+          [[[NSUUID alloc] initWithUUIDString:uuid ?: @""] isEqual:self.pendingPeripheralID]) {
+        self.pendingPeripheralID = nil;
+        [self.service stopScan];
+        if (peripheral) [self.service bindDeviceWithPeripheral:peripheral];
+        else [self.service bindDevice:ring.macAddress];
+        if (![self.service getIsAutoReconnectionEnabled]) [self.service setAutoReconnectionEnabled:YES];
+        return;
+      }
+      NSString *address = ring.macAddress.length > 0 ? ring.macAddress : uuid;
       if (address.length == 0) continue;
       NSLog(@"[YanqiangVoice] scan device name=%@ mac=%@ uuid=%@ rssi=%d",
             ring.name ?: @"",
@@ -338,11 +351,17 @@ RCT_EXPORT_METHOD(stopRecordingPlayback) { [self.recordingPlayer stop]; self.rec
       @"macAddress": self.activeMacAddress ?: @""
     }];
   } else {
+    NSString *message = [NSString stringWithFormat:@"戒指连接失败（%@）", [self statusLabel:status]];
+    if (status == BTDeviceStatusAuthBound || status == BTDeviceStatusBoundOtherNotCharging) {
+      message = @"戒指报告已绑定其他设备，请先在原手机确认绑定状态。";
+    } else if (status == BTDeviceStatusBoundOtherCharging) {
+      message = @"戒指报告正在充电，并因其他设备的绑定而重置。";
+    }
     [self emit:@"yanqiangVoiceConnectionChanged" body:@{
       @"status": @"error",
       @"state": @(status),
       @"label": [self statusLabel:status],
-      @"message": [NSString stringWithFormat:@"Ring connection failed (state=%ld %@)", (long)status, [self statusLabel:status]],
+      @"message": message,
       @"macAddress": self.activeMacAddress ?: @""
     }];
   }
@@ -617,6 +636,7 @@ RCT_EXPORT_METHOD(stopRecordingPlayback) { [self.recordingPlayer stop]; self.rec
           NSLog(@"[YanqiangVoice] M4A transcode failed %@ err=%@",
                 opusPath.lastPathComponent, error.localizedDescription ?: @"");
           [self emit:@"yanqiangVoiceError" body:@{
+            @"code": @"YANQIANG_RECORDING_CONVERSION",
             @"message": error.localizedDescription ?: @"Opus to M4A failed",
             @"fileName": opusPath.lastPathComponent ?: @""
           }];
@@ -712,6 +732,7 @@ RCT_REMAP_METHOD(startScan,
   dispatch_block_t endBlock = dispatch_block_create(0, ^{
     __strong typeof(weakSelf) self = weakSelf;
     if (!self) return;
+    self.pendingScanEnd = nil;
     [self.service stopScan];
     [self emit:@"yanqiangVoiceScanEvent" body:@{ @"type": @"end" }];
   });
@@ -721,12 +742,10 @@ RCT_REMAP_METHOD(startScan,
 
 RCT_EXPORT_METHOD(stopScan)
 {
-  if (self.pendingScanEnd) {
-    dispatch_block_cancel(self.pendingScanEnd);
-    self.pendingScanEnd = nil;
-  }
+  if (!self.pendingScanEnd) return;
+  dispatch_block_cancel(self.pendingScanEnd);
+  self.pendingScanEnd = nil;
   [self.service stopScan];
-  [self emit:@"yanqiangVoiceScanEvent" body:@{ @"type": @"end" }];
 }
 
 RCT_REMAP_METHOD(connect,
@@ -743,15 +762,30 @@ RCT_REMAP_METHOD(connect,
   self.bleConnected = NO;
   self.authSucceeded = NO;
   [self.service stopScan];
-  CBPeripheral *peripheral = self.knownPeripherals[macAddress];
+  self.pendingPeripheralID = nil;
+  NSUUID *identifier = [[NSUUID alloc] initWithUUIDString:macAddress];
+  CBPeripheral *peripheral = identifier ? self.knownPeripherals[identifier.UUIDString] : nil;
+  if (identifier && !peripheral) {
+    for (CBPeripheral *candidate in [self.service getSystemConnectedDevices]) {
+      if ([candidate.identifier isEqual:identifier]) {
+        peripheral = candidate;
+        break;
+      }
+    }
+  }
   if (peripheral != nil) {
     NSLog(@"[YanqiangVoice] connect via peripheral uuid=%@", macAddress);
     [self.service bindDeviceWithPeripheral:peripheral];
+  } else if (identifier) {
+    self.pendingPeripheralID = identifier;
+    [self.service startScan];
   } else {
     NSLog(@"[YanqiangVoice] connect via bindDevice mac=%@", macAddress);
     [self.service bindDevice:macAddress];
   }
-  [self.service setAutoReconnectionEnabled:YES];
+  if (!self.pendingPeripheralID && ![self.service getIsAutoReconnectionEnabled]) {
+    [self.service setAutoReconnectionEnabled:YES];
+  }
   resolve(@YES);
 }
 
@@ -759,6 +793,10 @@ RCT_REMAP_METHOD(disconnect,
                  disconnectWithResolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
+  if (self.pendingPeripheralID) {
+    self.pendingPeripheralID = nil;
+    [self.service stopScan];
+  }
   [self.service setAutoReconnectionEnabled:NO];
   self.bleConnected = NO;
   self.authSucceeded = NO;

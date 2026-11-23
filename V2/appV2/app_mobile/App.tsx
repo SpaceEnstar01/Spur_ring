@@ -1,3 +1,4 @@
+import { CreatorDetailScreen } from './src/creatorSpace/CreatorDetailScreen';
 import { AgentMailboxScreen } from './src/screens/AgentMailboxScreen';
 import { MailNotificationSync } from './src/components/MailNotificationSync';
 import { NavigationContainer } from '@react-navigation/native';
@@ -43,6 +44,11 @@ function App() {
               name="Recorder"
               component={RecorderScreen}
               options={{ headerTitle: '手机录音', gestureEnabled: false }}
+            />
+            <Stack.Screen
+              name="CreatorDetail"
+              component={CreatorDetailScreen}
+              options={{ headerShown: false }}
             />
             <Stack.Screen
               name="Home"

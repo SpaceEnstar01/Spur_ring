@@ -25,6 +25,7 @@ export function AgentDashboard(props: Props) {
     <ChatWorkspaceHome
       entries={props.entries}
       onOpenEntry={props.onOpen}
+      onDeleteEntry={props.onDelete}
       onSettings={props.onSettings}
       onOpenMailbox={props.onOpenMailbox}
       onTalk={props.onUseFramework}

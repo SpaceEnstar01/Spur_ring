@@ -43,6 +43,10 @@
 	<string>用于开发联调时连接电脑上的 Spur 服务。</string>
 	<key>SuprDevelopmentApiURL</key>
 	<string>$(SUPR_API_URL)</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>bluetooth-central</string>
+	</array>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>用于发现、连接录音戒指并同步录音。</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>

@@ -61,6 +61,21 @@ export function Button({
 }
 export const s = StyleSheet.create({
   root: { flex: 1, backgroundColor: paper },
+  editorHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    paddingTop: 18,
+    paddingBottom: 12,
+  },
+  editorFooter: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderColor: '#DDE6DF',
+    backgroundColor: paper,
+  },
   header: {
     height: 49,
     paddingHorizontal: 18,

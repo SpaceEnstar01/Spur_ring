@@ -6,6 +6,7 @@ import { useCreatorSpace } from '../src/creatorSpace/store';
 
 jest.mock('react-native-safe-area-context', () => ({
   SafeAreaView: 'SafeAreaView',
+  SafeAreaProvider: 'SafeAreaProvider',
 }));
 
 test('accepting the new ending creates a version and restoring v1 keeps the history', async () => {
@@ -33,6 +34,14 @@ test('accepting the new ending creates a version and restoring v1 keeps the hist
   await act(() => {
     renderer = TestRenderer.create(screen('script'));
   });
+  await press('编辑钩子');
+  const editor = renderer.root.findAll(
+    n => String(n.type) === 'SafeAreaProvider',
+  )[0];
+  expect(
+    editor.findAll(n => n.props.accessibilityLabel === '钩子').length,
+  ).toBeGreaterThan(0);
+  await press('取消');
   await press('采用新结尾');
   expect(topic().versions[topic().current]).toMatchObject({
     ending: suggestedEnding,

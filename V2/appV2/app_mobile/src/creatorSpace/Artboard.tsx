@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Pressable, ScrollView, View, useWindowDimensions } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 import boards from './artboards.json';
@@ -50,7 +50,9 @@ export function Artboard({
   children,
   shapeProps,
 }: Props) {
-  const width = useWindowDimensions().width;
+  const windowWidth = useWindowDimensions().width;
+  const [viewportWidth, setViewportWidth] = useState(0);
+  const width = viewportWidth || windowWidth;
   const scale = width / 390;
   const board = boards[page];
   const height = board.height - offset(board.height, hidden);
@@ -102,6 +104,7 @@ export function Artboard({
   return (
     <ScrollView
       key={page}
+      onLayout={event => setViewportWidth(event.nativeEvent.layout.width)}
       style={s.root}
       keyboardShouldPersistTaps="handled"
       contentInsetAdjustmentBehavior="never"

@@ -8,7 +8,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/types';
 import {
@@ -31,7 +31,7 @@ import {
   type Control,
   type Band,
 } from './Artboard';
-import { Button, Card, Words, s } from './ui';
+import { Button, Card, Words, s, muted } from './ui';
 
 const fields = [
   ['hook', '钩子'],
@@ -453,62 +453,16 @@ export function CreatorDetailScreen({ navigation, route }: Props) {
       <Modal
         visible={draft !== null || editing}
         animationType="slide"
+        presentationStyle={Platform.OS === 'ios' ? 'pageSheet' : 'fullScreen'}
         onRequestClose={() => {
           setDraft(null);
           setEditing(false);
         }}
       >
-        <SafeAreaView style={s.root}>
-          <KeyboardAvoidingView
-            style={s.root}
-            behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-          >
-            <ScrollView
-              keyboardShouldPersistTaps="handled"
-              contentContainerStyle={s.page}
-            >
+        <SafeAreaProvider style={s.root}>
+          <SafeAreaView style={s.root}>
+            <View style={s.editorHeader}>
               <Words kind="hero">{draft ? '修改脚本' : '剪辑要求'}</Words>
-              {draft ? (
-                fields.map(([key, label]) => (
-                  <Card key={key}>
-                    <Words kind="title">{label}</Words>
-                    <TextInput
-                      multiline
-                      style={s.input}
-                      accessibilityLabel={label}
-                      value={draft[key]}
-                      onChangeText={value =>
-                        setDraft({ ...draft, [key]: value })
-                      }
-                    />
-                  </Card>
-                ))
-              ) : (
-                <TextInput
-                  multiline
-                  style={s.input}
-                  accessibilityLabel="剪辑要求"
-                  value={request}
-                  onChangeText={setRequest}
-                />
-              )}
-              <Button
-                primary
-                label={draft ? '保存新版本' : '保存剪辑要求'}
-                onPress={() => {
-                  if (topic && draft) {
-                    space.revise(topic.title, {
-                      ...draft,
-                      pending: false,
-                      reason: '修改脚本',
-                    });
-                    setDraft(null);
-                  } else if (request.trim()) {
-                    space.saveItem('剪辑要求 · ' + request.trim());
-                    setEditing(false);
-                  }
-                }}
-              />
               <Button
                 label="取消"
                 onPress={() => {
@@ -516,9 +470,73 @@ export function CreatorDetailScreen({ navigation, route }: Props) {
                   setEditing(false);
                 }}
               />
-            </ScrollView>
-          </KeyboardAvoidingView>
-        </SafeAreaView>
+            </View>
+            <KeyboardAvoidingView
+              style={s.root}
+              behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+            >
+              <ScrollView
+                keyboardShouldPersistTaps="handled"
+                contentContainerStyle={s.page}
+              >
+                {draft ? (
+                  fields.map(([key, label]) => (
+                    <Card key={key}>
+                      <Words kind="title">{label}</Words>
+                      <TextInput
+                        multiline
+                        style={s.input}
+                        accessibilityLabel={label}
+                        placeholder={
+                          {
+                            hook: '写下第一句口播',
+                            body: '展开这段内容',
+                            turn: '写下转折或新发现',
+                            ending: '用一句话收尾',
+                          }[key]
+                        }
+                        placeholderTextColor={muted}
+                        value={draft[key]}
+                        onChangeText={value =>
+                          setDraft({ ...draft, [key]: value })
+                        }
+                      />
+                    </Card>
+                  ))
+                ) : (
+                  <TextInput
+                    multiline
+                    style={s.input}
+                    accessibilityLabel="剪辑要求"
+                    placeholder="写下想调整的镜头、节奏或字幕"
+                    placeholderTextColor={muted}
+                    value={request}
+                    onChangeText={setRequest}
+                  />
+                )}
+              </ScrollView>
+              <View style={s.editorFooter}>
+                <Button
+                  primary
+                  label={draft ? '保存新版本' : '保存剪辑要求'}
+                  onPress={() => {
+                    if (topic && draft) {
+                      space.revise(topic.title, {
+                        ...draft,
+                        pending: false,
+                        reason: '修改脚本',
+                      });
+                      setDraft(null);
+                    } else if (request.trim()) {
+                      space.saveItem('剪辑要求 · ' + request.trim());
+                      setEditing(false);
+                    }
+                  }}
+                />
+              </View>
+            </KeyboardAvoidingView>
+          </SafeAreaView>
+        </SafeAreaProvider>
       </Modal>
     </SafeAreaView>
   );
